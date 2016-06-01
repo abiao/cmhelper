@@ -1,4 +1,5 @@
-package com.egnore.cmhelper;
+package com.egnore.cluster.model;
+
 
 public enum RoleType {
 	// Cluster
@@ -12,18 +13,18 @@ public enum RoleType {
 	// CmServerService.VERSION_UNBOUNDED),
 
 	// HDFS,
-	NAMENODE,
-	BALANCER,
-	FAILOVERCONTROLLER,
-	JOURNALNODE,
-	HTTPFS,
-	DATANODE,
+	NAMENODE(ServiceType.HDFS),
+	BALANCER(ServiceType.HDFS),
+	FAILOVERCONTROLLER(ServiceType.HDFS),
+	JOURNALNODE(ServiceType.HDFS),
+	HTTPFS(ServiceType.HDFS),
+	DATANODE(ServiceType.HDFS),
 
 	// YARN,
 	//YARN_GATEWAY
-	JOBHISTORY,
-	RESOURCEMANAGER,
-	NODEMANAGER,
+	JOBHISTORY(ServiceType.YARN),
+	RESOURCEMANAGER(ServiceType.YARN),
+	NODEMANAGER(ServiceType.YARN),
 
 	// MapReduce
 	//MAPREDUCE",
@@ -46,22 +47,27 @@ public enum RoleType {
 
 	// Zookeeper
 	//ZOOKEEPER,
-	SERVER,
+	SERVER(ServiceType.ZOOKEEPER),
 
 	// HBase
 	//HBASE,
 	//HBASE_GATEWAY
-	MASTER,
-	HBASETHRIFTSERVER,
-	HBASERESTSERVER,
-	REGIONSERVER,
+	MASTER(ServiceType.HBASE),
+	HBASETHRIFTSERVER(ServiceType.HBASE),
+	HBASERESTSERVER(ServiceType.HBASE),
+	REGIONSERVER(ServiceType.HBASE),
 
 	// Hive
 	//HIVE,
 	//HIVE_GATEWAY,
-	HIVEMETASTORE,
-	HIVESERVER2,
-	WEBHCAT,
+	HIVEMETASTORE(ServiceType.HIVE),
+	HIVESERVER2(ServiceType.HIVE),
+	WEBHCAT(ServiceType.HIVE),
+
+	// IMPALA
+	STATESTORE(ServiceType.IMPALA),
+	IMPALAD(ServiceType.IMPALA),
+	CATALOGSERVER(ServiceType.IMPALA),
 
 //	// Solr
 //	SOLR(CLUSTER, "SOLR", CmServerServiceTypeRepo.SOLR, 4,
@@ -95,19 +101,6 @@ public enum RoleType {
 //			CmServerService.VERSION_UNBOUNDED, 4,
 //			CmServerService.VERSION_UNBOUNDED),
 //
-//	// Impala
-//	IMPALA(CLUSTER, "IMPALA", CmServerServiceTypeRepo.IMPALA, 3,
-//			CmServerService.VERSION_UNBOUNDED, 4,
-//			CmServerService.VERSION_UNBOUNDED), IMPALA_STATE_STORE(IMPALA,
-//			"STATESTORE", CmServerServiceTypeRepo.IMPALA, 3,
-//			CmServerService.VERSION_UNBOUNDED, 4,
-//			CmServerService.VERSION_UNBOUNDED), IMPALA_DAEMON(IMPALA,
-//			"IMPALAD", CmServerServiceTypeRepo.IMPALA, 3,
-//			CmServerService.VERSION_UNBOUNDED, 4,
-//			CmServerService.VERSION_UNBOUNDED), IMPALA_CATALOGSERVER(IMPALA,
-//			"CATALOGSERVER", CmServerServiceTypeRepo.IMPALA, 6,
-//			CmServerService.VERSION_UNBOUNDED, 4,
-//			CmServerService.VERSION_UNBOUNDED),
 //
 //	// Flume
 //	FLUME(CLUSTER, "FLUME", CmServerServiceTypeRepo.CDH, 3,
@@ -126,5 +119,15 @@ public enum RoleType {
 //			CmServerService.VERSION_UNBOUNDED, 4, 4),
 
 	// Client
-	GATEWAY
+	GATEWAY(null);
+
+	private ServiceType parent;
+
+	RoleType(ServiceType service) {
+		this.parent = service;
+	}
+
+	public ServiceType getServiceType() {
+		return parent;
+	}
 }

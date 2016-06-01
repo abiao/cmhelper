@@ -1,17 +1,18 @@
-package com.egnore.cmhelper;
+package com.egnore.cluster.model;
 
 ///< CDH5
 public enum ServiceType {
-	HDFS,
-	MAPREDUCE,
-	HBASE,
-//	OOZIE,
+	///< Sorted by component dependency
 	ZOOKEEPER,
-//	HUE,
+	HDFS,
+//	MAPREDUCE,
+	HBASE,
 	YARN,
-//	IMPALA,
+	HIVE,
+	IMPALA,
 //	FLUME,
-//	HIVE,
+//	HUE,
+//	OOZIE,
 //	SOLR,
 //	SQOOP,
 //	KS_INDEXER,

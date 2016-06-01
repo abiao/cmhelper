@@ -67,7 +67,7 @@ public class EnvImporter {
 //		  'http://localhost:7180/api/v7/clusters/Cluster-1/services'
 
 		  
-		RootResourceV12 apiRoot = new ClouderaManagerClientBuilder().withHost("52.78.19.217")
+		RootResourceV12 apiRoot = new ClouderaManagerClientBuilder().withHost("52.78.20.67")
 				.withUsernamePassword("admin", "admin").build().getRootV12();
 		
 		
@@ -98,13 +98,13 @@ public class EnvImporter {
 				for (ApiRole role : rolesResource.readRoles()) {
 					ApiConfigList c2 = rolesResource.readRoleConfig(role.getName(), DataView.FULL);
 					for (ApiConfig c : c2) {
-						System.out.println("\t" + c.getRelatedName() + "=" + c.getName() + "[" + c.getDisplayName()
-								+ "]" + c.getValue());
+						//System.out.println("\t" + c.getRelatedName() + "=" + c.getName() + "[" + c.getDisplayName()
+						//		+ "]" + c.getValue());
 					}
 					//rolesResource.updateRoleConfig(arg0, arg1, arg2)
 					System.out.println("\t\t" + role.getName());
 					System.out.println("\t\t" + role.getType());
-					System.out.println("\t\t" + role.getHostRef().getHostId());
+					System.out.println("\t\t" + role.getHostRef().hashCode());
 					System.out.println("\t\t" + role.getHostRef().toString());
 				}
 			}

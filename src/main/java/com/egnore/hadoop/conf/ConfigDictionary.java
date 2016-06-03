@@ -298,5 +298,6 @@ public class ConfigDictionary {
 		addDeprecatedKey("topology.script.number.args","net.topology.script.number.args");
 		addDeprecatedKey("user.name","mapreduce.job.user.name");
 		addDeprecatedKey("webinterface.private.actions","mapreduce.jobtracker.webinterface.trusted");
-		addDeprecatedKey("yarn.app.mapreduce.yarn.app.mapreduce.client-am.ipc.max-retries-on-timeouts","yarn.app.mapreduce.client-am.ipc.max-retries-on-timeouts");	}
+		addDeprecatedKey("yarn.app.mapreduce.yarn.app.mapreduce.client-am.ipc.max-retries-on-timeouts","yarn.app.mapreduce.client-am.ipc.max-retries-on-timeouts");
+	}
 }

@@ -1,21 +1,14 @@
 package com.egnore.cluster.model;
 
-import org.apache.hadoop.conf.Configuration;
+import com.egnore.common.model.conf.ConfigurableTreeNode;
 
-public class Instance {
-	protected String id;
+public class Instance extends ConfigurableTreeNode {
+
 	protected Host host;
-	protected Group group;
-	protected Configuration conf = new Configuration();
-	
-	public void setId(String id) {
-		this.id = id;
-	}
 
-	public String getId() {
-		return this.id;
+	public Instance(Group group) {
+		this.parent = group;
 	}
-
 	public void setHost(Host host) {
 		this.host = host;
 	}
@@ -25,11 +18,11 @@ public class Instance {
 	}
 
 	public void setGroup(Group group) {
-		this.group = group;
+		this.parent = group;
 	}
 
 	public Group getGroup() {
-		return this.group;
+		return (Group)this.parent;
 	}
 
 	public Role getRole() {
@@ -43,14 +36,4 @@ public class Instance {
 	public Cluster getCluster() {
 		return this.getService().getCluster();
 	}
-	
-	public void addConfig(String name, String value) {
-		conf.clear();
-		conf.set(name, value);
-	}
-
-	public Configuration getConfiguration() {
-		return this.conf;
-	}
-
 }

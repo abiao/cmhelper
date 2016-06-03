@@ -37,6 +37,8 @@ import com.egnore.cluster.model.Service;
 import com.egnore.cluster.model.ServiceType;
 import com.egnore.common.Dumper;
 import com.egnore.common.OpLog;
+import com.egnore.common.model.conf.ConfigurableTreeNode;
+import com.egnore.common.model.conf.Setting;
 
 public class CMExecutor {
 	RootResourceV7 apiRoot;
@@ -110,7 +112,8 @@ public class CMExecutor {
 			h.setId("i-" + id);
 		}
 
-		for (Service s : cluster.getServiceList()) {
+		for (ConfigurableTreeNode n : cluster.getServices()) {
+			Service s = (Service) n;
 			String id = cluster.getName() + s.getType().toString();
 			s.setId(id);
 		}
@@ -172,18 +175,19 @@ public class CMExecutor {
 		ServicesResource sr = apiRoot.getClustersResource().getServicesResource(cluster.getName());
 		
 		ApiServiceList services = new ApiServiceList();
-		for (Service s : cluster.getServiceList()) {
+		for (ConfigurableTreeNode n : cluster.getChildren()) {
+			Service s = (Service)n;
 			///
 			///< Step 3.1: Add Roles
 			///
 			List<ApiRole> apiRoles = new ArrayList<ApiRole>();
-			for (Role r : s.getRoles()) {
-				for(Group g : r.getGroups()) {
-					for (Instance i : g.getInstances()) {
+			for (ConfigurableTreeNode r : s.getChildren()) {
+				for(ConfigurableTreeNode g : r.getChildren()) {
+					for (ConfigurableTreeNode i : g.getChildren()) {
 						ApiRole apiRole = new ApiRole();
 				        apiRole.setName(i.getId());
-				        apiRole.setType(r.getType().toString());
-				        apiRole.setHostRef(new ApiHostRef(i.getHost().getId()));
+				        apiRole.setType(((Role)r).getType().toString());
+				        apiRole.setHostRef(new ApiHostRef(((Instance)i).getHost().getId()));
 				        apiRoles.add(apiRole);
 					}
 				}
@@ -205,17 +209,17 @@ public class CMExecutor {
 		///
 		///< Step 4: Update Configurations
 		///
-		for (Service s : cluster.getServiceList()) {
+		for (ConfigurableTreeNode s : cluster.getChildren()) {
 			RolesResource rr = sr.getRolesResource(s.getId());
-			for (Role r : s.getRoles()) {
-				for(Group g : r.getGroups()) {
-					for (Instance i : g.getInstances()) {
+			for (ConfigurableTreeNode r : s.getChildren()) {
+				for(ConfigurableTreeNode g : r.getChildren()) {
+					for (ConfigurableTreeNode i : g.getChildren()) {
 						ApiConfigList newConfigs = new ApiConfigList();
 						ApiConfigList c2 = rr.readRoleConfig(i.getId(), DataView.FULL);
-						for (Entry<String, String> pair : i.getConfiguration()) {
+						for (Setting pair : i.getSettings()) {
 							boolean found = false;
 							for (ApiConfig c : c2) {
-								if (c.getRelatedName() == pair.getKey()) {
+								if (c.getRelatedName() == pair.getName()) {
 									found = true;
 									c.setValue(pair.getValue());
 									//newConfigs.add(c);
@@ -331,12 +335,12 @@ public class CMExecutor {
 
 		ps.println("package com.egnore.cmhelper;");
 		ps.println("");
-		ps.println("import com.egnore.cluster.model.ParameterDicrtionary;");
+		ps.println("import com.egnore.cluster.model.ParameterDictionary;");
 		ps.println("import com.egnore.cluster.model.ParameterDescription;");
 		ps.println("import com.egnore.cluster.model.ServiceType;");
 		ps.println("import com.egnore.cluster.model.RoleType;");
 		ps.println("");
-		ps.println("public class ParameterDicrtionary" + version + " extends ParameterDicrtionary {");
+		ps.println("public class ParameterDicrtionary" + version + " extends ParameterDictionary {");
 		ps.println("");
 		ps.println("	@Override");
 		ps.println("	public void init() {");

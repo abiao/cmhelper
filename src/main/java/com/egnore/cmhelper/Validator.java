@@ -12,17 +12,18 @@ import org.apache.commons.configuration.HierarchicalINIConfiguration;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 
-import com.egnore.cluster.model.ParameterDescription;
-import com.egnore.cluster.model.ParameterDicrtionary;
+import com.egnore.cluster.model.conf.ParameterDescription;
+import com.egnore.cluster.model.conf.ParameterDictionary;
 import com.egnore.hadoop.conf.ConfigDictionary;
 
 public class Validator {
 
-	protected ParameterDicrtionary paramDict;
+	protected ParameterDictionary paramDict;
 	public void init() {
 		paramDict = new ParameterDicrtionary513();
 		paramDict.init();
 	}
+
 //	ps.print(c.getName()
 //			+ "\t" + c.getRequired().toString()
 //			+ "\t" + c.getRelatedName()
@@ -31,6 +32,11 @@ public class Validator {
 	//hdfs_service_config_safety_valve
 	//core_site_safety_valve
 	//balancer_config_safety_valve
+	//hbase_conf_safety_valve
+	//hive_site_safety_valve
+	//config.yarn.service.mapred_safety_valve
+
+	//yarn_service_config_safety_valve
 	public void verifyXML(String file) {
 		Configuration conf = new Configuration(false);
 		conf.clear();

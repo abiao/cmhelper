@@ -1,5 +1,7 @@
 package com.egnore.cluster.model;
 
+import com.egnore.common.model.conf.ConfigurableTreeNode;
+
 public abstract class InstanceScanner {
 	protected Cluster root;
 
@@ -12,15 +14,15 @@ public abstract class InstanceScanner {
 	}
 
 	public void execute() {
-		for (Service s : root.getServiceList()) {
+		for (ConfigurableTreeNode s : root.getChildren()) {
 			if (s == null) continue;
-			for (Role r : s.getRoles()) {
+			for (ConfigurableTreeNode r : s.getChildren()) {
 				if (r == null) continue;
-				for (Group g : r.getGroups()) {
+				for (ConfigurableTreeNode g : r.getChildren()) {
 					if (g == null) continue;
-					for (Instance i : g.getInstances()) {
+					for (ConfigurableTreeNode i : g.getChildren()) {
 						if (i == null) continue;
-						process(i);
+						process((Instance)i);
 					}
 				}
 			}

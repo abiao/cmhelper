@@ -1,11 +1,11 @@
 package com.egnore.cmhelper;
 
-import com.egnore.cluster.model.ParameterDicrtionary;
-import com.egnore.cluster.model.ParameterDescription;
 import com.egnore.cluster.model.ServiceType;
 import com.egnore.cluster.model.RoleType;
+import com.egnore.cluster.model.conf.ParameterDescription;
+import com.egnore.cluster.model.conf.ParameterDictionary;
 
-public class ParameterDicrtionary570 extends ParameterDicrtionary {
+public class ParameterDicrtionary570 extends ParameterDictionary {
 
 	@Override
 	public void init() {

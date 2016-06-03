@@ -1,19 +1,30 @@
 package com.egnore.cluster.model;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cluster {
-	protected String name = "cluster_ex";
+import com.egnore.common.Dumper;
+import com.egnore.common.model.conf.ConfigurableTreeNode;
+
+/**
+ * 
+ * @author biaochen
+ *
+ * Cluster -> Service -> Role -> Group -> Instance
+ *                                           |
+ *                                          Host  
+ */
+public class Cluster extends ConfigurableTreeNode {
+
 	protected List<Host> nodes = new ArrayList<Host>();
-	protected List<Service> services = new ArrayList<Service>();
 
 	public void setName(String name) {
-		this.name = name;
+		this.id = name;
 	}
 
 	public String getName() {
-		return name;
+		return id;
 	}
 
 	public void addInstance(Host host) {
@@ -25,11 +36,11 @@ public class Cluster {
 	}
 
 	public void addService(Service service) {
-		services.add(service);
+		children.add(service);
 	}
 
-	public List<Service> getServiceList() {
-		return services;
+	public List<ConfigurableTreeNode> getServices() {
+		return getChildren();
 	}
 
 	public void createDefaultServices() {
@@ -40,12 +51,13 @@ public class Cluster {
 
 	protected Service newService(ServiceType st) {
 		Service s = new Service(this, st);
-		services.add(s);
+		children.add(s);
 		return s;
 	}
 
 	public Service getDefaultService(ServiceType st) {
-		for (Service s : services) {
+		for (ConfigurableTreeNode n : children) {
+			Service s = (Service)n;
 			if (s.getType() == st) {
 				return s;
 			}
@@ -57,15 +69,18 @@ public class Cluster {
 		
 	}
 
+	public Group getDefaultGroup(RoleType role) {
+		Service s = getDefaultService(role.getServiceType());
+		return s.getRole(role).getDefaultGroup();
+	}
+
 	public Instance addInstance(Host h, RoleType role) {
 		if (!nodes.contains(h)) {
 			nodes.add(h);
 		}
 	
-		Instance i = new Instance();
+		Instance i = new Instance(getDefaultGroup(role));
 		i.host = h;
-		Service s = getDefaultService(role.getServiceType());
-		s.getRole(role).getDefaultGroup().addInstance(i);
 		return i;
 	}
 
@@ -102,5 +117,14 @@ public class Cluster {
 		Instance i = addInstance(h, RoleType.DATANODE);
 		i.addConfig("name", "value");
 		i.addConfig("dfs.data.dir", "value1");
+	}
+	
+	public void save(String path) {
+		Dumper dp = new Dumper(path);
+		PrintStream ps = dp.getPrintStream();
+		for (Service s : services) {
+			ps.println(s.getType().toString());
+		}
+		dp.close();
 	}
 }

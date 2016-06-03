@@ -22,23 +22,24 @@ import com.cloudera.api.model.ApiServiceConfig;
 import com.cloudera.api.model.ApiServiceList;
 import com.cloudera.api.v1.RolesResource;
 import com.cloudera.api.v1.ServicesResource;
-import com.cloudera.api.v12.ClustersResourceV12;
-import com.cloudera.api.v12.RootResourceV12;
+import com.cloudera.api.v2.ClustersResourceV2;
 import com.cloudera.api.v2.RolesResourceV2;
 import com.cloudera.api.v2.ServicesResourceV2;
+import com.cloudera.api.v7.RootResourceV7;
 import com.egnore.cluster.model.Cluster;
 import com.egnore.cluster.model.Group;
 import com.egnore.cluster.model.Host;
 import com.egnore.cluster.model.Instance;
 import com.egnore.cluster.model.InstanceScanner;
 import com.egnore.cluster.model.Role;
+import com.egnore.cluster.model.RoleType;
 import com.egnore.cluster.model.Service;
 import com.egnore.cluster.model.ServiceType;
 import com.egnore.common.Dumper;
 import com.egnore.common.OpLog;
 
 public class CMExecutor {
-	RootResourceV12 apiRoot;
+	RootResourceV7 apiRoot;
 	protected String hostName;
 	protected String user = "admin";
 	protected String passwd = "admin";
@@ -46,10 +47,10 @@ public class CMExecutor {
 		this.hostName = hostname;
 
 		apiRoot = new ClouderaManagerClientBuilder().withHost(hostname)
-				.withUsernamePassword("admin", "admin").build().getRootV12();
+				.withUsernamePassword("admin", "admin").build().getRootV7();
 	}
 
-	public RootResourceV12 getApi() {
+	public RootResourceV7 getApi() {
 		return apiRoot;
 	}
 
@@ -140,20 +141,7 @@ public class CMExecutor {
 		createIdforCluster(cluster);
 
 		///
-		///< Step 1: Create Cluster
-		///
-		ApiCluster apiCluster = new ApiCluster();
-		apiCluster.setName(cluster.getName());
-		apiCluster.setDisplayName(cluster.getName());
-		apiCluster.setVersion(ApiClusterVersion.CDH5);
-		apiCluster.setFullVersion("5.1.3");
-
-		ApiClusterList cl = new ApiClusterList();
-		cl.add(apiCluster);
-		apiRoot.getClustersResource().createClusters(cl);
-
-		///
-		///< Step 2: Add Hosts
+		///< Step 1: Add Hosts
 		///
 		ApiHostList a = new ApiHostList();
 		for (Host h : cluster.getHostList()) {
@@ -164,6 +152,19 @@ public class CMExecutor {
 			a.add(h1);
 		}
 		apiRoot.getHostsResource().createHosts(a);
+
+		///
+		///< Step 2: Create Cluster
+		///
+		ApiCluster apiCluster = new ApiCluster();
+		apiCluster.setName(cluster.getName());
+		apiCluster.setDisplayName(cluster.getName());
+		apiCluster.setVersion(ApiClusterVersion.CDH5);
+		apiCluster.setFullVersion("5.1.3");
+
+		ApiClusterList cl = new ApiClusterList();
+		cl.add(apiCluster);
+		apiRoot.getClustersResource().createClusters(cl);
 
 		///
 		///< Step 3: Create Service
@@ -248,13 +249,13 @@ public class CMExecutor {
 		sr.updateServiceConfig(DEFAULT_SERVICE_NAME_HDFS,
 				"set zookeeper", 
 				packageApiServiceConfig("zookeeper_service", DEFAULT_SERVICE_NAME_ZOOKEEPER));
-//		 dummyCluster1464787890133HDFS: Quorum Journal 需要至少三个 JournalNode 
-//		 dummyCluster1464787890133HDFS: HDFS service not configured for High Availability must have a SecondaryNameNode 
-//		 dummyCluster1464787890133HDFS: NameNode 数据目录 
+//		 : Quorum Journal 需要至少三个 JournalNode 
+//		 : HDFS service not configured for High Availability must have a SecondaryNameNode 
+//		 : NameNode 数据目录 
 //		Missing required value: NameNode Data Directories
-//		 dummyCluster1464787890133HDFS: DataNode 数据目录 
+//		 : DataNode 数据目录 
 //		Missing required value: DataNode Data Directory
-//		 dummyCluster1464787890133HDFS: JournalNode 编辑目录 
+//		 : JournalNode 编辑目录 
 //		Missing required value: JournalNode Edits Directory
 //		 NameNode (test1fqdn): NameNode 数据目录 
 //		Missing required value: NameNode Data Directories
@@ -304,14 +305,74 @@ public class CMExecutor {
 		return sc;
 	}
 
+	public void addConfigCode(PrintStream ps, ApiConfig c, String service, String role) {
+		ps.println("add(new ParameterDescription("
+//				String id, String name, String defaultValue, ServiceType service, RoleType role) {
+				+ "\"" + c.getName() + "\","
+				+ "\""+ ((c.getRelatedName() == null) ? null : c.getRelatedName()) + "\","
+				//+ ((c.getDefaultValue() == null) ? "null" : ("\"" + c.getDefaultValue().replaceAll("\"", "\\\"") + "\"") + ""
+				+ "null,"
+				+ ((service == null) ? "null" : ("ServiceType." + service)) + ","
+				+ ((role == null) ? "null" : ("RoleType." + role))
+				+ "));"
+				);
+	}
+
+	public void generateParameterDicrtionary() throws IOException {
+		Cluster dummyCluser = new Cluster();
+		final String DUMMY_CLUSTER_NAME = "dummyCluster" + System.currentTimeMillis();
+		final String dummyHostName = "test1fqdn";
+		final String dummyHostIp = "127.0.0.2";
+		final Host h = dummyCluser.createSingleNodeFullCluster(DUMMY_CLUSTER_NAME, dummyHostName, dummyHostIp);
+		provisionCluster(dummyCluser);
+		String version = apiRoot.getClouderaManagerResource().getVersion().getVersion().replaceAll("\\.", "");
+		Dumper dumper = new Dumper("src/main/java/com/egnore/cmhelper/ParameterDicrtionary" + version + ".java");
+		PrintStream ps = dumper.getPrintStream();
+
+		ps.println("package com.egnore.cmhelper;");
+		ps.println("");
+		ps.println("import com.egnore.cluster.model.ParameterDicrtionary;");
+		ps.println("import com.egnore.cluster.model.ParameterDescription;");
+		ps.println("import com.egnore.cluster.model.ServiceType;");
+		ps.println("import com.egnore.cluster.model.RoleType;");
+		ps.println("");
+		ps.println("public class ParameterDicrtionary" + version + " extends ParameterDicrtionary {");
+		ps.println("");
+		ps.println("	@Override");
+		ps.println("	public void init() {");
+		ps.println("		super.init();");
+
+		ClustersResourceV2 clustersResource = apiRoot.getClustersResource();
+		ServicesResourceV2 servicesResource = clustersResource.getServicesResource(DUMMY_CLUSTER_NAME);
+		for (ApiService service : servicesResource.readServices(DataView.FULL)) {
+			ApiServiceConfig cfg = servicesResource.readServiceConfig(service.getName(), DataView.FULL);
+			for (ApiConfig c : cfg) {
+				addConfigCode(ps, c, service.getType(), null);
+			}
+			RolesResourceV2 rolesResource = servicesResource.getRolesResource(service.getName());
+			for (ApiRole role : rolesResource.readRoles()) {
+				ApiConfigList c2 = rolesResource.readRoleConfig(role.getName(), DataView.FULL);
+				for (ApiConfig c : c2) {
+					addConfigCode(ps, c, service.getType(), role.getType());
+				}
+			}
+		}
+		
+		ps.println("	}");
+		ps.println("}");
+
+		clustersResource.deleteCluster(DUMMY_CLUSTER_NAME);
+		apiRoot.getHostsResource().deleteHost(h.getId());
+	}
+
 	public void dumpConfig(PrintStream ps, ApiConfig c) {
 		ps.print(c.getName()
 				+ "\t" + c.getRequired().toString()
 				+ "\t" + c.getRelatedName()
 				+ "\t" + c.getDisplayName()
-				+ "\t" + c.getValue()
-				+ "\t" + c.getDefaultValue()
-				+ "\t" + c.getValidationState().toString()
+//				+ "\t" + c.getValue()
+//				+ "\t" + c.getDefaultValue()
+//				+ "\t" + c.getValidationState().toString()
 				//+ "\t" + c.getDescription()
 				);
 	}
@@ -323,11 +384,11 @@ public class CMExecutor {
 		final String dummyHostIp = "127.0.0.2";
 		final Host h = dummyCluser.createSingleNodeFullCluster(DUMMY_CLUSTER_NAME, dummyHostName, dummyHostIp);
 		provisionCluster(dummyCluser);
-		
-		Dumper dumper = new Dumper("CM_Config.txt");
+		System.out.println("version: " + apiRoot.getClouderaManagerResource().getVersion().getVersion());
+		Dumper dumper = new Dumper("CM_Config_5_1_3.txt");
 		PrintStream ps = dumper.getPrintStream();
 
-		ClustersResourceV12 clustersResource = apiRoot.getClustersResource();
+		ClustersResourceV2 clustersResource = apiRoot.getClustersResource();
 		ServicesResourceV2 servicesResource = clustersResource.getServicesResource(DUMMY_CLUSTER_NAME);
 		for (ApiService service : servicesResource.readServices(DataView.FULL)) {
 			ApiServiceConfig cfg = servicesResource.readServiceConfig(service.getName(), DataView.FULL);
@@ -357,7 +418,7 @@ public class CMExecutor {
 	}
 
 	public void dumpClusters() {
-		ClustersResourceV12 clustersResource = apiRoot.getClustersResource();
+		ClustersResourceV2 clustersResource = apiRoot.getClustersResource();
 		for (ApiCluster cluster : clustersResource.readClusters(DataView.FULL)) {
 			System.out.println(cluster.getName());
 			ServicesResourceV2 servicesResource = clustersResource.getServicesResource(cluster.getName());
@@ -384,6 +445,25 @@ public class CMExecutor {
 		}
 
 	}
+	
+	public void moveCluster() {
+//		Export the configuration through the Cloudera Manager API to a JSON file:
+//
+//			curl -v -u admin:admin http://CURRENT_CM_SERVER:7180/api/v2/cm/deployment > path/to/file
+//			3. Using the API, import the configuration using the JSON file.
+//
+//			curl --upload-file ./cm_current_config -u admin:admin http://NEW_CM_SERVER:7180/api/v2/cm/deployment?deleteCurrentDeployment=true
+//			4. Remove Cluster A from the new Cloudera Manager instance.
+//
+//			5. For servers in Cluster B: (NN, DN) set the following parameters in /etc/cloudera-scm-agent/config.ini:
+//
+//			# Hostname of Cloudera SCM Server
+//			server_host="NEW CM SERVER"
+//
+//			# Port that server is listening on
+//			server_port=7182
+	}
+
 /*
   // CM Version Matrix, of form {CM_VERSION=CM_API_VERSION}
   // Entry for the latest CM minor version for each API upgrade, from baseline 4.5.0

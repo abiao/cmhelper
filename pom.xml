@@ -23,7 +23,8 @@
     <dependency>
       <groupId>com.cloudera.api</groupId>
       <artifactId>cloudera-manager-api</artifactId>
-      <version>5.7.0</version>      <!-- Set to the version of Cloudera Manager you use -->
+      <!--<version>5.7.0</version>-->
+      <version>5.7.0</version>
     </dependency>
   </dependencies>
 </project>

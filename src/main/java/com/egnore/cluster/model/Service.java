@@ -1,6 +1,8 @@
 package com.egnore.cluster.model;
 
+import com.egnore.cluster.model.conf.ParameterDescription;
 import com.egnore.common.model.conf.ConfigurableTreeNode;
+import com.egnore.common.model.conf.SettingDescription;
 
 public class Service extends ConfigurableTreeNode {
 
@@ -9,6 +11,7 @@ public class Service extends ConfigurableTreeNode {
 	Service(Cluster cluster, ServiceType type) {
 		this.parent = cluster;
 		this.type = type;
+		testAndNewChildren();
 		for (RoleType rt : RoleType.values()) {
 			if (rt.getServiceType() == type) {
 				Role r = new Role(this, rt);
@@ -17,16 +20,28 @@ public class Service extends ConfigurableTreeNode {
 		}
 	}
 
+	@Override
+	public SettingDescription createSettingDescription(String key, String defaultValue) {
+		return new ParameterDescription(key, key, defaultValue, this.type, null);
+	}
+
+	@Override
+	protected ConfigurableTreeNode newEmptyChild() {
+		return new Role(null, null);
+	}
+
+	@Override
+	protected void loadType(String s) {
+		this.type = ServiceType.valueOf(s);
+	}
+	
+	@Override
+	public String getTypeString() {
+		return this.type.toString();
+	}
+
 	public Cluster getCluster() {
 		return (Cluster)parent;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getId() {
-		return this.id;
 	}
 
 	public void setType(ServiceType type) {

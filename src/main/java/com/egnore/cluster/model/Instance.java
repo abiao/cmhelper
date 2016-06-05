@@ -1,6 +1,7 @@
 package com.egnore.cluster.model;
 
 import com.egnore.common.model.conf.ConfigurableTreeNode;
+import com.egnore.common.model.conf.SettingDescription;
 
 public class Instance extends ConfigurableTreeNode {
 
@@ -9,6 +10,22 @@ public class Instance extends ConfigurableTreeNode {
 	public Instance(Group group) {
 		this.parent = group;
 	}
+
+	@Override
+	public SettingDescription createSettingDescription(String key, String defaultValue) {
+		return parent.createSettingDescription(key, defaultValue);
+	}
+
+	@Override
+	protected void loadType(String s) {
+		this.host = HostManager.getInstance().getHostbyIp(s);
+	}
+	
+	@Override
+	public String getTypeString() {
+		return this.host.getIp();
+	}
+
 	public void setHost(Host host) {
 		this.host = host;
 	}

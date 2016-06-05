@@ -1,7 +1,14 @@
 package com.egnore.common.model.conf;
 
-public class Configurable {
-	protected String id;
+import java.io.PrintStream;
+import java.io.Serializable;
+
+public class Configurable implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6294541935079119926L;
+	protected String id = "";
 	protected boolean enabled;
 	protected Settings conf = new Settings();
 
@@ -13,7 +20,7 @@ public class Configurable {
 		return this.id;
 	}
 
-	public void addSetting(Setting s) {
+	protected void addSetting(Setting s) {
 		conf.add(s);
 	}
 	
@@ -27,5 +34,58 @@ public class Configurable {
 
 	public Settings getSettings() {
 		return conf;
+	}
+
+	final static String DUMP_LEADING_STRING = "\t";
+
+	public void dump(PrintStream ps) {
+		dump(ps, "");
+	}
+
+	public void dump(PrintStream ps, String prefix) {
+		dumpSelf(ps, prefix);
+		dumpSettings(ps, prefix);
+	}
+
+	protected void dumpSelf(PrintStream ps, String prefix) {
+		ps.println(prefix + dumpSelfToString());
+	}
+
+	protected void dumpSettings(PrintStream ps, String prefix) {
+		for (Setting s : conf) {
+			ps.println(prefix + s.dumpToString());
+		}
+	}
+
+	/**
+	 * Type for outerclass
+	 * @param s
+	 */
+	protected void loadType(String s) {
+		
+	}
+	
+	public String getTypeString() {
+		return this.getClass().getName();
+	}
+
+	///< Single Lined.
+	protected String dumpToString() {
+		return dumpSelfToString() + dumpSettingsToString();
+	}
+
+	protected String dumpSelfToString() {
+		return (id == null) ? "" : id;
+	}
+
+	protected String dumpSettingsToString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		for (Setting s : conf) {
+			sb.append(s.dumpToString());
+			sb.append(",");
+		}
+		sb.append("}");
+		return sb.toString();
 	}
 }

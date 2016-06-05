@@ -1,11 +1,20 @@
 package com.egnore.cluster.model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.egnore.cluster.model.conf.ParameterDescription;
+import com.egnore.cluster.model.conf.ParameterDictionary;
 import com.egnore.common.Dumper;
+import com.egnore.common.io.LinedFileReader;
 import com.egnore.common.model.conf.ConfigurableTreeNode;
+import com.egnore.common.model.conf.SettingDescription;
+import com.egnore.common.model.conf.SettingDictionary;
+import com.egnore.common.model.conf.SettingFactory;
 
 /**
  * 
@@ -17,7 +26,8 @@ import com.egnore.common.model.conf.ConfigurableTreeNode;
  */
 public class Cluster extends ConfigurableTreeNode {
 
-	protected List<Host> nodes = new ArrayList<Host>();
+	public Cluster() {
+	}
 
 	public void setName(String name) {
 		this.id = name;
@@ -27,12 +37,23 @@ public class Cluster extends ConfigurableTreeNode {
 		return id;
 	}
 
-	public void addInstance(Host host) {
-		nodes.add(host);
+	protected void setSettingDictionary(SettingDictionary dict) {
+		SettingFactory.getInstance().setSettingDictionary(dict);
 	}
 
-	public List<Host> getHostList() {
-		return nodes;
+	@Override
+	public SettingFactory getSettingFactory() {
+		return SettingFactory.getInstance();
+	}
+
+	@Override
+	public SettingDescription createSettingDescription(String key, String defaultValue) {
+		return new ParameterDescription(key, key, defaultValue, null, null);
+	}
+
+	@Override
+	protected ConfigurableTreeNode newEmptyChild() {
+		return new Service(null, null);
 	}
 
 	public void addService(Service service) {
@@ -51,7 +72,7 @@ public class Cluster extends ConfigurableTreeNode {
 
 	protected Service newService(ServiceType st) {
 		Service s = new Service(this, st);
-		children.add(s);
+		getOrNewChildren().add(s);
 		return s;
 	}
 
@@ -75,13 +96,18 @@ public class Cluster extends ConfigurableTreeNode {
 	}
 
 	public Instance addInstance(Host h, RoleType role) {
-		if (!nodes.contains(h)) {
-			nodes.add(h);
+		if (!getHostList().contains(h)) {
+			getHostList().add(h);
 		}
 	
-		Instance i = new Instance(getDefaultGroup(role));
+		Instance i = new Instance(null);
+		getDefaultGroup(role).addChild(i);
 		i.host = h;
 		return i;
+	}
+
+	public List<Host> getHostList() {
+		return HostManager.getInstance().getHostList();
 	}
 
 	public Host createSingleNodeFullCluster(String clusterName, String fqdn, String ip) {
@@ -96,7 +122,7 @@ public class Cluster extends ConfigurableTreeNode {
 		createDefaultServices();
 		setName(clusterName);
 		
-		nodes.add(host);
+		HostManager.addHost(host);
 
 		for (RoleType rt : RoleType.values()) {
 			if (rt != RoleType.GATEWAY) {
@@ -109,22 +135,33 @@ public class Cluster extends ConfigurableTreeNode {
 		createDefaultServices();
 		setName("test1");
 
+		Service s = getDefaultService(ServiceType.HDFS);
+		s.addSetting("namespace", "abc");
+		s.addSetting("name", "abc");
 		Host h = new Host();
 		h.fqdn = "ip-172-31-19-49.ap-northeast-2.compute.internal";
 		h.ip = "172.31.19.49";
-		nodes.add(h);
+		HostManager.addHost(h);
 
 		Instance i = addInstance(h, RoleType.DATANODE);
-		i.addConfig("name", "value");
-		i.addConfig("dfs.data.dir", "value1");
+		i.addSetting("name", "value");
+		i.addSetting("dfs.data.dir", "value1");
 	}
 	
 	public void save(String path) {
 		Dumper dp = new Dumper(path);
 		PrintStream ps = dp.getPrintStream();
-		for (Service s : services) {
-			ps.println(s.getType().toString());
-		}
+		SettingFactory.getInstance().getSettingDictionary().dumpUserDefinedSettings(ps);
+		HostManager.getInstance().dump(ps);
+		this.dump(ps);
 		dp.close();
+	}
+
+	public void load(String path) throws NumberFormatException, IOException {
+		LinedFileReader reader = new LinedFileReader(path);
+		SettingFactory.getInstance().getSettingDictionary().loadUserDefinedSettings(reader);
+		HostManager.getInstance().loadFromLinedStrings(reader);
+		this.loadFromLinedStrings(reader);
+		reader.close();
 	}
 }

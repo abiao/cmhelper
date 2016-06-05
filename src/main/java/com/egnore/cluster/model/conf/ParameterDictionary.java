@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.egnore.cluster.model.RoleType;
 import com.egnore.cluster.model.ServiceType;
+import com.egnore.common.model.conf.SettingDescription;
 import com.egnore.common.model.conf.SettingDictionary;
 
 public class ParameterDictionary extends SettingDictionary {
@@ -12,7 +13,7 @@ public class ParameterDictionary extends SettingDictionary {
 	protected List<List<ParameterDescription> > services;
 	protected List<List<ParameterDescription> > roles;
 
-	public void init() {
+	public ParameterDictionary() {
 		int len;
 		
 		len = ServiceType.values().length;
@@ -32,17 +33,17 @@ public class ParameterDictionary extends SettingDictionary {
 		return ((s != null) && (!s.isEmpty()));
 	}
 
-	public void add(ParameterDescription p) {
-		params.add(p);
-		if (isValidString(p.getId()))	idLookup.put(p.getId(), p);
-		if (isValidString(p.getName()))	nameLookup.put(p.getName(), p);
+	@Override
+	protected SettingDescription newSettingDescription() {
+		return new ParameterDescription();
+	}
+
+	@Override
+	public void add(SettingDescription sd) {
+		super.add(sd);
+		ParameterDescription p = (ParameterDescription)sd;
 
 		if (p.service != null) services.get(p.service.ordinal()).add(p);
 		if (p.role != null) roles.get(p.role.ordinal()).add(p);
-	}
-	
-	public ParameterDescription findByName(String name) {
-		if (!isValidString(name)) return null;
-		return (ParameterDescription)nameLookup.get(name);
 	}
 }

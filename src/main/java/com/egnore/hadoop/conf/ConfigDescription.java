@@ -9,7 +9,20 @@ public class ConfigDescription {
 	boolean deprecated = false;
 	Version minVersion;
 	Version maxVersion;
+
+	String service;
+	String role;
+	String type;
+	String fileName;
 	
+	String valueType;
+	String minValue;
+	String maxValue;
+	String unit;
+	String incrementStep;
+	
+	String displayName;
+	String description;
 	public boolean isDeprecated() {
 		return deprecated;
 	}

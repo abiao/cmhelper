@@ -53,12 +53,12 @@ public class Validator {
 		for (Entry<String, String> pair : conf) {
 			String key = pair.getKey();
 			System.out.println(key + "=" + pair.getValue());
-			ParameterDescription pd = paramDict.findByName(key);
+			ParameterDescription pd = (ParameterDescription)paramDict.findByName(key);
 			boolean found = false;
 			if (pd == null) {
 				String nn = ConfigDictionary.getLatestName(key);
 				if (nn !=null) {
-					 pd = paramDict.findByName(nn);
+					 pd = (ParameterDescription)paramDict.findByName(nn);
 					 if (pd != null) {
 						 found = true;
 						 System.out.println("[found with \"" + nn + "\"]" + pd.toString());

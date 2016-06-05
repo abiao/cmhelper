@@ -29,6 +29,7 @@ import com.cloudera.api.v7.RootResourceV7;
 import com.egnore.cluster.model.Cluster;
 import com.egnore.cluster.model.Group;
 import com.egnore.cluster.model.Host;
+import com.egnore.cluster.model.HostManager;
 import com.egnore.cluster.model.Instance;
 import com.egnore.cluster.model.InstanceScanner;
 import com.egnore.cluster.model.Role;
@@ -107,7 +108,7 @@ public class CMExecutor {
 	}
 	
 	public void createIdforCluster(Cluster cluster) {
-		for (Host h : cluster.getHostList()) {
+		for (Host h : HostManager.getInstance().getHostList()) {
 			String id = h.getIp().replaceAll("\\.", "");
 			h.setId("i-" + id);
 		}

@@ -3,7 +3,10 @@ package com.egnore.cluster.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Host {
+import com.egnore.common.StringSerDeObject;
+import com.egnore.common.util.StringUtil;
+
+public class Host implements StringSerDeObject {
 	protected List<Instance> instances = new ArrayList<Instance>();
 	protected String fqdn;
 	protected String ip;
@@ -39,5 +42,19 @@ public class Host {
 
 	public List<Instance> getInstances() {
 		return instances;
+	}
+
+	public String saveToString() {
+		return StringUtil.getValidString(id) + ":"
+				+ StringUtil.getValidString(ip) + ":"
+				+ StringUtil.getValidString(fqdn) ;
+				
+	}
+
+	public void loadFromString(String s) {
+		String[] ss = s.split(":");
+		id = ss[0];
+		ip = ss[1];
+		fqdn = ss[2];
 	}
 }

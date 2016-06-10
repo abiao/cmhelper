@@ -12,13 +12,8 @@ public class Instance extends ConfigurableTreeNode {
 	}
 
 	@Override
-	public SettingDescription createSettingDescription(String key, String defaultValue) {
-		return parent.createSettingDescription(key, defaultValue);
-	}
-
-	@Override
 	protected void loadType(String s) {
-		this.host = HostManager.getInstance().getHostbyIp(s);
+		this.host = HostManager.getInstance().findHostByIp(s);
 	}
 	
 	@Override

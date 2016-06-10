@@ -1,5 +1,7 @@
 package com.egnore.cluster.model;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -7,8 +9,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+
 import com.egnore.cluster.model.conf.ParameterDescription;
-import com.egnore.cluster.model.conf.ParameterDictionary;
 import com.egnore.common.Dumper;
 import com.egnore.common.io.LinedFileReader;
 import com.egnore.common.model.conf.ConfigurableTreeNode;
@@ -27,6 +31,7 @@ import com.egnore.common.model.conf.SettingFactory;
 public class Cluster extends ConfigurableTreeNode {
 
 	public Cluster() {
+		testAndNewChildren();
 	}
 
 	public void setName(String name) {
@@ -44,6 +49,10 @@ public class Cluster extends ConfigurableTreeNode {
 	@Override
 	public SettingFactory getSettingFactory() {
 		return SettingFactory.getInstance();
+	}
+
+	public HostManager getHostManager() {
+		return HostManager.getInstance();
 	}
 
 	@Override
@@ -96,18 +105,15 @@ public class Cluster extends ConfigurableTreeNode {
 	}
 
 	public Instance addInstance(Host h, RoleType role) {
-		if (!getHostList().contains(h)) {
-			getHostList().add(h);
+		Host host = h;
+		if (!getHostManager().contains(h)) {
+			host = getHostManager().getHost(h.getIp(), h.getFQDN());
 		}
 	
 		Instance i = new Instance(null);
 		getDefaultGroup(role).addChild(i);
-		i.host = h;
+		i.host = host;
 		return i;
-	}
-
-	public List<Host> getHostList() {
-		return HostManager.getInstance().getHostList();
 	}
 
 	public Host createSingleNodeFullCluster(String clusterName, String fqdn, String ip) {
@@ -122,7 +128,7 @@ public class Cluster extends ConfigurableTreeNode {
 		createDefaultServices();
 		setName(clusterName);
 		
-		HostManager.addHost(host);
+		getHostManager().addHost(host);
 
 		for (RoleType rt : RoleType.values()) {
 			if (rt != RoleType.GATEWAY) {
@@ -138,16 +144,16 @@ public class Cluster extends ConfigurableTreeNode {
 		Service s = getDefaultService(ServiceType.HDFS);
 		s.addSetting("namespace", "abc");
 		s.addSetting("name", "abc");
-		Host h = new Host();
-		h.fqdn = "ip-172-31-19-49.ap-northeast-2.compute.internal";
-		h.ip = "172.31.19.49";
-		HostManager.addHost(h);
+		Host h = getHostManager().addHost("172.31.19.49", "ip-172-31-19-49.ap-northeast-2.compute.internal");
 
 		Instance i = addInstance(h, RoleType.DATANODE);
 		i.addSetting("name", "value");
 		i.addSetting("dfs.data.dir", "value1");
 	}
 	
+	/**
+	 * Dump file
+	 */
 	public void save(String path) {
 		Dumper dp = new Dumper(path);
 		PrintStream ps = dp.getPrintStream();
@@ -163,5 +169,65 @@ public class Cluster extends ConfigurableTreeNode {
 		HostManager.getInstance().loadFromLinedStrings(reader);
 		this.loadFromLinedStrings(reader);
 		reader.close();
+	}
+
+	public List<Host> getHostList() {
+		final List<Host> hosts = new ArrayList<Host>();
+		new InstanceScanner(this) {
+			@Override
+			public void process(Instance i) {
+				Host thisHost = i.getHost();
+				for (Host h : hosts) {
+					if (h.equals(thisHost))
+						return;
+				}
+				hosts.add(i.getHost());
+			}
+		}.execute();
+		return hosts;
+	}
+
+	/**
+	 * Read from hosts
+	 * File format:
+	 * ip	name	role;role;...
+	 * @throws Exception 
+	 */
+	static public Cluster loadFromFile(String path) throws Exception {
+		LinedFileReader reader = new LinedFileReader(path);
+		Path p = new Path(path);
+		Path root = p.getParent();
+		Cluster c = new Cluster();
+		c.setName(path.split("\\.")[0].replace("/", "_").replace("\\", "_"));
+
+		/*
+		 * Read roles;
+		 */
+		String s;
+		while ((s = reader.next()) != null) {
+			String[] ss = s.split("\\t");
+			Host h = c.getHostManager().addHost(ss[0], ss[1]);
+			String[] roles = ss[2].split(";");
+			for (String r : roles) {
+				RoleType rt = RoleType.valueOf(r.toUpperCase());
+				if (rt == null) {
+					/**
+					 * 
+					 */
+					throw new Exception(r + " is not valid role type.");
+				}
+				c.addInstance(h, rt);
+			}
+		}
+		reader.close();
+
+		Configuration conf = new Configuration(false);
+		File f = new File(root.toString(), "core-site.xml");
+		
+		if (f.exists()) {
+			conf.addResource(new FileInputStream(f));
+			
+		}
+		return c;
 	}
 }

@@ -8,6 +8,11 @@ import java.io.PrintStream;
 public class Dumper {
 	final static PrintStream DEFAULT_STREAM = System.out;
 	PrintStream ps;
+
+	public Dumper() {
+		this(null);
+	}
+
 	public Dumper(String path) {
 		if ((path == null) || (path.isEmpty())) {
 			ps = DEFAULT_STREAM;

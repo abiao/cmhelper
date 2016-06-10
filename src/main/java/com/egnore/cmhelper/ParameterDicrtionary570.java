@@ -1,7 +1,7 @@
 package com.egnore.cmhelper;
 
-import com.egnore.cluster.model.ServiceType;
 import com.egnore.cluster.model.RoleType;
+import com.egnore.cluster.model.ServiceType;
 import com.egnore.cluster.model.conf.ParameterDescription;
 import com.egnore.cluster.model.conf.ParameterDictionary;
 

@@ -16,7 +16,7 @@ public class LinedFileReader {
 	public LinedFileReader(String path) throws UnsupportedEncodingException, FileNotFoundException {
 		String encoding="utf8";
 		File file=new File(path);
-		if(file.isFile() && file.exists()){ //判断文件是否存在
+		if(file.isFile() && file.exists()) { //判断文件是否存在
 			reader = new InputStreamReader(
 					new FileInputStream(file),encoding);//考虑到编码格式
 			bufferedReader = new BufferedReader(reader);
@@ -29,6 +29,8 @@ public class LinedFileReader {
 	}
 
 	public String next() throws IOException {
-		return bufferedReader.readLine().trim();
+		String s = bufferedReader.readLine();
+		if (s != null) s.trim();
+		return s;
 	}
  }

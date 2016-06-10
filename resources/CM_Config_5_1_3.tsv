@@ -1,0 +1,1285 @@
+SERVICE	ZOOKEEPER	service_triggers	false		Service Triggers
+SERVICE	ZOOKEEPER	cleanupRetainCount	false		Cleanup Retain Count
+SERVICE	ZOOKEEPER	zookeeper_env_safety_valve	false		ZooKeeper Service Environment Advanced Configuration Snippet (Safety Valve)
+SERVICE	ZOOKEEPER	zookeeper_canary_health_enabled	false		ZooKeeper Canary Health Check
+SERVICE	ZOOKEEPER	leaderServes	false	leaderServes	Leader Serves
+SERVICE	ZOOKEEPER	syncLimit	false	syncLimit	Synchronization Limit
+SERVICE	ZOOKEEPER	zookeeper_servers_healthy_thresholds	false		Healthy Server Monitoring Thresholds
+SERVICE	ZOOKEEPER	smon_derived_configs_safety_valve	false		Service Monitor Derived Configs Advanced Configuration Snippet (Safety Valve)
+SERVICE	ZOOKEEPER	catch_events	false		Enable Log Event Capture
+SERVICE	ZOOKEEPER	process_username	false		System User
+SERVICE	ZOOKEEPER	zookeeper_datadir_autocreate	false		Enable auto-creation of data directories
+SERVICE	ZOOKEEPER	autopurgeInterval	false	autopurge.purgeInterval	Auto Purge Time Interval
+SERVICE	ZOOKEEPER	enable_config_alerts	false		Enable Configuration Change Alerts
+SERVICE	ZOOKEEPER	zookeeper_canary_session_timeout	false		ZooKeeper Canary Session Timeout
+SERVICE	ZOOKEEPER	initLimit	false	initLimit	Initialization Limit
+SERVICE	ZOOKEEPER	zookeeper_canary_connection_timeout	false		ZooKeeper Canary Connection Timeout
+SERVICE	ZOOKEEPER	zookeeper_canary_operation_timeout	false		ZooKeeper Canary Operation Timeout
+SERVICE	ZOOKEEPER	zookeeper_canary_root_path	false		ZooKeeper Canary Root Znode Path
+SERVICE	ZOOKEEPER	autopurgeSnapRetainCount	false	autopurge.snapRetainCount	Auto Purge Snapshots Retain Count
+SERVICE	ZOOKEEPER	tickTime	false	tickTime	Tick Time
+SERVICE	ZOOKEEPER	enable_alerts	false		Enable Service Level Health Alerts
+SERVICE	ZOOKEEPER	enableSecurity	false	enableSecurity	Enable Kerberos Authentication
+SERVICE	ZOOKEEPER	log_event_retry_frequency	false		Log Event Retry Frequency
+SERVICE	ZOOKEEPER	process_groupname	false		System Group
+ROLE	SERVER	maxSessionTimeout	false	maxSessionTimeout	Maximum Session Timeout
+ROLE	SERVER	serverId	false	myid	ZooKeeper Server ID
+ROLE	SERVER	zookeeper_server_outstanding_requests_window	false		ZooKeeper Server Outstanding Requests Monitoring Period
+ROLE	SERVER	zookeeper_server_data_directory_free_space_percentage_thresholds	false		Data Directory Free Space Monitoring Percentage Thresholds
+ROLE	SERVER	log_threshold	false		Server Logging Threshold
+ROLE	SERVER	minSessionTimeout	false	minSessionTimeout	Minimum Session Timeout
+ROLE	SERVER	clientPort	false	clientPort	Client Port
+ROLE	SERVER	zookeeper_server_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	SERVER	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	SERVER	zk_server_log_dir	false		ZooKeeper Log Directory
+ROLE	SERVER	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	SERVER	zookeeper_server_connection_count_window	false		ZooKeeper Server Connection Count Monitoring Period
+ROLE	SERVER	process_auto_restart	false		Automatically Restart Process
+ROLE	SERVER	log_event_whitelist	false		Rules to Extract Events from Log Files
+ROLE	SERVER	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	SERVER	enable_jmx_agent	false		Enable JMX Agent
+ROLE	SERVER	zookeeper_server_data_log_directory_free_space_absolute_thresholds	false		Data Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	SERVER	enable_jmx_authentication	false		Enable Authenticated Communication with the JMX Agent
+ROLE	SERVER	zookeeper_server_quorum_membership_enabled	false		Enable the Quorum Membership Check
+ROLE	SERVER	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	SERVER	log4j_safety_valve	false		Server Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	SERVER	max_log_size	false		Server Max Log Size
+ROLE	SERVER	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	SERVER	jmx_passwd_file_readonly_user	false		Name of User with Read-Only access to the JMX Agent
+ROLE	SERVER	zookeeper_config_safety_valve	false		Server Advanced Configuration Snippet (Safety Valve) for zoo.cfg
+ROLE	SERVER	quorumPort	false		Quorum Port
+ROLE	SERVER	zookeeper_server_outstanding_requests_thresholds	false		ZooKeeper Server Outstanding Requests Thresholds
+ROLE	SERVER	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	SERVER	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	SERVER	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	SERVER	max_log_backup_index	false		Server Maximum Log File Backups
+ROLE	SERVER	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	SERVER	zk_server_java_opts	false		Java Configuration Options for Zookeeper Server
+ROLE	SERVER	zookeeper_server_scm_health_enabled	false		Server Process Health Test
+ROLE	SERVER	jmx_passwd_file_readwrite_user	false		Name of User with Read-Write Access to the JMX Agent
+ROLE	SERVER	dataLogDir	false	dataLogDir	Transaction Log Directory
+ROLE	SERVER	maxClientCnxns	false	maxClientCnxns	Maximum Client Connections
+ROLE	SERVER	server_jmx_agent_port	false		JMX Agent Port
+ROLE	SERVER	jmx_passwd_file_readonly_user_password	false		Password of User with Read-Only Access to the JMX agent
+ROLE	SERVER	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	SERVER	jmx_passwd_file_readwrite_user_password	false		Password of user with read-write access to the JMX agent
+ROLE	SERVER	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	SERVER	clientPortAddress	false	clientPortAddress	Client Port Address
+ROLE	SERVER	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	SERVER	zookeeper_server_java_heapsize	false		Java Heap Size of ZooKeeper Server in Bytes
+ROLE	SERVER	zookeeper_server_gc_duration_window	false		Garbage Collection Duration Monitoring Period
+ROLE	SERVER	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	SERVER	dataDir	false	dataDir	Data Directory
+ROLE	SERVER	zookeeper_server_data_log_directory_free_space_percentage_thresholds	false		Data Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	SERVER	zookeeper_server_quorum_membership_detection_window	false		Quorum Membership Detection Window
+ROLE	SERVER	zookeeper_server_connection_count_thresholds	false		ZooKeeper Server Connection Count Thresholds
+ROLE	SERVER	zookeeper_server_max_latency_thresholds	false		Maximum Latency Monitoring Thresholds
+ROLE	SERVER	zookeeper_server_data_directory_free_space_absolute_thresholds	false		Data Directory Free Space Monitoring Absolute Thresholds
+ROLE	SERVER	electionPort	false		Election Port
+ROLE	SERVER	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	SERVER	zookeeper_server_host_health_enabled	false		Server Host Health Test
+ROLE	SERVER	zookeeper_server_gc_duration_thresholds	false		Garbage Collection Duration Thresholds
+ROLE	SERVER	role_triggers	false		Role Triggers
+SERVICE	HDFS	zookeeper_service	false		ZooKeeper Service
+SERVICE	HDFS	httpfs_proxy_user_groups_list	false	hadoop.proxyuser.httpfs.groups	HttpFS Proxy User Groups
+SERVICE	HDFS	hdfs_namenode_health_enabled	false		Active NameNode Role Health Check
+SERVICE	HDFS	dfs_client_use_datanode_hostname	false	dfs.client.use.datanode.hostname	Use DataNode Hostname
+SERVICE	HDFS	hdfs_active_namenode_detecton_window	false		Active NameNode Detection Window
+SERVICE	HDFS	audit_event_log_dir	false	audit_event_log_dir	Audit Log Directory
+SERVICE	HDFS	dfs_encrypt_data_transfer_algorithm	false	dfs.encrypt.data.transfer.algorithm	Data Transfer Encryption Algorithm
+SERVICE	HDFS	smon_derived_configs_safety_valve	false		Service Monitor Derived Configs Advanced Configuration Snippet (Safety Valve)
+SERVICE	HDFS	catch_events	false		Enable Log Event Capture
+SERVICE	HDFS	hdfs_user_to_impersonate	false	hdfs.user.to.impersonate	HDFS User to Impersonate
+SERVICE	HDFS	mapred_proxy_user_hosts_list	false	hadoop.proxyuser.mapred.hosts	Mapred Proxy User Hosts
+SERVICE	HDFS	oozie_proxy_user_hosts_list	false	hadoop.proxyuser.oozie.hosts	Oozie Proxy User Hosts
+SERVICE	HDFS	hadoop_group_mapping_ldap_group_name_attr	false	hadoop.security.group.mapping.ldap.search.attr.group.name	Hadoop User Group Mapping LDAP Group Name Attribute
+SERVICE	HDFS	firehose_hdfs_canary_directory	false		HDFS Health Canary Directory
+SERVICE	HDFS	dfs_ha_fencing_methods	false	dfs.ha.fencing.methods	HDFS High Availability Fencing Methods
+SERVICE	HDFS	HTTP_proxy_user_groups_list	false	hadoop.proxyuser.HTTP.groups	HTTP Proxy User Groups
+SERVICE	HDFS	hadoop_group_mapping_ldap_group_filter	false	hadoop.security.group.mapping.ldap.search.filter.group	Hadoop User Group Mapping LDAP Group Search Filter
+SERVICE	HDFS	enable_alerts	false		Enable Service Level Health Alerts
+SERVICE	HDFS	dfs_permissions	false	dfs.permissions	Check HDFS Permissions
+SERVICE	HDFS	dfs_replication_max	false	dfs.replication.max	Maximal Block Replication
+SERVICE	HDFS	dfs_ha_fencing_ssh_private_key_files	false	dfs.ha.fencing.ssh.private-key-files	Private Keys for SSH Fencing Strategy
+SERVICE	HDFS	navigator_audit_enabled	false		Enable Collection
+SERVICE	HDFS	service_triggers	false		Service Triggers
+SERVICE	HDFS	dfs_ha_fencing_ssh_connect_timeout	false	dfs.ha.fencing.ssh.connect-timeout	Timeout for SSH Fencing Strategy
+SERVICE	HDFS	hadoop_group_mapping_ldap_use_ssl	false	hadoop.security.group.mapping.ldap.use.ssl	Hadoop User Group Mapping LDAP SSL Enabled
+SERVICE	HDFS	hadoop_security_authorization	false	hadoop.security.authorization	Hadoop Secure Authorization
+SERVICE	HDFS	firehose_hdfs_canary_directory_permissions	false		HDFS Health Canary Directory Permissions
+SERVICE	HDFS	hdfs_missing_blocks_thresholds	false		Missing Block Monitoring Thresholds
+SERVICE	HDFS	mapred_proxy_user_groups_list	false	hadoop.proxyuser.mapred.groups	Mapred Proxy User Groups
+SERVICE	HDFS	dfs_replication	false	dfs.replication	Replication Factor
+SERVICE	HDFS	dfs_namenode_acls_enabled	false	dfs.namenode.acls.enabled	Enable Access Control Lists
+SERVICE	HDFS	trusted_realms	false		Trusted Kerberos Realms
+SERVICE	HDFS	dfs_datanode_hdfs_blocks_metadata_enabled	false	dfs.datanode.hdfs-blocks-metadata.enabled	Enable HDFS Block Metadata API
+SERVICE	HDFS	dfs_replication_min	false	dfs.namenode.replication.min	Minimal Block Replication
+SERVICE	HDFS	navigator_client_config_safety_valve	false		HDFS Client Advanced Configuration Snippet (Safety Valve) for navigator.client.properties
+SERVICE	HDFS	dfs_domain_socket_path	false	dfs.domain.socket.path	UNIX Domain Socket path
+SERVICE	HDFS	process_groupname	false		System Group
+SERVICE	HDFS	dfs_block_size	false	dfs.blocksize	HDFS Block Size
+SERVICE	HDFS	smon_client_config_overrides	false		Service Monitor Client Config Overrides
+SERVICE	HDFS	navigator_audit_queue_policy	false	navigator.batch.queue_policy	Queue Policy
+SERVICE	HDFS	dfs_umaskmode	false	fs.permissions.umask-mode	Default Umask
+SERVICE	HDFS	hadoop_rpc_protection	false	hadoop.rpc.protection	Hadoop RPC Protection
+SERVICE	HDFS	dfs_block_local_path_access_user	false	dfs.block.local-path-access.user	DataNode Local Path Access Users
+SERVICE	HDFS	hdfs_standby_namenodes_health_enabled	false		Standby NameNode Health Check
+SERVICE	HDFS	flume_proxy_user_hosts_list	false	hadoop.proxyuser.flume.hosts	Flume Proxy User Hosts
+SERVICE	HDFS	hdfs_hadoop_group_name	false		Shared Hadoop Group Name
+SERVICE	HDFS	hadoop_security_authentication	false	hadoop.security.authentication	Hadoop Secure Authentication
+SERVICE	HDFS	hdfs_namenode_activation_startup_tolerance	false		NameNode Activation Startup Tolerance
+SERVICE	HDFS	hadoop_group_mapping_ldap_url	false	hadoop.security.group.mapping.ldap.url	Hadoop User Group Mapping LDAP URL
+SERVICE	HDFS	hdfs_datanodes_healthy_thresholds	false		Healthy DataNode Monitoring Thresholds
+SERVICE	HDFS	hdfs_service_config_safety_valve	false		HDFS Service Advanced Configuration Snippet (Safety Valve) for hdfs-site.xml
+SERVICE	HDFS	hdfs_hadoop_ssl_enabled	false	hadoop.ssl.enabled	Hadoop SSL Enabled
+SERVICE	HDFS	hadoop_group_mapping_ldap_base	false	hadoop.security.group.mapping.ldap.base	Hadoop User Group Mapping Search Base
+SERVICE	HDFS	hdfs_ssl_server_safety_valve	false		HDFS Service Advanced Configuration Snippet (Safety Valve) for ssl-server.xml
+SERVICE	HDFS	dfs_image_transfer_bandwidthPerSec	false	dfs.image.transfer.bandwidthPerSec	FsImage Transfer Bandwidth
+SERVICE	HDFS	hdfs_replication_env_safety_valve	false		HDFS Replication Advanced Configuration Snippet (Safety Valve)
+SERVICE	HDFS	hdfs_user_home_dir	false		System User's Home Directory
+SERVICE	HDFS	ssl_client_truststore_password	false	ssl.client.truststore.password	Hadoop SSL Client Truststore File Password
+SERVICE	HDFS	dfs_client_file_block_storage_locations_timeout	false	dfs.client.file-block-storage-locations.timeout.millis	HDFS File Block Storage Location Timeout
+SERVICE	HDFS	hadoop_policy_config_safety_valve	false		HDFS Service Advanced Configuration Snippet (Safety Valve) for hadoop-policy.xml
+SERVICE	HDFS	hadoop_group_mapping_ldap_keystore	false	hadoop.security.group.mapping.ldap.ssl.keystore	Hadoop User Group Mapping LDAP SSL Keystore
+SERVICE	HDFS	dfs_ha_fencing_cloudera_manager_timeout_millis	false	dfs.ha.fencing.cloudera_manager.timeout_millis	Timeout for Cloudera Manager Fencing Strategy
+SERVICE	HDFS	navigator_event_tracker	false	navigator_event_tracker	Event Tracker
+SERVICE	HDFS	failover_controllers_healthy_enabled	false		Failover Controllers Healthy
+SERVICE	HDFS	hadoop_authorized_admin_users	false		Authorized Admin Users
+SERVICE	HDFS	httpfs_proxy_user_hosts_list	false	hadoop.proxyuser.httpfs.hosts	HttpFS Proxy User Hosts
+SERVICE	HDFS	hadoop_secure_web_ui	false		Enable Authentication for HTTP Web-Consoles
+SERVICE	HDFS	navigator_audit_log_max_backup_index	false	navigator.audit_log_max_backup_index	Number of Audit Logs to Retain
+SERVICE	HDFS	hadoop_authorized_users	false		Authorized Users
+SERVICE	HDFS	hive_proxy_user_groups_list	false	hadoop.proxyuser.hive.groups	Hive Proxy User Groups
+SERVICE	HDFS	core_site_safety_valve	false		Cluster-wide Advanced Configuration Snippet (Safety Valve) for core-site.xml
+SERVICE	HDFS	hdfs_service_env_safety_valve	false		HDFS Service Environment Advanced Configuration Snippet (Safety Valve)
+SERVICE	HDFS	hue_kerberos_principal_shortname	false	hue.kerberos.principal.shortname	Hue's Kerberos Principal Short Name
+SERVICE	HDFS	dfs_permissions_supergroup	false	dfs.permissions.superusergroup	Superuser Group
+SERVICE	HDFS	hadoop_group_mapping_ldap_keystore_passwd	false	hadoop.security.group.mapping.ldap.ssl.keystore.password	Hadoop User Group Mapping LDAP SSL Keystore Password
+SERVICE	HDFS	dfs_encrypt_data_transfer	false	dfs.encrypt.data.transfer	Enable Data Transfer Encryption
+SERVICE	HDFS	navigator_audit_event_filter	false	navigator.event.filter	Event Filter
+SERVICE	HDFS	hdfs_free_space_thresholds	false		HDFS Free Space Monitoring Thresholds
+SERVICE	HDFS	dfs_ha_proxy_provider	false	dfs.client.failover.proxy.provider	FailoverProxyProvider Class
+SERVICE	HDFS	hadoop_http_auth_cookie_domain	false	hadoop.http.authentication.cookie.domain	Hadoop HTTP Authentication Cookie Domain
+SERVICE	HDFS	hdfs_ssl_client_safety_valve	false		HDFS Service Advanced Configuration Snippet (Safety Valve) for ssl-client.xml
+SERVICE	HDFS	dfs_datanode_read_shortcircuit	false	dfs.client.read.shortcircuit	Enable HDFS Short Circuit Read
+SERVICE	HDFS	extra_auth_to_local_rules	false		Additional Rules to Map Kerberos Principals to Short Names
+SERVICE	HDFS	hdfs_canary_health_enabled	false		HDFS Canary Health Check
+SERVICE	HDFS	navigator_audit_log_max_file_size	false	navigator.audit_log_max_file_size	Maximum Audit Log File Size
+SERVICE	HDFS	hue_proxy_user_hosts_list	false	hadoop.proxyuser.hue.hosts	Hue Proxy User Hosts
+SERVICE	HDFS	HTTP_proxy_user_hosts_list	false	hadoop.proxyuser.HTTP.hosts	HTTP Proxy User Hosts
+SERVICE	HDFS	hdfs_under_replicated_blocks_thresholds	false		Under-replicated Block Monitoring Thresholds
+SERVICE	HDFS	hive_proxy_user_hosts_list	false	hadoop.proxyuser.hive.hosts	Hive Proxy User Hosts
+SERVICE	HDFS	flume_proxy_user_groups_list	false	hadoop.proxyuser.flume.groups	Flume Proxy User Groups
+SERVICE	HDFS	hdfs_blocks_with_corrupt_replicas_thresholds	false		Blocks With Corrupt Replicas Monitoring Thresholds
+SERVICE	HDFS	hadoop_security_group_mapping	false	hadoop.security.group.mapping	Hadoop User Group Mapping Implementation
+SERVICE	HDFS	ssl_server_keystore_keypassword	false	ssl.server.keystore.keypassword	Hadoop SSL Server Keystore Key Password
+SERVICE	HDFS	oozie_proxy_user_groups_list	false	hadoop.proxyuser.oozie.groups	Oozie Proxy User Groups
+SERVICE	HDFS	hadoop_group_mapping_ldap_member_attr	false	hadoop.security.group.mapping.ldap.search.attr.member	Hadoop User Group Mapping LDAP Group Membership Attribute
+SERVICE	HDFS	hadoop_authorized_groups	false		Authorized Groups
+SERVICE	HDFS	ssl_server_keystore_location	false	ssl.server.keystore.location	Hadoop SSL Server Keystore File Location
+SERVICE	HDFS	hadoop_group_mapping_ldap_bind_user	false	hadoop.security.group.mapping.ldap.bind.user	Hadoop User Group Mapping LDAP Bind User
+SERVICE	HDFS	hadoop_group_mapping_ldap_user_filter	false	hadoop.security.group.mapping.ldap.search.filter.user	Hadoop User Group Mapping LDAP User Search Filter
+SERVICE	HDFS	ssl_client_truststore_location	false	ssl.client.truststore.location	Hadoop SSL Client Truststore File Location
+SERVICE	HDFS	process_username	false		System User
+SERVICE	HDFS	hue_proxy_user_groups_list	false	hadoop.proxyuser.hue.groups	Hue Proxy User Groups
+SERVICE	HDFS	io_compression_codecs	false	io.compression.codecs	Compression Codecs
+SERVICE	HDFS	enable_config_alerts	false		Enable Configuration Change Alerts
+SERVICE	HDFS	dfs_webhdfs_enabled	false	dfs.webhdfs.enabled	Enable WebHDFS
+SERVICE	HDFS	ssl_server_keystore_password	false	ssl.server.keystore.password	Hadoop SSL Server Keystore File Password
+SERVICE	HDFS	dfs_image_transfer_timeout	false	dfs.image.transfer.timeout	FsImage Transfer Timeout
+SERVICE	HDFS	log_event_retry_frequency	false		Log Event Retry Frequency
+SERVICE	HDFS	hadoop_authorized_admin_groups	false		Authorized Admin Groups
+SERVICE	HDFS	hadoop_group_mapping_ldap_bind_passwd	false	hadoop.security.group.mapping.ldap.bind.password	Hadoop User Group Mapping LDAP Bind User Password
+ROLE	HTTPFS	httpfs_java_heapsize	false		Java Heap Size of HttpFS in Bytes
+ROLE	HTTPFS	log_threshold	false		HttpFS Logging Threshold
+ROLE	HTTPFS	httpfs_log_dir	false	hadoop.log.dir	HttpFS Log Directory
+ROLE	HTTPFS	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	HTTPFS	httpfs_https_keystore_file	false		HttpFS Keystore File
+ROLE	HTTPFS	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	HTTPFS	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	HTTPFS	httpfs_java_opts	false		Java Configuration Options for HttpFS
+ROLE	HTTPFS	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	HTTPFS	httpfs_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	HTTPFS	process_auto_restart	false		Automatically Restart Process
+ROLE	HTTPFS	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	HTTPFS	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	HTTPFS	hdfs_httpfs_signature_secret	false	hdfs.httpfs.signature.secret	Signature Secret
+ROLE	HTTPFS	httpfs_scm_health_enabled	false		HttpFS Process Health Test
+ROLE	HTTPFS	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	HTTPFS	hdfs_httpfs_admin_port	false	hdfs.httpfs.admin.port	Administration Port
+ROLE	HTTPFS	httpfs_https_keystore_password	false		HttpFS Keystore Password
+ROLE	HTTPFS	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	HTTPFS	log4j_safety_valve	false		HttpFS Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	HTTPFS	max_log_size	false		HttpFS Max Log Size
+ROLE	HTTPFS	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	HTTPFS	hdfs_httpfs_http_port	false	hdfs.httpfs.http.port	HTTP Port
+ROLE	HTTPFS	httpfs_config_safety_valve	false		HttpFS Advanced Configuration Snippet (Safety Valve) for httpfs-site.xml
+ROLE	HTTPFS	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	HTTPFS	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	HTTPFS	httpfs_process_groupname	false		System Group
+ROLE	HTTPFS	role_triggers	false		Role Triggers
+ROLE	HTTPFS	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	HTTPFS	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	HTTPFS	httpfs_process_username	false		System User
+ROLE	HTTPFS	max_log_backup_index	false		HttpFS Maximum Log File Backups
+ROLE	HTTPFS	httpfs_host_health_enabled	false		HttpFS Host Health Test
+ROLE	HTTPFS	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	HTTPFS	httpfs_use_ssl	false		Use SSL
+ROLE	NAMENODE	dfs_namenode_servicerpc_address	false	dfs.namenode.servicerpc-address	NameNode Service RPC Port
+ROLE	NAMENODE	namenode_rpc_latency_thresholds	false		NameNode RPC Latency Thresholds
+ROLE	NAMENODE	namenode_rpc_latency_window	false		NameNode RPC Latency Monitoring Window
+ROLE	NAMENODE	dfs_thrift_threads_max	false	dfs.thrift.threads.max	Hue Thrift Server Max Threadcount
+ROLE	NAMENODE	namenode_bind_wildcard	false		Bind NameNode to Wildcard Address
+ROLE	NAMENODE	dfs_http_port	false	dfs.namenode.http-address	NameNode Web UI Port
+ROLE	NAMENODE	log_threshold	false		NameNode Logging Threshold
+ROLE	NAMENODE	topology_script_file_name	false	net.topology.script.file.name	Topology Script File Name
+ROLE	NAMENODE	dfs_name_dir_restore	false	dfs.namenode.name.dir.restore	Restore NameNode Directories at Checkpoint Time
+ROLE	NAMENODE	fs_trash_interval	false	fs.trash.interval	Filesystem Trash Interval
+ROLE	NAMENODE	namenode_host_health_enabled	false		NameNode Host Health Test
+ROLE	NAMENODE	namenode_upgrade_status_enabled	false		HDFS Upgrade Status Health Test
+ROLE	NAMENODE	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	NAMENODE	namenode_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	NAMENODE	namenode_directory_failures_thresholds	false		NameNode Directory Failures Thresholds
+ROLE	NAMENODE	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	NAMENODE	dfs_namenode_quorum_journal_name	false		Quorum-based Storage Journal name
+ROLE	NAMENODE	process_auto_restart	false		Automatically Restart Process
+ROLE	NAMENODE	dfs_name_dir_list	true	dfs.namenode.name.dir	NameNode Data Directories
+ROLE	NAMENODE	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	NAMENODE	log_event_whitelist	false		Rules to Extract Events from Log Files
+ROLE	NAMENODE	dfs_namenode_shared_edits_dir	false	dfs.namenode.shared.edits.dir	Shared Edits Directory
+ROLE	NAMENODE	dfs_thrift_threads_min	false	dfs.thrift.threads.min	Hue Thrift Server Min Threadcount
+ROLE	NAMENODE	nameservice_mountpoints	false		Mountpoints
+ROLE	NAMENODE	dfs_namenode_edits_dir	false	dfs.namenode.edits.dir	NameNode Edits Directories
+ROLE	NAMENODE	namenode_hosts_allow_safety_valve	false		NameNode Advanced Configuration Snippet (Safety Valve) for dfs_hosts_allow.txt
+ROLE	NAMENODE	namenode_data_directories_free_space_percentage_thresholds	false		Data Directories Free Space Monitoring Percentage Thresholds
+ROLE	NAMENODE	namenode_config_safety_valve	false		NameNode Advanced Configuration Snippet (Safety Valve) for hdfs-site.xml
+ROLE	NAMENODE	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	NAMENODE	dfs_namenode_replication_work_multiplier_per_iteration	false	dfs.namenode.replication.work.multiplier.per.iteration	Replication Work Multiplier Per Iteration
+ROLE	NAMENODE	log4j_safety_valve	false		NameNode Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	NAMENODE	max_log_size	false		NameNode Max Log Size
+ROLE	NAMENODE	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	NAMENODE	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	NAMENODE	namenode_out_of_sync_journal_nodes_thresholds	false		NameNode Out-Of-Sync JournalNodes Thresholds
+ROLE	NAMENODE	namenode_java_heapsize	false		Java Heap Size of Namenode in Bytes
+ROLE	NAMENODE	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	NAMENODE	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	NAMENODE	max_log_backup_index	false		NameNode Maximum Log File Backups
+ROLE	NAMENODE	fs_checkpoint_period	false	dfs.namenode.checkpoint.period	Filesystem Checkpoint Period
+ROLE	NAMENODE	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	NAMENODE	dfs_https_port	false	dfs.https.port	Secure NameNode Web UI Port (SSL)
+ROLE	NAMENODE	namenode_gc_duration_window	false		Garbage Collection Duration Monitoring Period
+ROLE	NAMENODE	namenode_checkpoint_age_thresholds	false		Filesystem Checkpoint Age Monitoring Thresholds
+ROLE	NAMENODE	dfs_namenode_handler_count	false	dfs.namenode.handler.count	NameNode Handler Count
+ROLE	NAMENODE	dfs_access_time_precision	false	dfs.access.time.precision	Access Time Precision
+ROLE	NAMENODE	namenode_checkpoint_transactions_thresholds	false		Filesystem Checkpoint Transactions Monitoring Thresholds
+ROLE	NAMENODE	dfs_safemode_threshold_pct	false	dfs.namenode.safemode.threshold-pct	Safemode Threshold Percentage
+ROLE	NAMENODE	dfs_namenode_service_handler_count	false	dfs.namenode.service.handler.count	NameNode Service Handler Count
+ROLE	NAMENODE	fs_checkpoint_txns	false	dfs.namenode.checkpoint.txns	Filesystem Checkpoint Transaction Threshold
+ROLE	NAMENODE	dfs_thrift_timeout	false	dfs.thrift.timeout	Hue Thrift Server Timeout
+ROLE	NAMENODE	namenode_safe_mode_enabled	false		NameNode Safemode Health Test
+ROLE	NAMENODE	namenode_data_directories_free_space_absolute_thresholds	false		Data Directories Free Space Monitoring Absolute Thresholds
+ROLE	NAMENODE	dfs_federation_namenode_nameservice	false		NameNode Nameservice
+ROLE	NAMENODE	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	NAMENODE	dfs_safemode_min_datanodes	false	dfs.safemode.min.datanodes	Safemode Minimum DataNodes
+ROLE	NAMENODE	namenode_hosts_exclude_safety_valve	false		NameNode Advanced Configuration Snippet (Safety Valve) for dfs_hosts_exclude.txt
+ROLE	NAMENODE	namenode_gc_duration_thresholds	false		Garbage Collection Duration Thresholds
+ROLE	NAMENODE	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	NAMENODE	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	NAMENODE	namenode_web_metric_collection_enabled	false		Web Metric Collection
+ROLE	NAMENODE	namenode_web_metric_collection_thresholds	false		Web Metric Collection Duration
+ROLE	NAMENODE	namenode_startup_tolerance	false		Health Check Startup Tolerance
+ROLE	NAMENODE	namenode_log_dir	false	hadoop.log.dir	NameNode Log Directory
+ROLE	NAMENODE	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	NAMENODE	hadoop_metrics2_safety_valve	false		Hadoop Metrics2 Advanced Configuration Snippet (Safety Valve)
+ROLE	NAMENODE	namenode_java_opts	false		Java Configuration Options for NameNode
+ROLE	NAMENODE	autofailover_enabled	false	dfs.ha.automatic-failover.enabled	Enable Automatic Failover
+ROLE	NAMENODE	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	NAMENODE	dfs_namenode_invalidate_work_pct_per_iteration	false	dfs.namenode.invalidate.work.pct.per.iteration	Invalidate Work Percentage Per Iteration
+ROLE	NAMENODE	role_triggers	false		Role Triggers
+ROLE	NAMENODE	namenode_scm_health_enabled	false		NameNode Process Health Test
+ROLE	NAMENODE	namenode_port	false	fs.defaultFS	NameNode Port
+ROLE	NAMENODE	dfs_safemode_extension	false	dfs.namenode.safemode.extension	Safemode Extension
+ROLE	NAMENODE	dfs_namenode_plugins_list	false	dfs.namenode.plugins	NameNode Plugins
+ROLE	DATANODE	dfs_datanode_max_locked_memory	false	dfs.datanode.max.locked.memory	Maximum Memory Used for Caching
+ROLE	DATANODE	dfs_thrift_threads_max	false	dfs.thrift.threads.max	Hue Thrift Server Max Threadcount
+ROLE	DATANODE	dfs_datanode_http_port	false	dfs.datanode.http.address	DataNode HTTP Web UI Port
+ROLE	DATANODE	dfs_datanode_use_datanode_hostname	false	dfs.datanode.use.datanode.hostname	Use DataNode Hostname
+ROLE	DATANODE	log_threshold	false		DataNode Logging Threshold
+ROLE	DATANODE	datanode_gc_duration_thresholds	false		Garbage Collection Duration Thresholds
+ROLE	DATANODE	datanode_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	DATANODE	datanode_connectivity_tolerance	false		DataNode Connectivity Tolerance at Startup
+ROLE	DATANODE	datanode_config_safety_valve	false		DataNode Advanced Configuration Snippet (Safety Valve) for hdfs-site.xml
+ROLE	DATANODE	dfs_datanode_handler_count	false	dfs.datanode.handler.count	Handler Count
+ROLE	DATANODE	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	DATANODE	datanode_web_metric_collection_thresholds	false		Web Metric Collection Duration
+ROLE	DATANODE	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	DATANODE	process_auto_restart	false		Automatically Restart Process
+ROLE	DATANODE	log_event_whitelist	false		Rules to Extract Events from Log Files
+ROLE	DATANODE	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	DATANODE	datanode_gc_duration_window	false		Garbage Collection Duration Monitoring Period
+ROLE	DATANODE	dfs_thrift_threads_min	false	dfs.thrift.threads.min	Hue Thrift Server Min Threadcount
+ROLE	DATANODE	dfs_balance_bandwidthPerSec	false	dfs.datanode.balance.bandwidthPerSec	DataNode Balancing Bandwidth
+ROLE	DATANODE	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	DATANODE	log4j_safety_valve	false		DataNode Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	DATANODE	max_log_size	false		DataNode Max Log Size
+ROLE	DATANODE	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	DATANODE	datanode_scm_health_enabled	false		DataNode Process Health Test
+ROLE	DATANODE	dfs_datanode_available_space_balanced_threshold	false	dfs.datanode.available-space-volume-choosing-policy.balanced-space-threshold	Available Space Policy Balanced Threshold
+ROLE	DATANODE	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	DATANODE	dfs_datanode_max_xcievers	false	dfs.datanode.max.transfer.threads	Maximum Number of Transfer Threads
+ROLE	DATANODE	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	DATANODE	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	DATANODE	max_log_backup_index	false		DataNode Maximum Log File Backups
+ROLE	DATANODE	datanode_transceivers_usage_thresholds	false		DataNode Transceivers Usage Thresholds
+ROLE	DATANODE	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	DATANODE	dfs_data_dir_list	true	dfs.datanode.data.dir	DataNode Data Directory
+ROLE	DATANODE	datanode_java_opts	false		Java Configuration Options for DataNode
+ROLE	DATANODE	dfs_datanode_plugins_list	false	dfs.datanode.plugins	DateNode Plugins
+ROLE	DATANODE	dfs_datanode_ipc_port	false	dfs.datanode.ipc.address	DataNode Protocol Port
+ROLE	DATANODE	datanode_host_health_enabled	false		DataNode Host Health Test
+ROLE	DATANODE	dfs_datanode_bind_wildcard	false		Bind DataNode to Wildcard Address
+ROLE	DATANODE	dfs_datanode_drop_cache_behind_reads	false	dfs.datanode.drop.cache.behind.reads	Enable purging cache after reads
+ROLE	DATANODE	dfs_thrift_timeout	false	dfs.thrift.timeout	Hue Thrift Server Timeout
+ROLE	DATANODE	dfs_datanode_available_space_balanced_preference	false	dfs.datanode.available-space-volume-choosing-policy.balanced-space-preference-fraction	Available Space Policy Balanced Preference
+ROLE	DATANODE	dfs_datanode_readahead_bytes	false	dfs.datanode.readahead.bytes	Number of read ahead bytes
+ROLE	DATANODE	dfs_datanode_data_dir_perm	false	dfs.datanode.data.dir.perm	DataNode Data Directory Permissions
+ROLE	DATANODE	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	DATANODE	dfs_datanode_sync_behind_writes	false	dfs.datanode.sync.behind.writes	Enable immediate enqueuing of data to disk after writes
+ROLE	DATANODE	dfs_datanode_https_port	false	dfs.datanode.https.address	Secure DataNode Web UI Port (SSL)
+ROLE	DATANODE	datanode_log_dir	false	hadoop.log.dir	DataNode Log Directory
+ROLE	DATANODE	dfs_datanode_volume_choosing_policy	false	dfs.datanode.fsdataset.volume.choosing.policy	DataNode Volume Choosing Policy
+ROLE	DATANODE	datanode_free_space_thresholds	false		DataNode Free Space Monitoring Thresholds
+ROLE	DATANODE	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	DATANODE	dfs_datanode_drop_cache_behind_writes	false	dfs.datanode.drop.cache.behind.writes	Enable purging cache after writes
+ROLE	DATANODE	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	DATANODE	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	DATANODE	hadoop_metrics2_safety_valve	false		Hadoop Metrics2 Advanced Configuration Snippet (Safety Valve)
+ROLE	DATANODE	datanode_volume_failures_thresholds	false		DataNode Volume Failures Thresholds
+ROLE	DATANODE	datanode_connectivity_health_enabled	false		DataNode Connectivity Health Test
+ROLE	DATANODE	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	DATANODE	datanode_java_heapsize	false		Java Heap Size of DataNode in Bytes
+ROLE	DATANODE	datanode_web_metric_collection_enabled	false		Web Metric Collection
+ROLE	DATANODE	dfs_datanode_du_reserved	false	dfs.datanode.du.reserved	Reserved Space for Non DFS Use
+ROLE	DATANODE	role_triggers	false		Role Triggers
+ROLE	DATANODE	dfs_datanode_failed_volumes_tolerated	false	dfs.datanode.failed.volumes.tolerated	DataNode Failed Volumes Tolerated
+ROLE	DATANODE	datanode_block_count_thresholds	false		DataNode Block Count Thresholds
+ROLE	DATANODE	dfs_datanode_port	false	dfs.datanode.address	DataNode Transceiver Port
+ROLE	BALANCER	rebalancing_policy	false		Rebalancing Policy
+ROLE	BALANCER	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	BALANCER	balancer_java_opts	false		Java Configuration Options for Balancer
+ROLE	BALANCER	rebalancer_threshold	false		Rebalancing Threshold
+ROLE	BALANCER	balancer_config_safety_valve	false		Balancer Advanced Configuration Snippet (Safety Valve) for hdfs-site.xml
+ROLE	BALANCER	balancer_java_heapsize	false		Java Heap Size of Balancer in Bytes
+ROLE	BALANCER	log_event_whitelist	false		Rules to Extract Events from Log Files
+ROLE	JOURNALNODE	journalnode_edits_directory_free_space_absolute_thresholds	false		Edits Directory Free Space Monitoring Absolute Thresholds
+ROLE	JOURNALNODE	dfs_journalnode_edits_dir	true	dfs.journalnode.edits.dir	JournalNode Edits Directory
+ROLE	JOURNALNODE	journalnode_bind_wildcard	false		Bind JournalNode to Wildcard Address
+ROLE	JOURNALNODE	journalnode_scm_health_enabled	false		JournalNode Process Health Test
+ROLE	JOURNALNODE	log_threshold	false		JournalNode Logging Threshold
+ROLE	JOURNALNODE	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	JOURNALNODE	dfs_journalnode_https_port	false	dfs.journalnode.https-address	Secure JournalNode Web UI Port (SSL)
+ROLE	JOURNALNODE	journalnode_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	JOURNALNODE	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	JOURNALNODE	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	JOURNALNODE	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	JOURNALNODE	journalnode_log_dir	false		JournalNode Log Directory
+ROLE	JOURNALNODE	process_auto_restart	false		Automatically Restart Process
+ROLE	JOURNALNODE	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	JOURNALNODE	jn_config_safety_valve	false		JournalNode Advanced Configuration Snippet (Safety Valve) for hdfs-site.xml
+ROLE	JOURNALNODE	log_event_whitelist	false		Rules to Extract Events from Log Files
+ROLE	JOURNALNODE	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	JOURNALNODE	journalnode_web_metric_collection_thresholds	false		Web Metric Collection Duration
+ROLE	JOURNALNODE	journalnode_sync_status_enabled	false		Active NameNode Sync Status Health Check
+ROLE	JOURNALNODE	journalnode_edits_directory_free_space_percentage_thresholds	false		Edits Directory Free Space Monitoring Percentage Thresholds
+ROLE	JOURNALNODE	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	JOURNALNODE	journalNode_java_opts	false		Java Configuration Options for JournalNode
+ROLE	JOURNALNODE	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	JOURNALNODE	log4j_safety_valve	false		JournalNode Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	JOURNALNODE	max_log_size	false		JournalNode Max Log Size
+ROLE	JOURNALNODE	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	JOURNALNODE	journalnode_gc_duration_thresholds	false		Garbage Collection Duration Thresholds
+ROLE	JOURNALNODE	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	JOURNALNODE	journalnode_sync_status_startup_tolerance	false		Active NameNode Sync Status Startup Tolerance
+ROLE	JOURNALNODE	journalnode_fsync_latency_thresholds	false		JournalNode Fsync Latency Thresholds
+ROLE	JOURNALNODE	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	JOURNALNODE	journalnode_web_metric_collection_enabled	false		Web Metric Collection
+ROLE	JOURNALNODE	role_triggers	false		Role Triggers
+ROLE	JOURNALNODE	journalnode_gc_duration_window	false		Garbage Collection Duration Monitoring Period
+ROLE	JOURNALNODE	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	JOURNALNODE	journalnode_host_health_enabled	false		JournalNode Host Health Test
+ROLE	JOURNALNODE	dfs_journalnode_http_port	false	dfs.journalnode.http-address	JournalNode HTTP Port
+ROLE	JOURNALNODE	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	JOURNALNODE	max_log_backup_index	false		JournalNode Maximum Log File Backups
+ROLE	JOURNALNODE	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	JOURNALNODE	dfs_journalnode_rpc_port	false	dfs.journalnode.rpc-address	JournalNode RPC Port
+ROLE	JOURNALNODE	journalNode_java_heapsize	false		Java Heap Size of JournalNode in Bytes
+ROLE	FAILOVERCONTROLLER	log_threshold	false		Failover Controller Logging Threshold
+ROLE	FAILOVERCONTROLLER	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	FAILOVERCONTROLLER	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	FAILOVERCONTROLLER	fc_config_safety_valve	false		Failover Controller Advanced Configuration Snippet (Safety Valve) for hdfs-site.xml
+ROLE	FAILOVERCONTROLLER	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	FAILOVERCONTROLLER	failover_controller_java_heapsize	false		Java Heap Size of Failover Controller in Bytes
+ROLE	FAILOVERCONTROLLER	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	FAILOVERCONTROLLER	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	FAILOVERCONTROLLER	process_auto_restart	false		Automatically Restart Process
+ROLE	FAILOVERCONTROLLER	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	FAILOVERCONTROLLER	log_event_whitelist	false		Rules to Extract Events from Log Files
+ROLE	FAILOVERCONTROLLER	failovercontroller_host_health_enabled	false		Failover Controller Host Health Test
+ROLE	FAILOVERCONTROLLER	failovercontroller_scm_health_enabled	false		Failover Controller Process Health Test
+ROLE	FAILOVERCONTROLLER	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	FAILOVERCONTROLLER	failover_controller_java_opts	false		Java Configuration Options for Failover Controller
+ROLE	FAILOVERCONTROLLER	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	FAILOVERCONTROLLER	log4j_safety_valve	false		Failover Controller Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	FAILOVERCONTROLLER	max_log_size	false		Failover Controller Max Log Size
+ROLE	FAILOVERCONTROLLER	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	FAILOVERCONTROLLER	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	FAILOVERCONTROLLER	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	FAILOVERCONTROLLER	role_triggers	false		Role Triggers
+ROLE	FAILOVERCONTROLLER	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	FAILOVERCONTROLLER	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	FAILOVERCONTROLLER	max_log_backup_index	false		Failover Controller Maximum Log File Backups
+ROLE	FAILOVERCONTROLLER	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	FAILOVERCONTROLLER	failovercontroller_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	FAILOVERCONTROLLER	failover_controller_log_dir	false		Failover Controller Log Directory
+SERVICE	HBASE	hdfs_service	true		HDFS Service
+SERVICE	HBASE	zookeeper_service	true		ZooKeeper Service
+SERVICE	HBASE	zookeeper_znode_rootserver	false	zookeeper.znode.rootserver	ZooKeeper Znode Rootserver
+SERVICE	HBASE	hbase_hbck_poller_enabled	false		HBase Hbck Poller
+SERVICE	HBASE	audit_event_log_dir	false	audit_event_log_dir	Audit Log Directory
+SERVICE	HBASE	zookeeper_pause	false	zookeeper.pause	ZooKeeper Connection Retry Pause Duration
+SERVICE	HBASE	hbase_security_authorization	false	hbase.security.authorization	HBase Secure Authorization
+SERVICE	HBASE	dfs_client_read_shortcircuit	false	dfs.client.read.shortcircuit	Enable HDFS Short Circuit Read
+SERVICE	HBASE	smon_derived_configs_safety_valve	false		Service Monitor Derived Configs Advanced Configuration Snippet (Safety Valve)
+SERVICE	HBASE	catch_events	false		Enable Log Event Capture
+SERVICE	HBASE	zookeeper_session_timeout	false	zookeeper.session.timeout	ZooKeeper Session Timeout
+SERVICE	HBASE	navigator_event_tracker	false	navigator_event_tracker	Event Tracker
+SERVICE	HBASE	oozie_proxy_user_hosts_list	false	hadoop.proxyuser.oozie.hosts	Oozie Proxy User Hosts
+SERVICE	HBASE	hbase_canary_alert_unhealthy_region_percent_threshold	false		HBase Canary Unhealthy Region Percentage Alert Threshold
+SERVICE	HBASE	hbase_restserver_security_authentication	false	hbase.rest.authentication.type	HBase REST Authentication
+SERVICE	HBASE	navigator_audit_log_max_backup_index	false	navigator.audit_log_max_backup_index	Number of Audit Logs to Retain
+SERVICE	HBASE	hbase_user_to_impersonate	false	hbase.user.to.impersonate	HBase User to Impersonate
+SERVICE	HBASE	enable_alerts	false		Enable Service Level Health Alerts
+SERVICE	HBASE	hbase_ssl_server_safety_valve	false		HBase Service Advanced Configuration Snippet (Safety Valve) for ssl-server.xml
+SERVICE	HBASE	hbase_replication_source_nb_capacity	false	replication.source.nb.capacity	Replication Batch Size
+SERVICE	HBASE	hbase_enable_replication	false	hbase.replication	Enable Replication
+SERVICE	HBASE	hbase_service_config_safety_valve	false		HBase Service Advanced Configuration Snippet (Safety Valve) for hbase-site.xml
+SERVICE	HBASE	hbase_region_health_canary_exclude_tables	false		HBase Region Health Canary Exclude Tables
+SERVICE	HBASE	navigator_audit_enabled	false		Enable Collection
+SERVICE	HBASE	hbase_client_write_buffer	false	hbase.client.write.buffer	HBase Client Write Buffer
+SERVICE	HBASE	service_triggers	false		Service Triggers
+SERVICE	HBASE	navigator_audit_event_filter	false	navigator.event.filter	Event Filter
+SERVICE	HBASE	hbase_client_keyvalue_maxsize	false	hbase.client.keyvalue.maxsize	Maximum Size of HBase Client KeyValue
+SERVICE	HBASE	hbase_service_splitlog_manager_timeout	false	hbase.splitlog.manager.timeout	SplitLog Manager Timeout
+SERVICE	HBASE	hbase_proxy_user_groups_list	false	hadoop.proxyuser.hbase.groups	HBase Proxy User Groups
+SERVICE	HBASE	hbase_hbck_poller_check_hdfs	false		HBase Hbck Check HDFS
+SERVICE	HBASE	hbase_master_health_enabled	false		Active Master Health Test
+SERVICE	HBASE	hbase_security_authentication	false	hbase.security.authentication	HBase Secure Authentication
+SERVICE	HBASE	navigator_audit_log_max_file_size	false	navigator.audit_log_max_file_size	Maximum Audit Log File Size
+SERVICE	HBASE	hbase_service_env_safety_valve	false		HBase Service Environment Advanced Configuration Snippet (Safety Valve)
+SERVICE	HBASE	hbase_replication_source_ratio	false	replication.source.ratio	Replication Source Ratio
+SERVICE	HBASE	zookeeper_znode_parent	false	zookeeper.znode.parent	ZooKeeper Znode Parent
+SERVICE	HBASE	hue_proxy_user_hosts_list	false	hadoop.proxyuser.hue.hosts	Hue Proxy User Hosts
+SERVICE	HBASE	navigator_client_config_safety_valve	false		HBASE Client Advanced Configuration Snippet (Safety Valve) for navigator.client.properties
+SERVICE	HBASE	process_groupname	false		System Group
+SERVICE	HBASE	hbase_client_scanner_caching	false	hbase.client.scanner.caching	HBase Client Scanner Caching
+SERVICE	HBASE	hbase_regionservers_healthy_thresholds	false		Healthy RegionServer Monitoring Thresholds
+SERVICE	HBASE	smon_client_config_overrides	false		Service Monitor Client Config Overrides
+SERVICE	HBASE	hbase_superuser	false	hbase.superuser	HBase Superusers
+SERVICE	HBASE	hbase_backup_masters_health_enabled	false		Backup Masters Health Test
+SERVICE	HBASE	hbase_client_pause	false	hbase.client.pause	HBase Client Pause
+SERVICE	HBASE	hbase_client_retries_number	false	hbase.client.retries.number	Maximum HBase Client Retries
+SERVICE	HBASE	navigator_audit_queue_policy	false	navigator.batch.queue_policy	Queue Policy
+SERVICE	HBASE	hbase_secure_rpc_engine	false	hbase.secure.rpc.engine	HBase Secure RPC Engine
+SERVICE	HBASE	hbase_proxy_user_hosts_list	false	hadoop.proxyuser.hbase.hosts	HBase Proxy User Hosts
+SERVICE	HBASE	hdfs_rootdir	false	hbase.rootdir	HDFS Root Directory
+SERVICE	HBASE	hbase_enable_indexing	false		Enable Indexing
+SERVICE	HBASE	hbase_hbck_alert_region_error_count_threshold	false		HBase Hbck Region Error Count Alert Threshold
+SERVICE	HBASE	ssl_server_keystore_keypassword	false	ssl.server.keystore.keypassword	SSL Server Keystore Key Password
+SERVICE	HBASE	hbase_region_health_canary_slow_run_alert_enabled	false		HBase Region Health Canary Slow Run Alert Enabled
+SERVICE	HBASE	hbase_server_thread_wakefrequency	false	hbase.server.thread.wakefrequency	HBase Server Thread Wake Frequency
+SERVICE	HBASE	oozie_proxy_user_groups_list	false	hadoop.proxyuser.oozie.groups	Oozie Proxy User Groups
+SERVICE	HBASE	hbase_graceful_stop_timeout	false		Graceful Shutdown Timeout
+SERVICE	HBASE	hbase_snapshot_enabled	false	hbase.snapshot.enabled	Enable Snapshots
+SERVICE	HBASE	ssl_server_keystore_location	false	ssl.server.keystore.location	SSL Server Keystore File Location
+SERVICE	HBASE	hbase_coprocessor_abort_on_error	false	hbase.coprocessor.abortonerror	HBase Coprocessor Abort on Error
+SERVICE	HBASE	hbase_hbck_slow_run_alert_enabled	false		HBase Hbck Slow Run Alert Enabled
+SERVICE	HBASE	hbase_canary_alert_unhealthy_region_count_threshold	false		HBase Canary Unhealthy Region Count Alert Threshold
+SERVICE	HBASE	hbase_rpc_timeout	false	hbase.rpc.timeout	RPC Timeout
+SERVICE	HBASE	hbase_active_master_detecton_window	false		HBase Active Master Detection Window
+SERVICE	HBASE	hbase_hbck_alert_error_codes	false		HBase Hbck Alert Error Codes
+SERVICE	HBASE	process_username	false		System User
+SERVICE	HBASE	hue_proxy_user_groups_list	false	hadoop.proxyuser.hue.groups	Hue Proxy User Groups
+SERVICE	HBASE	enable_config_alerts	false		Enable Configuration Change Alerts
+SERVICE	HBASE	zookeeper_retries	false	zookeeper.retries	ZooKeeper Connection Retries
+SERVICE	HBASE	hbase_region_health_canary_enabled	false		HBase Region Health Canary
+SERVICE	HBASE	ssl_server_keystore_password	false	ssl.server.keystore.password	SSL Server Keystore File Password
+SERVICE	HBASE	hbase_hbck_poller_max_error_count	false		HBase Hbck Poller Maximum Error Count
+SERVICE	HBASE	hbase_hbck_alert_error_count_threshold	false		HBase Hbck Error Count Alert Threshold
+SERVICE	HBASE	hbase_hadoop_ssl_enabled	false	hadoop.ssl.enabled	Web UI SSL Encryption Enabled
+SERVICE	HBASE	log_event_retry_frequency	false		Log Event Retry Frequency
+ROLE	HBASETHRIFTSERVER	hbase_thriftserver_compact	false	hbase.regionserver.thrift.compact	Enable HBase Thrift Server Compact Protocol
+ROLE	HBASETHRIFTSERVER	hbase_thriftserver_type	false	hbase.regionserver.thrift.server.type	HBase Thrift Server Type
+ROLE	HBASETHRIFTSERVER	hbase_thriftserver_min_worker_threads	false	hbase.thrift.minWorkerThreads	HBase Thrift Server Min Worker Threads
+ROLE	HBASETHRIFTSERVER	hbase_thriftserver_java_heapsize	false		Java Heap Size of HBase Thrift Server in Bytes
+ROLE	HBASETHRIFTSERVER	log_threshold	false		HBase Thrift Server Logging Threshold
+ROLE	HBASETHRIFTSERVER	hbase_thriftserver_java_opts	false		Java Configuration Options for HBase Thrift Server
+ROLE	HBASETHRIFTSERVER	hbase_thriftserver_info_port	false	hbase.thrift.info.port	HBase Thrift Server Web UI Port
+ROLE	HBASETHRIFTSERVER	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	HBASETHRIFTSERVER	hbasethriftserver_host_health_enabled	false		HBase Thrift Server Host Health Test
+ROLE	HBASETHRIFTSERVER	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	HBASETHRIFTSERVER	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	HBASETHRIFTSERVER	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	HBASETHRIFTSERVER	process_auto_restart	false		Automatically Restart Process
+ROLE	HBASETHRIFTSERVER	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	HBASETHRIFTSERVER	log_event_whitelist	false		Rules to Extract Events from Log Files
+ROLE	HBASETHRIFTSERVER	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	HBASETHRIFTSERVER	hbase_thriftserver_framed	false	hbase.regionserver.thrift.framed	Enable HBase Thrift Server Framed Transport
+ROLE	HBASETHRIFTSERVER	hbase_thriftserver_bindaddress	false	hbase.regionserver.thrift.ipaddress	HBase Thrift Server Bind Address
+ROLE	HBASETHRIFTSERVER	hbase_thriftserver_log_dir	false	hadoop.log.dir	HBase Thrift Server Log Directory
+ROLE	HBASETHRIFTSERVER	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	HBASETHRIFTSERVER	hbase_thriftserver_port	false	hbase.regionserver.thrift.port	HBase Thrift Server Port
+ROLE	HBASETHRIFTSERVER	hbase_thriftserver_config_safety_valve	false		HBase Thrift Server Advanced Configuration Snippet (Safety Valve) for hbase-site.xml
+ROLE	HBASETHRIFTSERVER	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	HBASETHRIFTSERVER	log4j_safety_valve	false		HBase Thrift Server Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	HBASETHRIFTSERVER	max_log_size	false		HBase Thrift Server Max Log Size
+ROLE	HBASETHRIFTSERVER	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	HBASETHRIFTSERVER	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	HBASETHRIFTSERVER	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	HBASETHRIFTSERVER	role_triggers	false		Role Triggers
+ROLE	HBASETHRIFTSERVER	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	HBASETHRIFTSERVER	hbasethriftserver_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	HBASETHRIFTSERVER	hbase_thriftserver_info_bind_to_wildcard	false	hbase.thrift.info.bindAddress	HBase Thrift Server Web UI Bind to Wildcard Address
+ROLE	HBASETHRIFTSERVER	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	HBASETHRIFTSERVER	max_log_backup_index	false		HBase Thrift Server Maximum Log File Backups
+ROLE	HBASETHRIFTSERVER	hbase_thriftserver_dns_interface	false	hbase.thrift.dns.interface	HBase Thrift Server DNS Network Interface
+ROLE	HBASETHRIFTSERVER	hbase_thriftserver_dns_nameserver	false	hbase.thrift.dns.nameserver	HBase Thrift Server DNS Name Server
+ROLE	HBASETHRIFTSERVER	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	HBASETHRIFTSERVER	hbasethriftserver_scm_health_enabled	false		HBase Thrift Server Process Health Test
+ROLE	MASTER	hbase_master_log_dir	false	hadoop.log.dir	Master Log Directory
+ROLE	MASTER	log_threshold	false		Master Logging Threshold
+ROLE	MASTER	hbase_master_config_safety_valve	false		Master Advanced Configuration Snippet (Safety Valve) for hbase-site.xml
+ROLE	MASTER	hbase_master_logcleaner_ttl	false	hbase.master.logcleaner.ttl	Maximum Time to Keep HLogs
+ROLE	MASTER	master_scm_health_enabled	false		Master Process Health Test
+ROLE	MASTER	hbase_coprocessor_master_classes	false	hbase.coprocessor.master.classes	HBase Coprocessor Master Classes
+ROLE	MASTER	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	MASTER	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	MASTER	process_auto_restart	false		Automatically Restart Process
+ROLE	MASTER	master_web_metric_collection_enabled	false		Web Metric Collection
+ROLE	MASTER	log_event_whitelist	false		Rules to Extract Events from Log Files
+ROLE	MASTER	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	MASTER	hbase_master_executor_openregion_threads	false	hbase.master.executor.openregion.threads	Region Opening Threads
+ROLE	MASTER	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	MASTER	log4j_safety_valve	false		Master Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	MASTER	max_log_size	false		Master Max Log Size
+ROLE	MASTER	hbase_master_port	false	hbase.master.port	HBase Master Port
+ROLE	MASTER	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	MASTER	master_gc_duration_window	false		Garbage Collection Duration Monitoring Period
+ROLE	MASTER	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	MASTER	master_startup_tolerance	false		Health Check Startup Tolerance
+ROLE	MASTER	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	MASTER	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	MASTER	master_web_metric_collection_thresholds	false		Web Metric Collection Duration
+ROLE	MASTER	hbase_master_executor_closeregion_threads	false	hbase.master.executor.closeregion.threads	Region Closing Threads
+ROLE	MASTER	hbase_master_dns_nameserver	false	hbase.master.dns.nameserver	HBase Master DNS Name Server
+ROLE	MASTER	hbase_master_logcleaner_plugins	false	hbase.master.logcleaner.plugins	HBase Master Log Cleaner Plugins
+ROLE	MASTER	max_log_backup_index	false		Master Maximum Log File Backups
+ROLE	MASTER	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	MASTER	hbase_metrics_extended_period	false	hbase.extendedperiod	Extended Period
+ROLE	MASTER	hbase_master_java_heapsize	false		Java Heap Size of HBase Master in Bytes
+ROLE	MASTER	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	MASTER	master_gc_duration_thresholds	false		Garbage Collection Duration Thresholds
+ROLE	MASTER	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	MASTER	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	MASTER	master_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	MASTER	master_host_health_enabled	false		Master Host Health Test
+ROLE	MASTER	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	MASTER	master_canary_health_enabled	false		HBase Master Canary Health Test
+ROLE	MASTER	hadoop_metrics2_safety_valve	false		Hadoop Metrics2 Advanced Configuration Snippet (Safety Valve)
+ROLE	MASTER	hbase_master_info_port	false	hbase.master.info.port	HBase Master Web UI Port
+ROLE	MASTER	hbase_master_dns_interface	false	hbase.master.dns.interface	HBase Master DNS Network Interface
+ROLE	MASTER	hbase_master_bind_to_wildcard_address	false	hbase.master.ipc.address	HBase Master Bind to Wildcard Address
+ROLE	MASTER	hbase_master_handler_count	false	hbase.master.handler.count	HBase Master Handler Count
+ROLE	MASTER	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	MASTER	hbase_master_java_opts	false		Java Configuration Options for HBase Master
+ROLE	MASTER	role_triggers	false		Role Triggers
+ROLE	MASTER	hbase_master_executor_serverops_threads	false	hbase.master.executor.serverops.threads	RegionServer Recovery Threads
+ROLE	MASTER	hbase_master_info_bindAddress	false	hbase.master.info.bindAddress	HBase Master Web UI Address
+ROLE	REGIONSERVER	hbase_regionserver_bind_to_wildcard_address	false	hbase.regionserver.ipc.address	HBase RegionServer Bind to Wildcard Address
+ROLE	REGIONSERVER	hbase_regionserver_regionmover_thread_count	false		Region Mover Threads
+ROLE	REGIONSERVER	hbase_regionserver_optionallogflushinterval	false	hbase.regionserver.optionallogflushinterval	Synch Interval of HLog Entries
+ROLE	REGIONSERVER	log_threshold	false		RegionServer Logging Threshold
+ROLE	REGIONSERVER	hbase_hregion_memstore_flush_size	false	hbase.hregion.memstore.flush.size	HBase Memstore Flush Size
+ROLE	REGIONSERVER	regionserver_sync_latency_window	false		HBase RegionServer HDFS Sync Latency Monitoring Period
+ROLE	REGIONSERVER	regionserver_read_latency_window	false		HBase RegionServer HDFS Read Latency Monitoring Period
+ROLE	REGIONSERVER	hbase_regionserver_info_bindAddress	false	hbase.regionserver.info.bindAddress	HBase RegionServer Web UI Address
+ROLE	REGIONSERVER	hbase_regionserver_dns_nameserver	false	hbase.regionserver.dns.nameserver	RegionServer DNS Nameserver
+ROLE	REGIONSERVER	hbase_regionserver_handler_count	false	hbase.regionserver.handler.count	HBase RegionServer Handler Count
+ROLE	REGIONSERVER	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	REGIONSERVER	hbase_regionserver_maxlogs	false	hbase.regionserver.maxlogs	Maximum number of Write-Ahead Log (WAL) files
+ROLE	REGIONSERVER	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	REGIONSERVER	regionserver_memstore_size_thresholds	false		HBase RegionServer Memstore Size Thresholds
+ROLE	REGIONSERVER	process_auto_restart	false		Automatically Restart Process
+ROLE	REGIONSERVER	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	REGIONSERVER	log_event_whitelist	false		Rules to Extract Events from Log Files
+ROLE	REGIONSERVER	hbase_regionserver_codecs	false	hbase.regionserver.codecs	RegionServer Codecs
+ROLE	REGIONSERVER	hbase_hregion_majorcompaction	false	hbase.hregion.majorcompaction	HBase HRegion Major Compaction
+ROLE	REGIONSERVER	hbase_hregion_memstore_mslab_max_allocation	false	hbase.hregion.memstore.mslab.max.allocation	Maximum Byte Array from MSLAB Allocation Scheme
+ROLE	REGIONSERVER	hbase_hstore_compactionThreshold	false	hbase.hstore.compactionThreshold	HStore Compaction Threshold
+ROLE	REGIONSERVER	regionserver_master_connectivity_enabled	false		HBase RegionServer to Master Connectivity Test
+ROLE	REGIONSERVER	hbase_regionserver_info_port	false	hbase.regionserver.info.port	HBase RegionServer Web UI port
+ROLE	REGIONSERVER	hbase_hstore_blockingStoreFiles	false	hbase.hstore.blockingStoreFiles	HStore Blocking Store Files
+ROLE	REGIONSERVER	regionserver_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	REGIONSERVER	hbase_regionserver_logroll_period	false	hbase.regionserver.logroll.period	HBase RegionServer Log Roll Period
+ROLE	REGIONSERVER	hbase_hregion_preclose_flush_size	false	hbase.hregion.preclose.flush.size	HBase Memstore Pre-close Flush Size
+ROLE	REGIONSERVER	hbase_regionserver_java_opts	false		Java Configuration Options for HBase RegionServer
+ROLE	REGIONSERVER	hbase_regionserver_nbreservationblocks	false	hbase.regionserver.nbreservationblocks	RegionServer Reservation Blocks
+ROLE	REGIONSERVER	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	REGIONSERVER	log4j_safety_valve	false		RegionServer Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	REGIONSERVER	max_log_size	false		RegionServer Max Log Size
+ROLE	REGIONSERVER	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	REGIONSERVER	hfile_block_cache_size	false	hfile.block.cache.size	HFile Block Cache Size
+ROLE	REGIONSERVER	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	REGIONSERVER	regionserver_connectivity_tolerance	false		HBase Region Server Connectivity Tolerance at Startup
+ROLE	REGIONSERVER	hbase_hregion_max_filesize	false	hbase.hregion.max.filesize	HBase Maximum File Size
+ROLE	REGIONSERVER	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	REGIONSERVER	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	REGIONSERVER	hbase_regionserver_dns_interface	false	hbase.regionserver.dns.interface	RegionServer DNS Network Interface
+ROLE	REGIONSERVER	max_log_backup_index	false		RegionServer Maximum Log File Backups
+ROLE	REGIONSERVER	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	REGIONSERVER	regionserver_sync_latency_thresholds	false		HBase RegionServer HDFS Sync Latency Thresholds
+ROLE	REGIONSERVER	hbase_metrics_extended_period	false	hbase.extendedperiod	Extended Period
+ROLE	REGIONSERVER	hbase_regionserver_global_memstore_upperLimit	false	hbase.regionserver.global.memstore.upperLimit	Maximum Size of All Memstores in RegionServer
+ROLE	REGIONSERVER	regionserver_web_metric_collection_thresholds	false		Web Metric Collection Duration
+ROLE	REGIONSERVER	regionserver_host_health_enabled	false		RegionServer Host Health Test
+ROLE	REGIONSERVER	hbase_regionserver_hlog_writer_impl	false	hbase.regionserver.hlog.writer.impl	HLog Writer Implementation
+ROLE	REGIONSERVER	hbase_regionserver_metahandler_count	false	hbase.regionserver.metahandler.count	HBase RegionServer Meta-Handler Count
+ROLE	REGIONSERVER	hbase_regionserver_log_dir	false	hadoop.log.dir	RegionServer Log Directory
+ROLE	REGIONSERVER	regionserver_flush_queue_window	false		HBase RegionServer Flush Queue Monitoring Period
+ROLE	REGIONSERVER	regionserver_read_latency_thresholds	false		HBase RegionServer HDFS Read Latency Thresholds
+ROLE	REGIONSERVER	hbase_hstore_compaction_max	false	hbase.hstore.compaction.max	Maximum Number of HStoreFiles Compaction
+ROLE	REGIONSERVER	hbase_hregion_memstore_mslab_enabled	false	hbase.hregion.memstore.mslab.enabled	Enable MSLAB Allocation Scheme
+ROLE	REGIONSERVER	regionserver_gc_duration_thresholds	false		Garbage Collection Duration Thresholds
+ROLE	REGIONSERVER	regionserver_flush_queue_thresholds	false		HBase RegionServer Flush Queue Monitoring Thresholds
+ROLE	REGIONSERVER	regionserver_compaction_queue_thresholds	false		HBase RegionServer Compaction Queue Monitoring Thresholds
+ROLE	REGIONSERVER	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	REGIONSERVER	hbase_regionserver_msginterval	false	hbase.regionserver.msginterval	HBase RegionServer Message Interval
+ROLE	REGIONSERVER	hbase_regionserver_canary_timeout	false		Canary Timeout
+ROLE	REGIONSERVER	regionserver_gc_duration_window	false		Garbage Collection Duration Monitoring Period
+ROLE	REGIONSERVER	hbase_regionserver_global_memstore_lowerLimit	false	hbase.regionserver.global.memstore.lowerLimit	Low Watermark for Memstore Flush
+ROLE	REGIONSERVER	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	REGIONSERVER	regionserver_scm_health_enabled	false		RegionServer Process Health Test
+ROLE	REGIONSERVER	hbase_regionserver_port	false	hbase.regionserver.port	HBase RegionServer Port
+ROLE	REGIONSERVER	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	REGIONSERVER	hbase_hstore_blockingWaitTime	false	hbase.hstore.blockingWaitTime	HStore Blocking Wait Time
+ROLE	REGIONSERVER	hbase_hregion_memstore_mslab_chunksize	false	hbase.hregion.memstore.mslab.chunksize	Chunk Size Allocated by MSLAB Allocation Scheme
+ROLE	REGIONSERVER	hbase_regionserver_config_safety_valve	false		RegionServer Advanced Configuration Snippet (Safety Valve) for hbase-site.xml
+ROLE	REGIONSERVER	hbase_regionserver_canary_interval	false		Canary Interval
+ROLE	REGIONSERVER	hbase_hash_type	false	hbase.hash.type	HBase Hash Type
+ROLE	REGIONSERVER	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	REGIONSERVER	hadoop_metrics2_safety_valve	false		Hadoop Metrics2 Advanced Configuration Snippet (Safety Valve)
+ROLE	REGIONSERVER	hbase_regionserver_regionSplitLimit	false	hbase.regionserver.regionSplitLimit	HBase Region Split Limit
+ROLE	REGIONSERVER	hbase_hregion_memstore_block_multiplier	false	hbase.hregion.memstore.block.multiplier	HBase Memstore Block Multiplier
+ROLE	REGIONSERVER	hbase_regionserver_lease_period	false	hbase.client.scanner.timeout.period	HBase RegionServer Lease Period
+ROLE	REGIONSERVER	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	REGIONSERVER	hbase_regionserver_java_heapsize	false		Java Heap Size of HBase RegionServer in Bytes
+ROLE	REGIONSERVER	role_triggers	false		Role Triggers
+ROLE	REGIONSERVER	hbase_coprocessor_region_classes	false	hbase.coprocessor.region.classes	HBase Coprocessor Region Classes
+ROLE	REGIONSERVER	hbase_regionserver_class	false	hbase.regionserver.class	HBase RegionServer Interface Class
+ROLE	REGIONSERVER	regionserver_store_file_idx_size_thresholds	false		Percentage of Heap Used by HStoreFile Index
+ROLE	REGIONSERVER	regionserver_web_metric_collection_enabled	false		Web Metric Collection
+ROLE	REGIONSERVER	regionserver_compaction_queue_window	false		HBase RegionServer Compaction Queue Monitoring Period
+ROLE	REGIONSERVER	hbase_regionserver_hlog_reader_impl	false	hbase.regionserver.hlog.reader.impl	HLog Reader Implementation
+ROLE	HBASERESTSERVER	hbase_restserver_readonly	false	hbase.rest.readonly	Enable HBase REST Server Read Only Mode
+ROLE	HBASERESTSERVER	log_threshold	false		HBase REST Server Logging Threshold
+ROLE	HBASERESTSERVER	hbase_restserver_threads_max	false	hbase.rest.threads.max	HBase REST Server Maximum Threads
+ROLE	HBASERESTSERVER	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	HBASERESTSERVER	hbaserestserver_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	HBASERESTSERVER	hbase_restserver_threads_min	false	hbase.rest.threads.min	HBase REST Server Minimum Threads
+ROLE	HBASERESTSERVER	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	HBASERESTSERVER	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	HBASERESTSERVER	hbase_restserver_info_port	false	hbase.rest.info.port	HBase REST Server Web UI Port
+ROLE	HBASERESTSERVER	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	HBASERESTSERVER	process_auto_restart	false		Automatically Restart Process
+ROLE	HBASERESTSERVER	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	HBASERESTSERVER	log_event_whitelist	false		Rules to Extract Events from Log Files
+ROLE	HBASERESTSERVER	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	HBASERESTSERVER	hbaserestserver_host_health_enabled	false		HBase REST Server Host Health Test
+ROLE	HBASERESTSERVER	hbase_restserver_info_bind_to_wildcard	false	hbase.rest.info.bindAddress	HBase REST Server Web UI Bind to Wildcard Address
+ROLE	HBASERESTSERVER	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	HBASERESTSERVER	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	HBASERESTSERVER	log4j_safety_valve	false		HBase REST Server Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	HBASERESTSERVER	max_log_size	false		HBase REST Server Max Log Size
+ROLE	HBASERESTSERVER	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	HBASERESTSERVER	hbase_restserver_dns_nameserver	false	hbase.rest.dns.nameserver	HBase REST Server DNS Name Server
+ROLE	HBASERESTSERVER	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	HBASERESTSERVER	hbase_restserver_host	false	hbase.rest.host	HBase REST Server Host Address
+ROLE	HBASERESTSERVER	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	HBASERESTSERVER	hbase_restserver_config_safety_valve	false		HBase REST Server Advanced Configuration Snippet (Safety Valve) for hbase-site.xml
+ROLE	HBASERESTSERVER	role_triggers	false		Role Triggers
+ROLE	HBASERESTSERVER	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	HBASERESTSERVER	hbase_restserver_java_opts	false		Java Configuration Options for HBase REST Server
+ROLE	HBASERESTSERVER	hbase_restserver_java_heapsize	false		Java Heap Size of HBase REST Server in Bytes
+ROLE	HBASERESTSERVER	hbase_restserver_log_dir	false	hadoop.log.dir	HBase REST Server Log Directory
+ROLE	HBASERESTSERVER	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	HBASERESTSERVER	max_log_backup_index	false		HBase REST Server Maximum Log File Backups
+ROLE	HBASERESTSERVER	hbaserestserver_scm_health_enabled	false		HBase REST Server Process Health Test
+ROLE	HBASERESTSERVER	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	HBASERESTSERVER	hbase_restserver_dns_interface	false	hbase.rest.dns.interface	HBase REST Server DNS Network Interface
+ROLE	HBASERESTSERVER	hbase_restserver_port	false	hbase.rest.port	HBase REST Server Port
+SERVICE	YARN	hdfs_service	true		HDFS Service
+SERVICE	YARN	yarn_scheduler_fair_allow_undeclared_pools	false	yarn.scheduler.fair.allow-undeclared-pools	Allow Undeclared Pools
+SERVICE	YARN	ssl_client_truststore_password	false	ssl.client.truststore.password	Hadoop SSL Client Truststore File Password
+SERVICE	YARN	admin_application_list_settings	false		Admin Users Applications List Visibility Settings
+SERVICE	YARN	hdfs_proxy_user_hosts_list	false	hadoop.proxyuser.hdfs.hosts	HDFS Proxy User Hosts
+SERVICE	YARN	smon_derived_configs_safety_valve	false		Service Monitor Derived Configs Advanced Configuration Snippet (Safety Valve)
+SERVICE	YARN	catch_events	false		Enable Log Event Capture
+SERVICE	YARN	oozie_proxy_user_hosts_list	false	hadoop.proxyuser.oozie.hosts	Oozie Proxy User Hosts
+SERVICE	YARN	yarn_standby_resourcemanager_health_enabled	false		Standby ResourceManager Health Check
+SERVICE	YARN	yarn_application_aggregates	false		YARN Application Aggregates
+SERVICE	YARN	hadoop_secure_web_ui	false		Enable Authentication for HTTP Web-Consoles
+SERVICE	YARN	hdfs_proxy_user_groups_list	false	hadoop.proxyuser.hdfs.groups	HDFS Proxy User Groups
+SERVICE	YARN	hive_proxy_user_groups_list	false	hadoop.proxyuser.hive.groups	Hive Proxy User Groups
+SERVICE	YARN	enable_alerts	false		Enable Service Level Health Alerts
+SERVICE	YARN	yarn_admin_acl	false	yarn.admin.acl	Admin ACL
+SERVICE	YARN	yarn_service_cgroups	false	yarn.nodemanager.linux-container-executor.resources-handler.class	Use CGroups for Resource Management
+SERVICE	YARN	yarn_jobhistoryserver_health_enabled	false		JobHistory Server Role Health Test
+SERVICE	YARN	service_triggers	false		Service Triggers
+SERVICE	YARN	yarn_active_resourcemanager_detecton_window	false		Active ResourceManager Detection Window
+SERVICE	YARN	yarn_fs_scheduled_allocations	false		Fair Scheduler Allocations
+SERVICE	YARN	llama_proxy_user_groups_list	false	hadoop.proxyuser.llama.groups	Llama Proxy User Groups
+SERVICE	YARN	yarn_ssl_server_safety_valve	false		YARN (MR2 Included) Service Advanced Configuration Snippet (Safety Valve) for ssl-server.xml
+SERVICE	YARN	yarn_application_classpath	false	yarn.application.classpath	YARN Application Classpath
+SERVICE	YARN	yarn_log_aggregation_enable	false	yarn.log-aggregation-enable	Enable Log Aggregation
+SERVICE	YARN	hue_proxy_user_hosts_list	false	hadoop.proxyuser.hue.hosts	Hue Proxy User Hosts
+SERVICE	YARN	process_groupname	false		System Group
+SERVICE	YARN	hive_proxy_user_hosts_list	false	hadoop.proxyuser.hive.hosts	Hive Proxy User Hosts
+SERVICE	YARN	yarn_resourcemanager_activation_startup_tolerance	false		ResourceManager Activation Startup Tolerance
+SERVICE	YARN	yarn_log_aggregation_retain_seconds	false	yarn.log-aggregation.retain-seconds	Log Aggregation Retention Period
+SERVICE	YARN	ssl_server_keystore_keypassword	false	ssl.server.keystore.keypassword	Hadoop SSL Server Keystore Key Password
+SERVICE	YARN	yarn_service_env_safety_valve	false		YARN Service Environment Advanced Configuration Snippet (Safety Valve)
+SERVICE	YARN	oozie_proxy_user_groups_list	false	hadoop.proxyuser.oozie.groups	Oozie Proxy User Groups
+SERVICE	YARN	yarn_resourcemanagers_health_enabled	false		Active ResourceManager Role Health Check
+SERVICE	YARN	yarn_service_lce_always	false	yarn.nodemanager.container-executor.class	Always Use Linux Container Executor
+SERVICE	YARN	yarn_nodemanager_linux_container_executor_nonsecure_mode_local_user	false	yarn.nodemanager.linux-container-executor.nonsecure-mode.local-user	UNIX User for Nonsecure Mode with Linux Container Executor
+SERVICE	YARN	user_application_list_settings	false		Non-Admin Users Applications List Visibility Settings
+SERVICE	YARN	yarn_nodemanagers_healthy_thresholds	false		Healthy NodeManager Monitoring Thresholds
+SERVICE	YARN	ssl_server_keystore_location	false	ssl.server.keystore.location	Hadoop SSL Server Keystore File Location
+SERVICE	YARN	zookeeper_service	false		ZooKeeper Service
+SERVICE	YARN	yarn_hadoop_policy_config_safety_valve	false		YARN Service Advanced Configuration Snippet (Safety Valve) for hadoop-policy.xml
+SERVICE	YARN	yarn_rm_ha_cluster_id	false	yarn.resourcemanager.cluster-id	RM-HA Cluster ID
+SERVICE	YARN	yarn_service_mapred_safety_valve	false		YARN Service MapReduce Advanced Configuration Snippet (Safety Valve)
+SERVICE	YARN	ssl_client_truststore_location	false	ssl.client.truststore.location	Hadoop SSL Client Truststore File Location
+SERVICE	YARN	process_username	false		System User
+SERVICE	YARN	yarn_ssl_client_safety_valve	false		YARN (MR2 Included) Service Advanced Configuration Snippet (Safety Valve) for ssl-client.xml
+SERVICE	YARN	hue_proxy_user_groups_list	false	hadoop.proxyuser.hue.groups	Hue Proxy User Groups
+SERVICE	YARN	enable_config_alerts	false		Enable Configuration Change Alerts
+SERVICE	YARN	ssl_server_keystore_password	false	ssl.server.keystore.password	Hadoop SSL Server Keystore File Password
+SERVICE	YARN	yarn_fs_schedule_rules	false		Fair Scheduler Configuration Rules
+SERVICE	YARN	llama_proxy_user_hosts_list	false	hadoop.proxyuser.llama.hosts	Llama Proxy User Hosts
+SERVICE	YARN	yarn_service_config_safety_valve	false		YARN Service Advanced Configuration Snippet (Safety Valve) for yarn-site.xml
+SERVICE	YARN	log_event_retry_frequency	false		Log Event Retry Frequency
+SERVICE	YARN	yarn_acl_enable	false	yarn.acl.enable	Enable ResourceManager ACLs
+SERVICE	YARN	hdfs_user_home_dir	false		System User's Home Directory
+ROLE	NODEMANAGER	yarn_nodemanager_env_whitelist	false	yarn.nodemanager.env-whitelist	Containers Environment Variables Whitelist 
+ROLE	NODEMANAGER	yarn_nodemanager_container_manager_thread_count	false	yarn.nodemanager.container-manager.thread-count	Container Manager Thread Count
+ROLE	NODEMANAGER	nodemanager_connectivity_tolerance_seconds	false		NodeManager Connectivity Tolerance at Startup
+ROLE	NODEMANAGER	log_threshold	false		NodeManager Logging Threshold
+ROLE	NODEMANAGER	nodemanager_mapred_safety_valve	false		NodeManager Advanced Configuration Snippet (Safety Valve) for mapred-site.xml
+ROLE	NODEMANAGER	yarn_nodemanager_admin_env	false	yarn.nodemanager.admin-env	Containers Environment Variable
+ROLE	NODEMANAGER	mapreduce_aux_service	false		Enable Shuffle Auxiliary Service
+ROLE	NODEMANAGER	nodemanager_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	NODEMANAGER	yarn_nodemanager_localizer_cache_cleanup_interval_ms	false	yarn.nodemanager.localizer.cache.cleanup.interval-ms	Localizer Cache Cleanup Interval
+ROLE	NODEMANAGER	yarn_nodemanager_localizer_address	false	yarn.nodemanager.localizer.address	Localizer Port
+ROLE	NODEMANAGER	nodemanager_webserver_port	false	yarn.nodemanager.webapp.address	NodeManager Web Application HTTP Port
+ROLE	NODEMANAGER	yarn_nodemanager_resource_memory_mb	false	yarn.nodemanager.resource.memory-mb	Container Memory
+ROLE	NODEMANAGER	mapred_healthchecker_script_path	false	yarn.nodemanager.health-checker.script.path	Healthchecker Script Path
+ROLE	NODEMANAGER	nodemanager_gc_duration_thresholds	false		Garbage Collection Duration Thresholds
+ROLE	NODEMANAGER	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	NODEMANAGER	nodemanager_web_metric_collection_thresholds	false		Web Metric Collection Duration
+ROLE	NODEMANAGER	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	NODEMANAGER	process_auto_restart	false		Automatically Restart Process
+ROLE	NODEMANAGER	nodemanager_config_safety_valve	false		NodeManager Advanced Configuration Snippet (Safety Valve) for yarn-site.xml
+ROLE	NODEMANAGER	log_event_whitelist	false		Rules to Extract Events from Log Files
+ROLE	NODEMANAGER	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	NODEMANAGER	yarn_nodemanager_heartbeat_interval_ms	false	yarn.resourcemanager.nodemanagers.heartbeat-interval-ms	Heartbeat Interval
+ROLE	NODEMANAGER	nodemanager_web_metric_collection_enabled	false		Web Metric Collection
+ROLE	NODEMANAGER	yarn_nodemanager_remote_app_log_dir_suffix	false	yarn.nodemanager.remote-app-log-dir-suffix	Remote App Log Directory Suffix
+ROLE	NODEMANAGER	nodemanager_scm_health_enabled	false		NodeManager Process Health Test
+ROLE	NODEMANAGER	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	NODEMANAGER	log4j_safety_valve	false		NodeManager Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	NODEMANAGER	max_log_size	false		NodeManager Max Log Size
+ROLE	NODEMANAGER	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	NODEMANAGER	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	NODEMANAGER	container_executor_allowed_system_users	false	allowed.system.users	Allowed System Users
+ROLE	NODEMANAGER	linux_container_executor_cgroups_hierarchy	false	yarn.nodemanager.linux-container-executor.cgroups.hierarchy	CGroups Hierarchy
+ROLE	NODEMANAGER	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	NODEMANAGER	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	NODEMANAGER	yarn_nodemanager_resource_cpu_vcores	false	yarn.nodemanager.resource.cpu-vcores	Container Virtual CPU Cores
+ROLE	NODEMANAGER	max_log_backup_index	false		NodeManager Maximum Log File Backups
+ROLE	NODEMANAGER	yarn_nodemanager_localizer_cache_target_size_mb	false	yarn.nodemanager.localizer.cache.target-size-mb	Localizer Cache Target Size
+ROLE	NODEMANAGER	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	NODEMANAGER	nodemanager_connectivity_health_enabled	false		NodeManager Connectivity Health Check
+ROLE	NODEMANAGER	node_manager_java_opts	false		Java Configuration Options for NodeManager
+ROLE	NODEMANAGER	node_manager_log_dir	false	hadoop.log.dir	NodeManager Log Directory
+ROLE	NODEMANAGER	yarn_nodemanager_address	false	yarn.nodemanager.address	NodeManager IPC Address
+ROLE	NODEMANAGER	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	NODEMANAGER	mapred_healthchecker_script_args	false	yarn.nodemanager.health-checker.script.opts	Healthchecker Script Arguments
+ROLE	NODEMANAGER	yarn_nodemanager_local_dirs	true	yarn.nodemanager.local-dirs	NodeManager Local Directory List
+ROLE	NODEMANAGER	yarn_nodemanager_delete_thread_count	false	yarn.nodemanager.delete.thread-count	Cleanup Thread Count
+ROLE	NODEMANAGER	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	NODEMANAGER	container_executor_min_user_id	false	min.user.id	Minimum User ID
+ROLE	NODEMANAGER	nodemanager_host_health_enabled	false		NodeManager Host Health Test
+ROLE	NODEMANAGER	container_executor_group	false	yarn.nodemanager.linux-container-executor.group	Container Executor Group
+ROLE	NODEMANAGER	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	NODEMANAGER	yarn_nodemanager_localizer_client_thread_count	false	yarn.nodemanager.localizer.client.thread-count	Localizer Client Thread Count
+ROLE	NODEMANAGER	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	NODEMANAGER	hadoop_metrics2_safety_valve	false		Hadoop Metrics2 Advanced Configuration Snippet (Safety Valve)
+ROLE	NODEMANAGER	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	NODEMANAGER	nodemanager_webserver_https_port	false	yarn.nodemanager.webapp.https.address	NodeManager Web Application HTTPS Port (SSL)
+ROLE	NODEMANAGER	yarn_nodemanager_delete_debug_delay_sec	false	yarn.nodemanager.delete.debug-delay-sec	Localized Dir Deletion Delay
+ROLE	NODEMANAGER	role_triggers	false		Role Triggers
+ROLE	NODEMANAGER	nodemanager_gc_duration_window	false		Garbage Collection Duration Monitoring Period
+ROLE	NODEMANAGER	yarn_nodemanager_log_dirs	false	yarn.nodemanager.log-dirs	NodeManager Container Log Directories
+ROLE	NODEMANAGER	node_manager_java_heapsize	false		Java Heap Size of NodeManager in Bytes
+ROLE	NODEMANAGER	yarn_nodemanager_localizer_fetch_thread_count	false	yarn.nodemanager.localizer.fetch.thread-count	Localizer Fetch Thread Count
+ROLE	NODEMANAGER	yarn_nodemanager_log_retain_seconds	false	yarn.nodemanager.log.retain-seconds	Log Retain Duration
+ROLE	NODEMANAGER	yarn_nodemanager_remote_app_log_dir	false	yarn.nodemanager.remote-app-log-dir	Remote App Log Directory
+ROLE	JOBHISTORY	yarn_jobhistory_bind_wildcard	false		Bind JobHistory Server to Wildcard Address
+ROLE	JOBHISTORY	jobhistory_web_metric_collection_thresholds	false		Web Metric Collection Duration
+ROLE	JOBHISTORY	yarn_app_mapreduce_am_staging_dir	false	yarn.app.mapreduce.am.staging-dir	MapReduce ApplicationMaster Staging Root Directory
+ROLE	JOBHISTORY	mapreduce_jobhistory_max_age_ms	false	mapreduce.jobhistory.max-age-ms	Job History Files Maximum Age
+ROLE	JOBHISTORY	log_threshold	false		JobHistory Server Logging Threshold
+ROLE	JOBHISTORY	mapreduce_jobhistory_webapp_address	false	mapreduce.jobhistory.webapp.address	MapReduce JobHistory Web Application HTTP Port
+ROLE	JOBHISTORY	mr2_jobhistory_java_heapsize	false		Java Heap Size of JobHistory Server in Bytes
+ROLE	JOBHISTORY	jobhistory_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	JOBHISTORY	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	JOBHISTORY	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	JOBHISTORY	mapreduce_jobhistory_address	false	mapreduce.jobhistory.address	MapReduce JobHistory Server Port
+ROLE	JOBHISTORY	mapreduce_jobhistory_webapp_https_address	false	mapreduce.jobhistory.webapp.https.address	MapReduce JobHistory Web Application HTTPS Port (SSL)
+ROLE	JOBHISTORY	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	JOBHISTORY	jobhistory_gc_duration_thresholds	false		Garbage Collection Duration Thresholds
+ROLE	JOBHISTORY	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	JOBHISTORY	process_auto_restart	false		Automatically Restart Process
+ROLE	JOBHISTORY	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	JOBHISTORY	log_event_whitelist	false		Rules to Extract Events from Log Files
+ROLE	JOBHISTORY	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	JOBHISTORY	jobhistory_mapred_safety_valve	false		JobHistory Server Advanced Configuration Snippet (Safety Valve) for mapred-site.xml
+ROLE	JOBHISTORY	mapreduce_jobhistory_cleaner_interval	false	mapreduce.jobhistory.cleaner.interval	Job History Files Cleaner Interval
+ROLE	JOBHISTORY	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	JOBHISTORY	mr2_jobhistory_java_opts	false		Java Configuration Options for JobHistory Server
+ROLE	JOBHISTORY	jobhistory_scm_health_enabled	false		JobHistory Server Process Health Test
+ROLE	JOBHISTORY	jobhistory_web_metric_collection_enabled	false		Web Metric Collection
+ROLE	JOBHISTORY	history_process_groupname	false		System Group
+ROLE	JOBHISTORY	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	JOBHISTORY	log4j_safety_valve	false		JobHistory Server Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	JOBHISTORY	max_log_size	false		JobHistory Server Max Log Size
+ROLE	JOBHISTORY	jobhistory_gc_duration_window	false		Garbage Collection Duration Monitoring Period
+ROLE	JOBHISTORY	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	JOBHISTORY	jobhistory_config_safety_valve	false		JobHistory Server Advanced Configuration Snippet (Safety Valve) for yarn-site.xml
+ROLE	JOBHISTORY	history_process_username	false		System User
+ROLE	JOBHISTORY	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	JOBHISTORY	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	JOBHISTORY	role_triggers	false		Role Triggers
+ROLE	JOBHISTORY	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	JOBHISTORY	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	JOBHISTORY	mr2_jobhistory_log_dir	false	hadoop.log.dir	JobHistory Server Log Directory
+ROLE	JOBHISTORY	max_log_backup_index	false		JobHistory Server Maximum Log File Backups
+ROLE	JOBHISTORY	jobhistory_host_health_enabled	false		JobHistory Server Host Health Test
+ROLE	JOBHISTORY	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	RESOURCEMANAGER	resourcemanager_gc_duration_thresholds	false		Garbage Collection Duration Thresholds
+ROLE	RESOURCEMANAGER	yarn_resourcemanager_admin_client_thread_count	false	yarn.resourcemanager.admin.client.thread-count	Admin Client Thread Count
+ROLE	RESOURCEMANAGER	yarn_scheduler_increment_allocation_vcores	false	yarn.scheduler.increment-allocation-vcores	Container Virtual CPU Cores Increment
+ROLE	RESOURCEMANAGER	yarn_resourcemanager_container_liveness_monitor_interval_ms	false	yarn.resourcemanager.container.liveness-monitor.interval-ms	Container Monitor Interval
+ROLE	RESOURCEMANAGER	yarn_resourcemanager_scheduler_address	false	yarn.resourcemanager.scheduler.address	Scheduler Address
+ROLE	RESOURCEMANAGER	log_threshold	false		ResourceManager Logging Threshold
+ROLE	RESOURCEMANAGER	resourcemanager_fair_scheduler_locality_threshold_node	false	yarn.scheduler.fair.locality.threshold.node	Fair Scheduler Node Locality Threshold
+ROLE	RESOURCEMANAGER	yarn_resourcemanager_recovery_enabled	false	yarn.resourcemanager.recovery.enabled	Enable ResourceManager Recovery
+ROLE	RESOURCEMANAGER	resourcemanager_web_metric_collection_enabled	false		Web Metric Collection
+ROLE	RESOURCEMANAGER	resourcemanager_fair_scheduler_size_based_weight	false	yarn.scheduler.fair.sizebasedweight	Fair Scheduler Size-Based Weight
+ROLE	RESOURCEMANAGER	resourcemanager_startup_tolerance_minutes	false		Health Check Startup Tolerance
+ROLE	RESOURCEMANAGER	yarn_scheduler_minimum_allocation_vcores	false	yarn.scheduler.minimum-allocation-vcores	Container Virtual CPU Cores Minimum
+ROLE	RESOURCEMANAGER	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	RESOURCEMANAGER	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	RESOURCEMANAGER	yarn_nm_liveness_monitor_expiry_interval_ms	false	yarn.nm.liveness-monitor.expiry-interval-ms	NodeManager Monitor Expiry
+ROLE	RESOURCEMANAGER	yarn_scheduler_maximum_allocation_mb	false	yarn.scheduler.maximum-allocation-mb	Container Memory Maximum
+ROLE	RESOURCEMANAGER	resource_manager_java_opts	false		Java Configuration Options for ResourceManager
+ROLE	RESOURCEMANAGER	process_auto_restart	false		Automatically Restart Process
+ROLE	RESOURCEMANAGER	yarn_resourcemanager_address	false	yarn.resourcemanager.address	ResourceManager Address
+ROLE	RESOURCEMANAGER	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	RESOURCEMANAGER	log_event_whitelist	false		Rules to Extract Events from Log Files
+ROLE	RESOURCEMANAGER	yarn_resourcemanager_resource_tracker_address	false	yarn.resourcemanager.resource-tracker.address	Resource Tracker Address
+ROLE	RESOURCEMANAGER	resourcemanager_config_safety_valve	false		ResourceManager Advanced Configuration Snippet (Safety Valve) for yarn-site.xml
+ROLE	RESOURCEMANAGER	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	RESOURCEMANAGER	log4j_safety_valve	false		ResourceManager Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	RESOURCEMANAGER	max_log_size	false		ResourceManager Max Log Size
+ROLE	RESOURCEMANAGER	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	RESOURCEMANAGER	resourcemanager_webserver_https_port	false	yarn.resourcemanager.webapp.https.address	ResourceManager Web Application HTTPS Port (SSL)
+ROLE	RESOURCEMANAGER	resourcemanager_webserver_port	false	yarn.resourcemanager.webapp.address	ResourceManager Web Application HTTP Port
+ROLE	RESOURCEMANAGER	resource_manager_log_dir	false	hadoop.log.dir	ResourceManager Log Directory
+ROLE	RESOURCEMANAGER	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	RESOURCEMANAGER	resourcemanager_mapred_safety_valve	false		ResourceManager Advanced Configuration Snippet (Safety Valve) for mapred-site.xml
+ROLE	RESOURCEMANAGER	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	RESOURCEMANAGER	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	RESOURCEMANAGER	max_log_backup_index	false		ResourceManager Maximum Log File Backups
+ROLE	RESOURCEMANAGER	yarn_resourcemanager_admin_address	false	yarn.resourcemanager.admin.address	Administration Address
+ROLE	RESOURCEMANAGER	resourcemanager_web_metric_collection_thresholds	false		Web Metric Collection Duration
+ROLE	RESOURCEMANAGER	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	RESOURCEMANAGER	yarn_rm_bind_wildcard	false		Bind ResourceManager to Wildcard Address
+ROLE	RESOURCEMANAGER	yarn_scheduler_increment_allocation_mb	false	yarn.scheduler.increment-allocation-mb	Container Memory Increment
+ROLE	RESOURCEMANAGER	resourcemanager_fair_scheduler_preemption	false	yarn.scheduler.fair.preemption	Fair Scheduler Preemption
+ROLE	RESOURCEMANAGER	rm_hosts_allow_safety_valve	false		ResourceManager Advanced Configuration Snippet (Safety Valve) for nodes_allow.txt
+ROLE	RESOURCEMANAGER	yarn_resourcemanager_nm_liveness_monitor_interval_ms	false	yarn.resourcemanager.nm.liveness-monitor.interval-ms	NodeManager Monitor Interval
+ROLE	RESOURCEMANAGER	resourcemanager_fair_scheduler_assign_multiple	false	yarn.scheduler.fair.assignmultiple	Fair Scheduler Assign Multiple Tasks
+ROLE	RESOURCEMANAGER	resourcemanager_host_health_enabled	false		ResourceManager Host Health Test
+ROLE	RESOURCEMANAGER	resourcemanager_gc_duration_window	false		Garbage Collection Duration Monitoring Period
+ROLE	RESOURCEMANAGER	yarn_scheduler_maximum_allocation_vcores	false	yarn.scheduler.maximum-allocation-vcores	Container Virtual CPU Cores Maximum
+ROLE	RESOURCEMANAGER	resourcemanager_fair_scheduler_locality_threshold_rack	false	yarn.scheduler.fair.locality.threshold.rack	Fair Scheduler Rack Locality Threshold
+ROLE	RESOURCEMANAGER	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	RESOURCEMANAGER	yarn_resourcemanager_resource_tracker_client_thread_count	false	yarn.resourcemanager.resource-tracker.client.thread-count	Resource Tracker Thread Count
+ROLE	RESOURCEMANAGER	yarn_resourcemanager_client_thread_count	false	yarn.resourcemanager.client.thread-count	Client Thread Count
+ROLE	RESOURCEMANAGER	rm_hosts_exclude_safety_valve	false		ResourceManager Advanced Configuration Snippet (Safety Valve) for nodes_exclude.txt
+ROLE	RESOURCEMANAGER	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	RESOURCEMANAGER	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	RESOURCEMANAGER	yarn_resourcemanager_amliveliness_monitor_interval_ms	false	yarn.resourcemanager.amliveliness-monitor.interval-ms	ApplicationMaster Monitor Interval
+ROLE	RESOURCEMANAGER	yarn_scheduler_fair_continuous_scheduling_enabled	false	yarn.scheduler.fair.continuous-scheduling-enabled	Enable Fair Scheduler Continuous Scheduling
+ROLE	RESOURCEMANAGER	yarn_am_liveness_monitor_expiry_interval_ms	false	yarn.am.liveness-monitor.expiry-interval-ms	ApplicationMaster Monitor Expiry
+ROLE	RESOURCEMANAGER	yarn_resourcemanager_scheduler_class	false	yarn.resourcemanager.scheduler.class	Scheduler Class
+ROLE	RESOURCEMANAGER	resourcemanager_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	RESOURCEMANAGER	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	RESOURCEMANAGER	yarn_resourcemanager_max_completed_applications	false	yarn.resourcemanager.max-completed-applications	Max Completed Applications
+ROLE	RESOURCEMANAGER	hadoop_metrics2_safety_valve	false		Hadoop Metrics2 Advanced Configuration Snippet (Safety Valve)
+ROLE	RESOURCEMANAGER	resourcemanager_fair_scheduler_user_as_default_queue	false	yarn.scheduler.fair.user-as-default-queue	Fair Scheduler User As Default Queue
+ROLE	RESOURCEMANAGER	yarn_scheduler_fair_locality_delay_node_ms	false	yarn.scheduler.fair.locality-delay-node-ms	Fair Scheduler Node Locality Delay
+ROLE	RESOURCEMANAGER	yarn_scheduler_fair_locality_delay_rack_ms	false	yarn.scheduler.fair.locality-delay-rack-ms	Fair Scheduler Rack Locality Delay
+ROLE	RESOURCEMANAGER	resourcemanager_fair_scheduler_configuration	false		Fair Scheduler XML Advanced Configuration Snippet (Safety Valve)
+ROLE	RESOURCEMANAGER	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	RESOURCEMANAGER	resourcemanager_scm_health_enabled	false		ResourceManager Process Health Test
+ROLE	RESOURCEMANAGER	resource_manager_java_heapsize	false		Java Heap Size of ResourceManager in Bytes
+ROLE	RESOURCEMANAGER	role_triggers	false		Role Triggers
+ROLE	RESOURCEMANAGER	yarn_scheduler_minimum_allocation_mb	false	yarn.scheduler.minimum-allocation-mb	Container Memory Minimum
+ROLE	RESOURCEMANAGER	resourcemanager_capacity_scheduler_configuration	false		Capacity Scheduler Configuration
+ROLE	RESOURCEMANAGER	yarn_resourcemanager_am_max_retries	false	yarn.resourcemanager.am.max-attempts	ApplicationMaster Maximum Attempts
+ROLE	RESOURCEMANAGER	yarn_resourcemanager_scheduler_client_thread_count	false	yarn.resourcemanager.scheduler.client.thread-count	Scheduler Thread Count
+SERVICE	HIVE	audit_event_log_dir	false	audit_event_log_dir	Audit Log Directory
+SERVICE	HIVE	mapreduce_yarn_service	true		MapReduce Service
+SERVICE	HIVE	hive_warehouse_directory	false	hive.metastore.warehouse.dir	Hive Warehouse Directory
+SERVICE	HIVE	smon_derived_configs_safety_valve	false		Service Monitor Derived Configs Advanced Configuration Snippet (Safety Valve)
+SERVICE	HIVE	sentry_metastore_service_users	false	sentry.metastore.service.users	Bypass Sentry Authorization Users
+SERVICE	HIVE	hive_metastore_database_password	false	javax.jdo.option.ConnectionPassword	Hive Metastore Database Password
+SERVICE	HIVE	hive_max_reducers	false	hive.exec.reducers.max	Hive Max Reducers
+SERVICE	HIVE	hive_sentry_provider	false	hive.sentry.provider	Sentry User to Group Mapping Class
+SERVICE	HIVE	navigator_event_tracker	false	navigator_event_tracker	Event Tracker
+SERVICE	HIVE	oozie_proxy_user_hosts_list	false	hadoop.proxyuser.oozie.hosts	Oozie Proxy User Hosts
+SERVICE	HIVE	hive_metastore_database_port	false		Hive Metastore Database Port
+SERVICE	HIVE	navigator_audit_log_max_backup_index	false	navigator.audit_log_max_backup_index	Number of Audit Logs to Retain
+SERVICE	HIVE	hive_server2_sentry_safety_valve	false		Hive Service Advanced Configuration Snippet (Safety Valve) for sentry-site.xml
+SERVICE	HIVE	hive_proxy_user_groups_list	false	hadoop.proxyuser.hive.groups	Hive Metastore Access Control and Proxy User Groups Override
+SERVICE	HIVE	enable_alerts	false		Enable Service Level Health Alerts
+SERVICE	HIVE	hiveserver2_keystore_password	false	hive.server2.keystore.password	Keystore Password
+SERVICE	HIVE	hive_hiveserver2s_healthy_thresholds	false		Healthy HiveServer2 Monitoring Thresholds
+SERVICE	HIVE	navigator_audit_enabled	false		Enable Collection
+SERVICE	HIVE	hiveserver2_keystore_path	false	hive.server2.keystore.path	Keystore File Path
+SERVICE	HIVE	service_triggers	false		Service Triggers
+SERVICE	HIVE	navigator_audit_event_filter	false	navigator.event.filter	Event Filter
+SERVICE	HIVE	hive_aux_jars_path_dir	false		Hive Auxiliary JARs Directory
+SERVICE	HIVE	hive_reduce_tasks	false	mapred.reduce.tasks	Hive Reduce Tasks
+SERVICE	HIVE	hive_webhcats_healthy_thresholds	false		Healthy WebHCat Server Monitoring Thresholds
+SERVICE	HIVE	hive_service_env_safety_valve	false		Hive Service Environment Advanced Configuration Snippet (Safety Valve)
+SERVICE	HIVE	hive_metastore_database_datanucleus_metadata_validation	false	datanucleus.metadata.validate	Hive Metastore Database DataNucleus Metadata Validation
+SERVICE	HIVE	hive_metastore_schema_verification	false	hive.metastore.schema.verification	Strict Hive Metastore Schema Validation
+SERVICE	HIVE	navigator_audit_log_max_file_size	false	navigator.audit_log_max_file_size	Maximum Audit Log File Size
+SERVICE	HIVE	hive_bytes_per_reducer	false	hive.exec.reducers.bytes.per.reducer	Hive Bytes Per Reducer
+SERVICE	HIVE	process_groupname	false		System Group
+SERVICE	HIVE	navigator_client_config_safety_valve	false		Hive Client Advanced Configuration Snippet (Safety Valve) for navigator.client.properties
+SERVICE	HIVE	smon_client_config_overrides	false		Service Monitor Client Config Overrides
+SERVICE	HIVE	hive_bypass_metastore_server	false		Bypass Hive Metastore Server
+SERVICE	HIVE	navigator_audit_queue_policy	false	navigator.batch.queue_policy	Queue Policy
+SERVICE	HIVE	sentry_allow_uri_db_policyfile	false	sentry.allow.uri.db.policyfile	Allow URIs in Database Policy File
+SERVICE	HIVE	sentry_enabled	false	hive.sentry.enabled	Enable Sentry Authorization using Policy Files
+SERVICE	HIVE	hive_metastore_database_auto_create_schema	false	datanucleus.autoCreateSchema	Auto Create and Upgrade Hive Metastore Database Schema
+SERVICE	HIVE	hive_set_ugi	false	hive.metastore.execute.setugi	Set User and Group Information
+SERVICE	HIVE	hiveserver2_enable_ssl	false	hive.server2.use.SSL	Enable SSL for HiveServer
+SERVICE	HIVE	oozie_proxy_user_groups_list	false	hadoop.proxyuser.oozie.groups	Oozie Proxy User Groups
+SERVICE	HIVE	hive_hivemetastores_healthy_thresholds	false		Healthy Hive Metastore Server Monitoring Thresholds
+SERVICE	HIVE	hive_service_config_safety_valve	false		Hive Service Advanced Configuration Snippet (Safety Valve) for hive-site.xml
+SERVICE	HIVE	hive_metastore_database_host	false		Hive Metastore Database Host
+SERVICE	HIVE	zookeeper_service	false		ZooKeeper Service
+SERVICE	HIVE	hive_metastore_database_name	false		Hive Metastore Database Name
+SERVICE	HIVE	hive_metastore_database_user	false	javax.jdo.option.ConnectionUserName	Hive Metastore Database User
+SERVICE	HIVE	process_username	false		System User
+SERVICE	HIVE	hive_sentry_provider_resource	false	hive.sentry.provider.resource	Sentry Global Policy File
+SERVICE	HIVE	hive_metastore_database_type	false		Hive Metastore Database Type
+SERVICE	HIVE	enable_config_alerts	false		Enable Configuration Change Alerts
+SERVICE	HIVE	hive_metastore_derby_path	false		Hive Metastore Derby Path
+SERVICE	HIVE	sentry_service	false		Sentry Service
+SERVICE	HIVE	hive_sentry_server	false	hive.sentry.server	Server Name for Sentry Authorization
+SERVICE	HIVE	hive_warehouse_subdir_inherit_perms	false	hive.warehouse.subdir.inherit.perms	Hive Warehouse Subdirectories Inherit Permissions
+ROLE	WEBHCAT	hive_webhcat_env_safety_valve	false		WebHCat Server Environment Advanced Configuration Snippet (Safety Valve)
+ROLE	WEBHCAT	webhcat_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	WEBHCAT	log_threshold	false		WebHCat Server Logging Threshold
+ROLE	WEBHCAT	webhcat_host_health_enabled	false		WebHCat Server Host Health Test
+ROLE	WEBHCAT	webhcat_scm_health_enabled	false		WebHCat Server Process Health Test
+ROLE	WEBHCAT	hive_webhcat_hive_config_safety_valve	false		WebHCat Server Advanced Configuration Snippet (Safety Valve) for hive-site.xml
+ROLE	WEBHCAT	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	WEBHCAT	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	WEBHCAT	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	WEBHCAT	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	WEBHCAT	process_auto_restart	false		Automatically Restart Process
+ROLE	WEBHCAT	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	WEBHCAT	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	WEBHCAT	hive_webhcat_java_opts	false		Java Configuration Options for WebHCat Server
+ROLE	WEBHCAT	hive_webhcat_address_port	false	templeton.port	WebHCat Server Port
+ROLE	WEBHCAT	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	WEBHCAT	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	WEBHCAT	log4j_safety_valve	false		WebHCat Server Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	WEBHCAT	max_log_size	false		WebHCat Server Max Log Size
+ROLE	WEBHCAT	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	WEBHCAT	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	WEBHCAT	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	WEBHCAT	role_triggers	false		Role Triggers
+ROLE	WEBHCAT	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	WEBHCAT	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	WEBHCAT	hive_webhcat_config_safety_valve	false		WebHCat Server Advanced Configuration Snippet (Safety Valve) for webhcat-site.xml
+ROLE	WEBHCAT	hive_webhcat_java_heapsize	false		Java Heap Size of WebHCat Server in Bytes
+ROLE	WEBHCAT	max_log_backup_index	false		WebHCat Server Maximum Log File Backups
+ROLE	WEBHCAT	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	WEBHCAT	hcatalog_log_dir	false		WebHCat Server Log Directory
+ROLE	HIVEMETASTORE	hive_log_dir	false		Hive Metastore Server Log Directory
+ROLE	HIVEMETASTORE	log_threshold	false		Hive Metastore Server Logging Threshold
+ROLE	HIVEMETASTORE	hive_metastore_config_safety_valve	false		Hive Metastore Server Advanced Configuration Snippet (Safety Valve) for hive-site.xml
+ROLE	HIVEMETASTORE	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	HIVEMETASTORE	hivemetastore_scm_health_enabled	false		Hive Metastore Server Process Health Test
+ROLE	HIVEMETASTORE	hivemetastore_host_health_enabled	false		Hive Metastore Server Host Health Test
+ROLE	HIVEMETASTORE	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	HIVEMETASTORE	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	HIVEMETASTORE	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	HIVEMETASTORE	process_auto_restart	false		Automatically Restart Process
+ROLE	HIVEMETASTORE	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	HIVEMETASTORE	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	HIVEMETASTORE	hive_metastore_port	false	hive.metastore.port	Hive Metastore Server Port
+ROLE	HIVEMETASTORE	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	HIVEMETASTORE	hivemetastore_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	HIVEMETASTORE	hive_metastore_env_safety_valve	false		Hive Metastore Server Environment Advanced Configuration Snippet (Safety Valve)
+ROLE	HIVEMETASTORE	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	HIVEMETASTORE	log4j_safety_valve	false		Hive Metastore Server Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	HIVEMETASTORE	max_log_size	false		Hive Metastore Server Max Log Size
+ROLE	HIVEMETASTORE	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	HIVEMETASTORE	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	HIVEMETASTORE	hive_metastore_max_threads	false	hive.metastore.server.max.threads	Max Hive Metastore Server Threads
+ROLE	HIVEMETASTORE	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	HIVEMETASTORE	role_triggers	false		Role Triggers
+ROLE	HIVEMETASTORE	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	HIVEMETASTORE	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	HIVEMETASTORE	hive_metastore_java_heapsize	false		Java Heap Size of Hive Metastore Server in Bytes
+ROLE	HIVEMETASTORE	max_log_backup_index	false		Hive Metastore Server Maximum Log File Backups
+ROLE	HIVEMETASTORE	hive_metastore_min_threads	false	hive.metastore.server.min.threads	Min Hive Metastore Server Threads
+ROLE	HIVEMETASTORE	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	HIVEMETASTORE	metastore_canary_health_enabled	false		Hive Metastore Canary Health Test
+ROLE	HIVEMETASTORE	hive_metastore_java_opts	false		Java Configuration Options for Hive Metastore Server
+ROLE	HIVESERVER2	hive_log_dir	false		HiveServer2 Log Directory
+ROLE	HIVESERVER2	hs2_thrift_address_port	false	hive.server2.thrift.port	HiveServer2 Port
+ROLE	HIVESERVER2	log_threshold	false		HiveServer2 Logging Threshold
+ROLE	HIVESERVER2	hiveserver2_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	HIVESERVER2	hive_hs2_env_safety_valve	false		HiveServer2 Environment Advanced Configuration Snippet (Safety Valve)
+ROLE	HIVESERVER2	hiveserver2_scm_health_enabled	false		HiveServer2 Process Health Test
+ROLE	HIVESERVER2	oom_sigkill_enabled	false		Kill When Out of Memory
+ROLE	HIVESERVER2	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	HIVESERVER2	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	HIVESERVER2	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	HIVESERVER2	process_auto_restart	false		Automatically Restart Process
+ROLE	HIVESERVER2	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	HIVESERVER2	oom_heap_dump_dir	false		Heap Dump Directory
+ROLE	HIVESERVER2	hiveserver2_min_threads	false	hive.server2.thrift.min.worker.threads	Min HiveServer2 Threads
+ROLE	HIVESERVER2	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	HIVESERVER2	hiveserver2_enable_impersonation	false	hive.server2.enable.doAs	HiveServer2 Enable Impersonation
+ROLE	HIVESERVER2	hiveserver2_max_threads	false	hive.server2.thrift.max.worker.threads	Max HiveServer2 Threads
+ROLE	HIVESERVER2	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	HIVESERVER2	log4j_safety_valve	false		HiveServer2 Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	HIVESERVER2	max_log_size	false		HiveServer2 Max Log Size
+ROLE	HIVESERVER2	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	HIVESERVER2	hiveserver2_host_health_enabled	false		HiveServer2 Host Health Test
+ROLE	HIVESERVER2	hive_hs2_config_safety_valve	false		HiveServer2 Advanced Configuration Snippet (Safety Valve) for hive-site.xml
+ROLE	HIVESERVER2	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	HIVESERVER2	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	HIVESERVER2	hiveserver2_java_heapsize	false		Java Heap Size of HiveServer2 in Bytes
+ROLE	HIVESERVER2	role_triggers	false		Role Triggers
+ROLE	HIVESERVER2	hiveserver2_java_opts	false		Java Configuration Options for HiveServer2
+ROLE	HIVESERVER2	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	HIVESERVER2	oom_heap_dump_enabled	false		Dump Heap When Out of Memory
+ROLE	HIVESERVER2	max_log_backup_index	false		HiveServer2 Maximum Log File Backups
+ROLE	HIVESERVER2	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+SERVICE	IMPALA	hdfs_service	true		HDFS Service
+SERVICE	IMPALA	hive_service	true		Hive Service
+SERVICE	IMPALA	impala_schedule_rules	false		Fair Scheduler Configuration Rules
+SERVICE	IMPALA	impala_impalads_healthy_thresholds	false		Healthy Impala Daemon Monitoring Thresholds
+SERVICE	IMPALA	statestore_subscriber_timeout	false	statestore_subscriber_timeout_seconds	StateStoreSubscriber Timeout
+SERVICE	IMPALA	impala_catalogserver_health_enabled	false		Impala Catalog Server Role Health Test
+SERVICE	IMPALA	hbase_client_retries_number	false	hbase.client.retries.number	Maximum HBase Client Retries
+SERVICE	IMPALA	navigator_audit_queue_policy	false	navigator.batch.queue_policy	Queue Policy
+SERVICE	IMPALA	use_debug_build	false		Use Debug Build
+SERVICE	IMPALA	hbase_service	false		HBase Service
+SERVICE	IMPALA	enable_ldap_auth	false	enable_ldap_auth	Enable LDAP Authentication
+SERVICE	IMPALA	sentry_enabled	false	impala.sentry.enabled	Enable Sentry Authorization using Policy Files
+SERVICE	IMPALA	dfs_client_read_shortcircuit	false	dfs.client.read.shortcircuit	Enable HDFS Short Circuit Read
+SERVICE	IMPALA	smon_derived_configs_safety_valve	false		Service Monitor Derived Configs Advanced Configuration Snippet (Safety Valve)
+SERVICE	IMPALA	impala_statestore_health_enabled	false		Impala StateStore Role Health Test
+SERVICE	IMPALA	ssl_private_key	false	ssl_private_key	SSL Server Private Key
+SERVICE	IMPALA	navigator_event_tracker	false	navigator_event_tracker	Event Tracker
+SERVICE	IMPALA	impala_llamas_healthy_thresholds	false		Healthy Impala Llama ApplicationMaster Monitoring Thresholds
+SERVICE	IMPALA	impala_assignment_locality_window	false		Assignment Locality Monitoring Period
+SERVICE	IMPALA	impala_assignment_locality_thresholds	false		Assignment Locality Ratio Thresholds
+SERVICE	IMPALA	enable_alerts	false		Enable Service Level Health Alerts
+SERVICE	IMPALA	user_query_list_settings	false		Non-Admin Users Query List Visibility Settings
+SERVICE	IMPALA	enable_core_dump	false		Enable Core Dump
+SERVICE	IMPALA	kerberos_reinit_interval	false	kerberos_reinit_interval	Kerberos Re-init Interval
+SERVICE	IMPALA	enable_ldap_tls	false	ldap_tls	Enable LDAP TLS
+SERVICE	IMPALA	navigator_audit_enabled	false		Enable Collection
+SERVICE	IMPALA	impalad_sentry_safety_valve	false		Impala Service Advanced Configuration Snippet (Safety Valve) for sentry-site.xml
+SERVICE	IMPALA	impala_authorized_proxy_user_config	false	authorized_proxy_user_config	Proxy User Configuration
+SERVICE	IMPALA	service_triggers	false		Service Triggers
+SERVICE	IMPALA	impala_query_aggregates	false		Impala Query Aggregates
+SERVICE	IMPALA	impala_ldap_uri	false	ldap_uri	LDAP URI
+SERVICE	IMPALA	navigator_audit_event_filter	false	navigator.event.filter	Event Filter
+SERVICE	IMPALA	admin_query_list_settings	false		Admin Users Query List Visibility Settings
+SERVICE	IMPALA	hbase_rpc_timeout	false	hbase.rpc.timeout	HBase RPC Timeout
+SERVICE	IMPALA	ssl_server_certificate	false	ssl_server_certificate	SSL Server Certificate
+SERVICE	IMPALA	process_username	false		Impala System User (except Llama)
+SERVICE	IMPALA	enable_config_alerts	false		Enable Configuration Change Alerts
+SERVICE	IMPALA	impala_cmd_args_safety_valve	false		Impala Command Line Argument Advanced Configuration Snippet (Safety Valve)
+SERVICE	IMPALA	impala_service_env_safety_valve	false		Impala Service Environment Advanced Configuration Snippet (Safety Valve)
+SERVICE	IMPALA	admission_control_enabled	false		Enable Dynamic Resource Pools
+SERVICE	IMPALA	sentry_service	false		Sentry Service
+SERVICE	IMPALA	yarn_service	false		YARN Service for Resource Management
+SERVICE	IMPALA	impala_scheduled_allocations	false		Fair Scheduler Allocations
+SERVICE	IMPALA	impala_assignment_locality_minimum	false		Assignment Locality Minimum Assignments
+SERVICE	IMPALA	client_services_ssl_enabled	false	client_services_ssl_enabled	Enable SSL for Impala Client Services
+SERVICE	IMPALA	navigator_client_config_safety_valve	false		Impala Client Advanced Configuration Snippet (Safety Valve) for navigator.client.properties
+SERVICE	IMPALA	process_groupname	false		Impala System Group (except Llama)
+ROLE	STATESTORE	statestore_webserver_port	false	webserver_port	StateStore HTTP Server Port
+ROLE	STATESTORE	webserver_certificate_file	false	webserver_certificate_file	SSL Certificate File Location
+ROLE	STATESTORE	statestore_scm_health_enabled	false		Impala StateStore Process Health Test
+ROLE	STATESTORE	log_threshold	false		Impala StateStore Logging Threshold
+ROLE	STATESTORE	webserver_htpassword_user	false	webserver_htpassword_user	Statestore Web Server Username
+ROLE	STATESTORE	statestore_host_health_enabled	false		Impala StateStore Host Health Test
+ROLE	STATESTORE	process_resident_set_size_thresholds	false		Resident Set Size Thresholds
+ROLE	STATESTORE	statestore_startup_tolerance	false		Health Check Startup Tolerance
+ROLE	STATESTORE	statestore_cmd_args_safety_valve	false		Statestore Command Line Argument Advanced Configuration Snippet (Safety Valve)
+ROLE	STATESTORE	statestore_web_metric_collection_thresholds	false		Web Metric Collection Duration
+ROLE	STATESTORE	webserver_htpassword_password	false	webserver_htpassword_password	Statestore Web Server User Password
+ROLE	STATESTORE	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	STATESTORE	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	STATESTORE	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	STATESTORE	process_auto_restart	false		Automatically Restart Process
+ROLE	STATESTORE	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	STATESTORE	state_store_num_server_worker_threads	false	state_store_num_server_worker_threads	StateStore Worker Threads
+ROLE	STATESTORE	statestore_enable_webserver	false	enable_webserver	Enable StateStore Web Server
+ROLE	STATESTORE	logbuflevel	false	logbuflevel	StateStore Log Buffer Level
+ROLE	STATESTORE	statestore_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	STATESTORE	log_dir	false	log_dir	StateStore Log Directory
+ROLE	STATESTORE	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	STATESTORE	statestore_web_metric_collection_enabled	false		Web Metric Collection
+ROLE	STATESTORE	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	STATESTORE	max_log_size	false		Impala StateStore Max Log Size
+ROLE	STATESTORE	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	STATESTORE	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	STATESTORE	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	STATESTORE	role_triggers	false		Role Triggers
+ROLE	STATESTORE	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	STATESTORE	state_store_pending_task_count_max	false	state_store_pending_task_count_max	Maximum StateStore Pending Tasks
+ROLE	STATESTORE	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	STATESTORE	log_verbose_level	false	GLOG_v	StateStore Verbose Log Level
+ROLE	STATESTORE	state_store_port	false	state_store_port	StateStore Service Port
+ROLE	IMPALAD	impalad_connectivity_tolerance	false		Impala Daemon Connectivity Tolerance at Startup
+ROLE	IMPALAD	hs2_port	false	hs2_port	Impala Daemon HiveServer2 Port
+ROLE	IMPALAD	executing_queries_timeout_seconds	false		Query Monitoring Timeout
+ROLE	IMPALAD	audit_event_log_dir	false	audit_event_log_dir	Impala Daemon Audit Log Directory
+ROLE	IMPALAD	log_threshold	false		Impala Daemon Logging Threshold
+ROLE	IMPALAD	enable_audit_event_log	false	enable_audit_event_log	Enable Impala Audit Event Generation
+ROLE	IMPALAD	process_resident_set_size_thresholds	false		Resident Set Size Thresholds
+ROLE	IMPALAD	state_store_subscriber_port	false	state_store_subscriber_port	StateStoreSubscriber Service Port
+ROLE	IMPALAD	llama_callback_port	false	llama_callback_port	Llama Callback Port
+ROLE	IMPALAD	impala_hdfs_site_conf_safety_valve	false		Impala Daemon HDFS Advanced Configuration Snippet (Safety Valve)
+ROLE	IMPALAD	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	IMPALAD	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	IMPALAD	process_auto_restart	false		Automatically Restart Process
+ROLE	IMPALAD	impala_llama_site_conf_safety_valve	false		Impala Daemon Llama Site Advanced Configuration
+ROLE	IMPALAD	logbuflevel	false	logbuflevel	Impala Daemon Log Buffer Level
+ROLE	IMPALAD	impalad_cmd_args_safety_valve	false		Impala Daemon Command Line Argument Advanced Configuration Snippet (Safety Valve)
+ROLE	IMPALAD	impalad_scm_health_enabled	false		Impala Daemon Process Health Test
+ROLE	IMPALAD	impalad_memory_limit	false	mem_limit	Impala Daemon Memory Limit
+ROLE	IMPALAD	default_query_options	false	default_query_options	Impala Daemon Query Options Advanced Configuration Snippet (Safety Valve)
+ROLE	IMPALAD	impalad_host_health_enabled	false		Impala Daemon Host Health Test
+ROLE	IMPALAD	max_audit_event_log_file_size	false	max_audit_event_log_file_size	Impala Daemon Maximum Audit Log File Size
+ROLE	IMPALAD	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	IMPALAD	max_log_size	false		Impala Daemon Max Log Size
+ROLE	IMPALAD	impalad_enable_webserver	false	enable_webserver	Enable Impala Daemon Web Server
+ROLE	IMPALAD	log4j_safety_valve	false		Impala Daemon Logging Advanced Configuration Snippet (Safety Valve)
+ROLE	IMPALAD	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	IMPALAD	impalad_result_cache_max_size	false	max_result_cache_size	Result Cache Maximum Size
+ROLE	IMPALAD	local_library_dir	false	local_library_dir	Local UDF Library Dir
+ROLE	IMPALAD	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	IMPALAD	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	IMPALAD	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	IMPALAD	log_verbose_level	false	GLOG_v	Impala Daemon Verbose Log Level
+ROLE	IMPALAD	impalad_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	IMPALAD	webserver_certificate_file	false	webserver_certificate_file	SSL Certificate File Location
+ROLE	IMPALAD	impalad_hbase_conf_safety_valve	false		Impala Daemon HBase Advanced Configuration Snippet (Safety Valve)
+ROLE	IMPALAD	impalad_load_balancer	false		Impala Daemons Load Balancer
+ROLE	IMPALAD	impalad_web_metric_collection_thresholds	false		Web Metric Collection Duration
+ROLE	IMPALAD	webserver_htpassword_user	false	webserver_htpassword_user	Impala Daemon Web Server Username
+ROLE	IMPALAD	query_monitoring_period_seconds	false		Query Monitoring Period
+ROLE	IMPALAD	impalad_webserver_port	false	webserver_port	Impala Daemon HTTP Server Port
+ROLE	IMPALAD	hive_metastore_timeout	false	hive.metastore.client.socket.timeout	Impala Daemon Hive Metastore Connection Timeout
+ROLE	IMPALAD	webserver_htpassword_password	false	webserver_htpassword_password	Impala Daemon Web Server User Password
+ROLE	IMPALAD	impala_hive_conf_safety_valve	false		Impala Daemon Hive Advanced Configuration Snippet (Safety Valve)
+ROLE	IMPALAD	impalad_fair_scheduler_safety_valve	false		Impala Daemon Fair Scheduler Advanced Configuration
+ROLE	IMPALAD	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	IMPALAD	scratch_dirs	false	scratch_dirs	Impala Daemon Scratch Directories
+ROLE	IMPALAD	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	IMPALAD	impalad_connectivity_health_enabled	false		Impala Daemon Connectivity Health Test
+ROLE	IMPALAD	log_dir	false	log_dir	Impala Daemon Log Directory
+ROLE	IMPALAD	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	IMPALAD	impalad_ldap_ca_certificate	false	ldap_ca_certificate	LDAP Server Certificate
+ROLE	IMPALAD	be_port	false	be_port	Impala Daemon Backend Port
+ROLE	IMPALAD	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	IMPALAD	beeswax_port	false	beeswax_port	Impala Daemon Beeswax Port
+ROLE	IMPALAD	role_triggers	false		Role Triggers
+ROLE	IMPALAD	impalad_web_metric_collection_enabled	false		Web Metric Collection
+ROLE	CATALOGSERVER	webserver_certificate_file	false	webserver_certificate_file	SSL Certificate File Location
+ROLE	CATALOGSERVER	catalogd_hdfs_site_conf_safety_valve	false		Catalog Server HDFS Advanced Configuration Snippet (Safety Valve)
+ROLE	CATALOGSERVER	catalogserver_startup_tolerance	false		Health Check Startup Tolerance
+ROLE	CATALOGSERVER	log_threshold	false		Impala Catalog Server Logging Threshold
+ROLE	CATALOGSERVER	webserver_htpassword_user	false	webserver_htpassword_user	Catalog Server Web Server Username
+ROLE	CATALOGSERVER	catalogd_cmd_args_safety_valve	false		Catalog Server Command Line Argument Advanced Configuration Snippet (Safety Valve)
+ROLE	CATALOGSERVER	process_resident_set_size_thresholds	false		Resident Set Size Thresholds
+ROLE	CATALOGSERVER	catalogd_enable_webserver	false	enable_webserver	Enable Catalog Server Web Server
+ROLE	CATALOGSERVER	hive_metastore_timeout	false	hive.metastore.client.socket.timeout	Catalog Server Hive Metastore Connection Timeout
+ROLE	CATALOGSERVER	catalogserver_connectivity_tolerance	false		Catalog Server Connectivity Tolerance at Startup
+ROLE	CATALOGSERVER	catalogserver_host_health_enabled	false		Impala Catalog Server Host Health Test
+ROLE	CATALOGSERVER	catalogserver_web_metric_collection_thresholds	false		Web Metric Collection Duration
+ROLE	CATALOGSERVER	webserver_htpassword_password	false	webserver_htpassword_password	Catalog Server Web Server User Password
+ROLE	CATALOGSERVER	enable_alerts	false		Enable Health Alerts for this Role
+ROLE	CATALOGSERVER	catalogserver_fd_thresholds	false		File Descriptor Monitoring Thresholds
+ROLE	CATALOGSERVER	rm_memory_hard_limit	false	memory.limit_in_bytes	Cgroup Memory Hard Limit
+ROLE	CATALOGSERVER	rm_memory_soft_limit	false	memory.soft_limit_in_bytes	Cgroup Memory Soft Limit
+ROLE	CATALOGSERVER	process_auto_restart	false		Automatically Restart Process
+ROLE	CATALOGSERVER	rm_cpu_shares	false	cpu.shares	Cgroup CPU Shares
+ROLE	CATALOGSERVER	logbuflevel	false	logbuflevel	Catalog Server Log Buffer Level
+ROLE	CATALOGSERVER	catalogd_hive_conf_safety_valve	false		Catalog Server Hive Advanced Configuration Snippet (Safety Valve)
+ROLE	CATALOGSERVER	catalog_service_port	false	catalog_service_port	Catalog Server Service Port
+ROLE	CATALOGSERVER	log_dir	false	log_dir	Catalog Server Log Directory
+ROLE	CATALOGSERVER	rm_io_weight	false	blkio.weight	Cgroup I/O Weight
+ROLE	CATALOGSERVER	catalogserver_web_metric_collection_enabled	false		Web Metric Collection
+ROLE	CATALOGSERVER	rlimit_fds	false		Maximum Process File Descriptors
+ROLE	CATALOGSERVER	max_log_size	false		Impala Catalog Server Max Log Size
+ROLE	CATALOGSERVER	unexpected_exits_thresholds	false		Unexpected Exits Thresholds
+ROLE	CATALOGSERVER	enable_config_alerts	false		Enable Configuration Change Alerts
+ROLE	CATALOGSERVER	catalogserver_scm_health_enabled	false		Impala Catalog Server Process Health Test
+ROLE	CATALOGSERVER	log_directory_free_space_percentage_thresholds	false		Log Directory Free Space Monitoring Percentage Thresholds
+ROLE	CATALOGSERVER	role_triggers	false		Role Triggers
+ROLE	CATALOGSERVER	log_directory_free_space_absolute_thresholds	false		Log Directory Free Space Monitoring Absolute Thresholds
+ROLE	CATALOGSERVER	catalogd_hbase_conf_safety_valve	false		Catalog Server HBase Advanced Configuration Snippet (Safety Valve)
+ROLE	CATALOGSERVER	catalogserver_webserver_port	false	webserver_port	Catalog Server HTTP Server Port
+ROLE	CATALOGSERVER	unexpected_exits_window	false		Unexpected Exits Monitoring Period
+ROLE	CATALOGSERVER	log_verbose_level	false	GLOG_v	Catalog Server Verbose Log Level
+ROLE	CATALOGSERVER	catalogserver_connectivity_health_enabled	false		Catalog Server Connectivity Health Test

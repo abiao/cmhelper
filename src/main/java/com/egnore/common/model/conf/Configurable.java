@@ -3,6 +3,9 @@ package com.egnore.common.model.conf;
 import java.io.PrintStream;
 import java.io.Serializable;
 
+import com.egnore.common.StringPair;
+import com.egnore.common.StringPairs;
+
 public class Configurable implements Serializable {
 	/**
 	 * 
@@ -10,7 +13,7 @@ public class Configurable implements Serializable {
 	private static final long serialVersionUID = -6294541935079119926L;
 	protected String id = "";
 	protected boolean enabled;
-	protected Settings conf = new Settings();
+	protected StringPairs conf = new StringPairs();
 
 	public void setId(String id) {
 		this.id = id;
@@ -20,7 +23,7 @@ public class Configurable implements Serializable {
 		return this.id;
 	}
 
-	protected void addSetting(Setting s) {
+	protected void addSetting(StringPair s) {
 		conf.add(s);
 	}
 	
@@ -28,11 +31,11 @@ public class Configurable implements Serializable {
 		 return conf.containsKey(name);
 	}
 
-	public Setting getSetting(String name) {
+	public StringPair getSetting(String name) {
 		return conf.get(name);
 	}
 
-	public Settings getSettings() {
+	public StringPairs getSettings() {
 		return conf;
 	}
 
@@ -52,8 +55,8 @@ public class Configurable implements Serializable {
 	}
 
 	protected void dumpSettings(PrintStream ps, String prefix) {
-		for (Setting s : conf) {
-			ps.println(prefix + s.dumpToString());
+		for (StringPair s : conf) {
+			ps.println(prefix + s.saveToString());
 		}
 	}
 
@@ -81,8 +84,8 @@ public class Configurable implements Serializable {
 	protected String dumpSettingsToString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
-		for (Setting s : conf) {
-			sb.append(s.dumpToString());
+		for (StringPair s : conf) {
+			sb.append(s.saveToString());
 			sb.append(",");
 		}
 		sb.append("}");

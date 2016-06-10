@@ -3,7 +3,9 @@ package com.egnore.cmhelper;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import com.cloudera.api.ClouderaManagerClientBuilder;
@@ -11,11 +13,14 @@ import com.cloudera.api.DataView;
 import com.cloudera.api.model.ApiCluster;
 import com.cloudera.api.model.ApiClusterList;
 import com.cloudera.api.model.ApiClusterVersion;
+import com.cloudera.api.model.ApiCommand;
 import com.cloudera.api.model.ApiConfig;
 import com.cloudera.api.model.ApiConfigList;
+import com.cloudera.api.model.ApiEnableNnHaArguments;
 import com.cloudera.api.model.ApiHost;
 import com.cloudera.api.model.ApiHostList;
 import com.cloudera.api.model.ApiHostRef;
+import com.cloudera.api.model.ApiJournalNodeArguments;
 import com.cloudera.api.model.ApiRole;
 import com.cloudera.api.model.ApiService;
 import com.cloudera.api.model.ApiServiceConfig;
@@ -79,7 +84,7 @@ public class CMExecutor {
 		c.add(item);
 		//api.createClusters(c);
 		ServicesResource sr = apiRoot.getClustersResource().getServicesResource(DEFAULT_CLUSTER_NAME);
-		
+		//sr.hdfsEnableHaCommand(arg0, arg1)
 		ApiServiceList sl = sr.readServices(DataView.FULL);//new ApiServiceList();
 		for (ServiceType st : ServiceType.values()) {
 			ApiService s = new ApiService();
@@ -92,23 +97,8 @@ public class CMExecutor {
 		sr.createServices(sl);
 	}
 
-	private class IdGenerateInstanceScanner extends InstanceScanner {
-
-		IdGenerateInstanceScanner(Cluster cluster) {
-			super(cluster);
-		}
-
-		@Override
-		public void process(Instance i) {
-			String id = i.getService().getType().toString()
-					+ "-" + i.getRole().getType().toString()
-					+ "-" + i.getHost().getIp().replaceAll("\\.", "");
-			i.setId(id);
-		}
-	}
-	
 	public void createIdforCluster(Cluster cluster) {
-		for (Host h : HostManager.getInstance().getHostList()) {
+		for (Host h : cluster.getHostList()) {
 			String id = h.getIp().replaceAll("\\.", "");
 			h.setId("i-" + id);
 		}
@@ -119,7 +109,58 @@ public class CMExecutor {
 			s.setId(id);
 		}
 		
-		(new IdGenerateInstanceScanner(cluster)).execute();
+		new InstanceScanner(cluster) {
+			@Override
+			public void process(Instance i) {
+				String id = i.getService().getType().toString()
+						+ "-" + i.getRole().getType().toString()
+						+ "-" + i.getHost().getIp().replaceAll("\\.", "");
+				i.setId(id);
+			}
+		}.execute();
+	}
+
+	public void enableHdfsNameNodeHA(
+			String clusterName,
+			Service service,
+			String nameservice,
+			Host nn1,
+			Host nn2,
+			List<ConfigurableTreeNode> jns
+			//EditsDir 
+			) {
+		ApiEnableNnHaArguments args = new ApiEnableNnHaArguments();
+		
+		args.setActiveFcName(nn1.getFQDN());//activeNnName	activeNnName (string)	Name of the NameNode role that is going to be made Highly Available.
+		args.setStandbyNnName(nn2.getFQDN());//standbyNnName	standbyNnName (string)	Name of the new Standby NameNode role that will be created during the command (Optional).
+		args.setStandbyNnHostId(nn2.getId());// standbyNnHostId	standbyNnHostId (string)	Id of the host on which new Standby NameNode will be created.
+		//standbyNameDirList	array of standbyNameDirList (string)	List of directories for the new Standby NameNode. If not provided then it will use same dirs as Active NameNode.
+		args.setNameservice(nameservice);//nameservice	nameservice (string)	Nameservice to be used while enabling Highly Available. It must be specified if Active NameNode isn't configured with it. If Active NameNode is already configured, then this need not be specified. However, if it is still specified, it must match the existing config for the Active NameNode.
+		args.setQjName(nameservice);//qjName	qjName (string)	Name of the journal located on each JournalNodes' filesystem. This can be optionally provided if the config hasn't already been set for the Active NameNode. If this isn't provided and Active NameNode doesn't also have the config, then nameservice is used by default. If Active NameNode already has this configured, then it much match the existing config.
+		//activeFcName	activeFcName (string)	Name of the FailoverController role to be created on Active NameNode's host (Optional).
+		//standbyFcName	standbyFcName (string)	Name of the FailoverController role to be created on Standby NameNode's host (Optional).
+		//zkServiceName	zkServiceName (string)	Name of the ZooKeeper service to be used for Auto-Failover. This MUST be provided if HDFS doesn't have a ZooKeeper dependency. If the dependency is already set, then this should be the name of the same ZooKeeper service, but can also be omitted in that case.
+		Set<ApiJournalNodeArguments> apijns = new HashSet<ApiJournalNodeArguments>();
+		if (jns.isEmpty())
+			throw new IllegalArgumentException("Journal Node must be there.");
+		for (ConfigurableTreeNode i : jns) {
+			Host h = ((Instance)i).getHost();
+			ApiJournalNodeArguments apijn = new ApiJournalNodeArguments();
+			apijn.setJnHostId(h.getId());
+			apijns.add(apijn);
+		}
+		args.setJns(apijns);
+		//jnName	jnName (string)	Name of new JournalNode to be created. (Optional)
+		//jnHostId	jnHostId (string)	ID of the host where the new JournalNode will be created.
+		//jnEditsDir	jnEditsDir (string)	Path to the JournalNode edits directory. Need not be specified if it is already set at RoleConfigGroup level.
+		//jns	array of jns (apiJournalNodeArguments)	Arguments for the JournalNodes to be created during the command. Must be provided only if JournalNodes don't exist already in HDFS.
+		args.setForceInitZNode(false);//forceInitZNode	forceInitZNode (boolean)	Boolean indicating if the ZNode should be force initialized if it is already present. Useful while re-enabling High Availability. (Default: TRUE)
+		args.setClearExistingStandbyNameDirs(false);//clearExistingStandbyNameDirs	clearExistingStandbyNameDirs (boolean)	Boolean indicating if the existing name directories for Standby NameNode should be cleared during the workflow. Useful while re-enabling High Availability. (Default: TRUE)
+		args.setClearExistingJnEditsDir(false);//clearExistingJnEditsDir	clearExistingJnEditsDir (boolean)	Boolean indicating if the existing edits directories for the JournalNodes for the specified nameservice should be cleared during the workflow. Useful while re-enabling High Availability. (Default: TRUE)
+
+		ApiCommand com = apiRoot.getClustersResource().getServicesResource(clusterName).hdfsEnableNnHaCommand(service.getId(), args);
+		System.out.print(com.toString());
+		System.out.print(com.getSuccess() + "=" +com.getResultMessage());
 	}
 
 	private class UpdateConfigInstanceScanner extends InstanceScanner {
@@ -139,6 +180,10 @@ public class CMExecutor {
 
 	public void provisionCluster(Cluster cluster) {
 
+		PrintStream ps = (new Dumper()).getPrintStream();
+		
+		final String clusterName = cluster.getName();
+		
 		///
 		///< Prepare
 		///
@@ -156,12 +201,13 @@ public class CMExecutor {
 			a.add(h1);
 		}
 		apiRoot.getHostsResource().createHosts(a);
+		ps.println("Create Host done");
 
 		///
 		///< Step 2: Create Cluster
 		///
 		ApiCluster apiCluster = new ApiCluster();
-		apiCluster.setName(cluster.getName());
+		apiCluster.setName(clusterName);
 		apiCluster.setDisplayName(cluster.getName());
 		apiCluster.setVersion(ApiClusterVersion.CDH5);
 		apiCluster.setFullVersion("5.1.3");
@@ -169,6 +215,7 @@ public class CMExecutor {
 		ApiClusterList cl = new ApiClusterList();
 		cl.add(apiCluster);
 		apiRoot.getClustersResource().createClusters(cl);
+		ps.println("Create Cluster...");
 
 		///
 		///< Step 3: Create Service
@@ -184,6 +231,7 @@ public class CMExecutor {
 			List<ApiRole> apiRoles = new ArrayList<ApiRole>();
 			for (ConfigurableTreeNode r : s.getChildren()) {
 				for(ConfigurableTreeNode g : r.getChildren()) {
+					if ((g == null) || !g.hasChild()) continue;
 					for (ConfigurableTreeNode i : g.getChildren()) {
 						ApiRole apiRole = new ApiRole();
 				        apiRole.setName(i.getId());
@@ -206,15 +254,44 @@ public class CMExecutor {
 			services.add(apiService);
 		}
 		sr.createServices(services);
+		ps.println("Create Service done");
 
 		///
-		///< Step 4: Update Configurations
+		///< Step 4: HA
+		///
+		Group nng = cluster.getDefaultGroup(RoleType.NAMENODE);
+		switch (nng.getChildNumber()) {
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				///< Enable Ha
+				ps.println("Enable NameNode HA");
+				Instance nn1 = (Instance)nng.getChildren().get(0);
+				Instance nn2 = (Instance)nng.getChildren().get(1);
+				enableHdfsNameNodeHA(clusterName,
+						nng.getRole().getService(),
+						"beh",
+						nn1.getHost(),
+						nn2.getHost(),
+						cluster.getDefaultGroup(RoleType.JOURNALNODE).getChildren());
+				break;
+			default:
+				///< TODO error
+				break;
+		}				
+
+		///
+		///< Step 5: Update Configurations
 		///
 		for (ConfigurableTreeNode s : cluster.getChildren()) {
 			RolesResource rr = sr.getRolesResource(s.getId());
 			for (ConfigurableTreeNode r : s.getChildren()) {
 				for(ConfigurableTreeNode g : r.getChildren()) {
+					if ((g == null) || !g.hasChild()) continue;
 					for (ConfigurableTreeNode i : g.getChildren()) {
+						if (i.settingLength() == 0) continue;
 						ApiConfigList newConfigs = new ApiConfigList();
 						ApiConfigList c2 = rr.readRoleConfig(i.getId(), DataView.FULL);
 						for (Setting pair : i.getSettings()) {
@@ -238,6 +315,7 @@ public class CMExecutor {
 				}
 			}
 		}
+//		hdfs_service_config_safety_valve
 
 		///
 		///< Step 5: Fix Configurations

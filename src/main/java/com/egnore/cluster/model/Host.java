@@ -33,7 +33,7 @@ public class Host implements StringSerDeObject {
 	}
 
 	public String getId() {
-		return this.id;
+		return (this.id == null) ? this.ip : this.id;
 	}
 
 	public void addInstance(Instance role) {
@@ -56,5 +56,14 @@ public class Host implements StringSerDeObject {
 		id = ss[0];
 		ip = ss[1];
 		fqdn = ss[2];
+	}
+
+	/**
+	 * Use ID or IP to identify a host
+	 * @param h
+	 * @return
+	 */
+	public boolean equals(Host h) {
+		return (this.getId().equals(h.getId()));
 	}
 }

@@ -4,28 +4,28 @@ import com.egnore.cluster.model.RoleType;
 import com.egnore.cluster.model.ServiceType;
 import com.egnore.common.model.conf.SettingDescription;
 
-public class ParameterDescription extends SettingDescription {
+public class HadoopConfigDescription extends SettingDescription {
 
 	protected ServiceType service;
 	protected RoleType role;
 
-	public ParameterDescription(String id, String name, String defaultValue, ServiceType service, RoleType role) {
-		super(id, name, defaultValue);
+	public HadoopConfigDescription() {
+		
+	}
+			
+	public HadoopConfigDescription(String name, String defaultValue, ServiceType service, RoleType role) {
+		super(name, defaultValue);
 		this.service = service;
 		this.role = role;
 	}
 
-	public ParameterDescription() {
-		// TODO Auto-generated constructor stub
+	@Override
+	public String saveToString() {
+		return service + "/" + role + "/" + super.saveToString();
 	}
 
 	@Override
-	public String dumpToString() {
-		return service + "/" + role + "/" + super.dumpToString();
-	}
-
-	@Override
-	public void readFromString(String s) {
+	public void loadFromString(String s) {
 		//HDFS/null/namespace(namespace)=abc
 		String[] ss = s.split("/");
 		service = ("null".equals(ss[0])) ? null : ServiceType.valueOf(ss[0]);
@@ -33,6 +33,6 @@ public class ParameterDescription extends SettingDescription {
 			role = null;
 		else
 			role = RoleType.valueOf(ss[1]);
-		super.readFromString(ss[2]);
+		super.loadFromString(ss[2]);
 	}
 }

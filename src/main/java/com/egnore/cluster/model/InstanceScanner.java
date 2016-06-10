@@ -19,7 +19,7 @@ public abstract class InstanceScanner {
 			for (ConfigurableTreeNode r : s.getChildren()) {
 				if (r == null) continue;
 				for (ConfigurableTreeNode g : r.getChildren()) {
-					if (g == null) continue;
+					if ((g == null) || !g.hasChild())continue;
 					for (ConfigurableTreeNode i : g.getChildren()) {
 						if (i == null) continue;
 						process((Instance)i);

@@ -12,13 +12,18 @@ import org.apache.commons.configuration.HierarchicalINIConfiguration;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 
+import com.egnore.cluster.model.ConfigDictionary;
 import com.egnore.cluster.model.conf.ParameterDescription;
 import com.egnore.cluster.model.conf.ParameterDictionary;
-import com.egnore.hadoop.conf.ConfigDictionary;
 
 public class Validator {
 
 	protected ParameterDictionary paramDict;
+
+	public ParameterDictionary getParameterDictionary() {
+		return paramDict;
+	}
+
 	public void init() {
 		paramDict = new ParameterDicrtionary513();
 		paramDict.init();
@@ -41,14 +46,27 @@ public class Validator {
 		Configuration conf = new Configuration(false);
 		conf.clear();
 		conf.addResource(new Path(file));
-//conf.dumpDeprecatedKeys();
-
-//private static void addDeprecatedKeys() {
-//    Configuration.addDeprecations(new DeprecationDelta[] {
-//        new DeprecationDelta("yarn.client.max-nodemanagers-proxies",
-//            NM_CLIENT_MAX_NM_PROXIES)
-//    });
-//  }
+		for (Entry<String, String> pair : conf) {
+			String key = pair.getKey();
+			System.out.println(key + "=" + pair.getValue());
+			ParameterDescription pd = (ParameterDescription)paramDict.findByName(key);
+			boolean found = false;
+			if (pd == null) {
+				String nn = ConfigDictionary.getLatestName(key);
+				if (nn !=null) {
+					 pd = (ParameterDescription)paramDict.findByName(nn);
+					 if (pd != null) {
+						 found = true;
+						 System.out.println("[found with \"" + nn + "\"]" + pd.toString());
+					 }
+				}
+			} else {
+				found = true;
+				System.out.println("[found]" + pd.toString());
+			}
+			if (!found) 
+				System.err.println(key + ": is not predefined");
+		}
 
 		for (Entry<String, String> pair : conf) {
 			String key = pair.getKey();

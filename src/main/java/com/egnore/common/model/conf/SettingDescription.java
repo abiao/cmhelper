@@ -1,24 +1,24 @@
 package com.egnore.common.model.conf;
 
-public class SettingDescription {
-	protected String id;
+import com.egnore.common.StringKeyedValue;
+import com.egnore.common.StringSerDeObject;
+
+public class SettingDescription implements StringSerDeObject, StringKeyedValue {
 	protected String name;
 	protected String valueType;
-	protected String category;
 	protected String defaultValue;
 	protected SettingType type = SettingType.USER_DEFINED;
 
 	public SettingDescription() {
 	}
 
-	public SettingDescription(String id, String name, String defaultValue) {
-		this.id = id;
+	public SettingDescription(String name) {
 		this.name = name;
-		this.defaultValue = defaultValue;
 	}
 
-	public String getId() {
-		return id;
+	public SettingDescription(String name, String defaultValue) {
+		this.name = name;
+		this.defaultValue = defaultValue;
 	}
 
 	public String getName() {
@@ -33,13 +33,15 @@ public class SettingDescription {
 		return this.type == SettingType.USER_DEFINED;
 	}
 
-	public String dumpToString() {
-		return id + "(" + name + ")";
+	public String saveToString() {
+		return name;
 	}
 
-	public void readFromString(String s) {
-		String[] ss = s.split("\\(");
-		id = ss[0];
-		name = ss[1].substring(0, ss[1].length() - 1);
+	public void loadFromString(String s) {
+		name = s;
+	}
+
+	public String getKey() {
+		return name;
 	}
 }

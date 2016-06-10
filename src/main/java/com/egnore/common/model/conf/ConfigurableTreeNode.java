@@ -5,6 +5,8 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.egnore.common.StringPair;
+import com.egnore.common.StringPairs;
 import com.egnore.common.io.LinedFileReader;
 
 public class ConfigurableTreeNode extends Configurable {
@@ -34,17 +36,21 @@ public class ConfigurableTreeNode extends Configurable {
 		 return (conf.containsKey(name)) ? true : ((parent != null) ? parent.hasSetting(name) : false);
 	}
 
-	public Setting getLocalSetting(String name) {
+	public StringPair getLocalSetting(String name) {
 		return conf.get(name);
 	}
 
-	public Setting getSetting(String name) {
-		Setting s = conf.get(name);
+	public StringPair getSetting(String name) {
+		StringPair s = conf.get(name);
 		return (s != null) ? s : ((parent != null) ? parent.getSetting(name) : null);
 	}
 
-	public Settings getSettings() {
+	public StringPairs getLocalSettings() {
 		return conf;
+	}
+
+	public int settingLength() {
+		return conf.size();
 	}
 
 
@@ -85,23 +91,18 @@ public class ConfigurableTreeNode extends Configurable {
 		children.remove(node);
 	}
 
-	public SettingFactory getSettingFactory() {
-		return (parent == null) ? null : parent.getSettingFactory();
+	///< TODO: 
+	public SettingManager getSettingManager() {
+		return (parent == null) ? null : parent.getSettingManager();
 	}
 	
-	public SettingDescription createSettingDescription(String key, String defaultValue) {
-		return new SettingDescription(key, key, defaultValue);
+	public SettingDescription createSettingDescription(String key) {
+		return new SettingDescription(key);
 	}
 
-	public void addSetting(String key, String value) {
-		SettingFactory sc = getSettingFactory();
-		SettingDescription sd = sc.getSettingDescription(key);
-		if (sd == null) {
-			sd = createSettingDescription(key, value);
-			sc.getSettingDictionary().add(sd);
-		}
-
-		this.addSetting(new Setting(sd, value));
+	public void addSetting(StringPair s) {
+		getSettingManager().getOrNew(s.getName(), this);
+		super.addSetting(s);
 	}
 
 	@Override
@@ -159,7 +160,9 @@ public class ConfigurableTreeNode extends Configurable {
 		int childrenNumber = Integer.parseInt(s.substring(i3 + 1, i4));
 
 		for (int i = 0; i < settingNumber; i++) {
-			this.addSetting(Setting.loadFromString(reader.next()));
+			StringPair set = new StringPair();
+			set.loadFromString(reader.next());
+			this.addSetting(set);
 		}
 
 		for (int i = 0; i < childrenNumber; i++) {

@@ -1,43 +1,76 @@
-package com.egnore.hadoop.conf;
+package com.egnore.cluster.model.conf;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+
+import javax.xml.bind.JAXBException;
+
+import com.egnore.common.Dictionary;
+import com.egnore.common.model.conf.SettingManager;
+import com.egnore.hadoop.conf.jaxb.Configuration;
+import com.egnore.hadoop.conf.jaxb.Configurations;
 
 
-public class ConfigDictionary {
+public class HadoopConfigManager extends SettingManager<Configuration> {
 
-	static ConfigDictionary dict = new ConfigDictionary();
-	static public ConfigDictionary getInstance() {
-		return dict;
+	static public HadoopConfigManager getInstance() throws FileNotFoundException, JAXBException {
+		Configurations cs = Configurations.load();
+		HadoopConfigManager m = new HadoopConfigManager();
+		m.dict = new Dictionary<Configuration>(cs.getList());
+		
+		return m;
 	}
 
-	static public boolean isDeprecatedKey(String oldName) {
-		ConfigDescription c = dict.configs.get(oldName);
-		if (c != null) return c.deprecated;
+	protected List<Pattern> ignorePatterns = new ArrayList<Pattern>();
+
+	protected void init() throws FileNotFoundException, JAXBException {
+		Configurations configList = Configurations.load();
+		for (Configuration c : configList.getList()) {
+			configs.put(c.getName(), c);
+		}
+		addDeprecatedKeys();
+	}
+
+	public void addIgnorePatthern(String regex) {
+		ignorePatterns.add(Pattern.compile(regex));
+	}
+
+	public boolean isIgnored(String s) {
+		for (Pattern p : ignorePatterns) {
+			if (p.matcher(s).matches())
+				return true;
+		}
 		return false;
 	}
-	
-	static public String getLatestName(String oldName) {
-		ConfigDescription c = dict.configs.get(oldName);
-		if (c != null) return c.newName;
-		return null;
+	protected Configuration newConfiguration(String name) {
+		Configuration c = new Configuration();
+		c.setName(name);
+		configList.getList().add(c);
+		configs.put(name, c);
+		return c;
 	}
-	
-	protected Map<String, ConfigDescription> configs = new HashMap<String, ConfigDescription>();
-
 	public void addDeprecatedKey(String oldName, String newName) {
-		ConfigDescription cd = new ConfigDescription();
-		cd.deprecated = true;
-		cd.name = oldName;
-		cd.newName = newName;
-		addConfigDescription(cd);
+		Configuration c = configs.get(oldName);
+		if (c == null) {
+			c = newConfiguration(oldName);
+		}
+		c.setDeprecated(true);
+		c.setNewName(newName);
+
+		c = configs.get(newName);
+		if (c == null) {
+			c = newConfiguration(newName);
+		}
 	}
 
-	protected void addConfigDescription(ConfigDescription cd) {
-		configs.put(cd.name, cd);
-	}
-
-	private ConfigDictionary() {
+	/**
+	 * TODO: remove after configuration 
+	 */
+	private void addDeprecatedKeys() {
 		///< Import from:
 		///<	http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/DeprecatedProperties.html
 		///< Apache Hadoop 2.7.2

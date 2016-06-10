@@ -1,32 +1,37 @@
-package com.egnore.cluster.model;
+package com.egnore.hadoop.conf.jaxb;
 
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlType
+@XmlEnum(String.class)
+public enum Scope {
+	// Service
+	@XmlEnumValue("HDFS") HDFS_ALL,
+	@XmlEnumValue("YARN") YARN_ALL,
+//	@XmlEnumValue("ZOOKEEPER") ZOOKEEPER_ALL,
+	@XmlEnumValue("HBASE") HBASE_ALL,
+	@XmlEnumValue("HIVE") HIVE_ALL,
+	@XmlEnumValue("IMPALA") IMPALA_ALL,
 
-public enum RoleType {
-	// Cluster
-	// CLUSTER(null, "CLUSTER", CmServerServiceTypeRepo.CDH, 3,
-	// CmServerService.VERSION_UNBOUNDED, 4,
-	// CmServerService.VERSION_UNBOUNDED),
-	//
-	// // Gateway
-	// GATEWAY(null, "GATEWAY", CmServerServiceTypeRepo.CDH, 3,
-	// CmServerService.VERSION_UNBOUNDED, 4,
-	// CmServerService.VERSION_UNBOUNDED),
+	
+	// HDFS
+	@XmlEnumValue("HDFS.NAMENODE")	HDFS_NAMENODE,
+	@XmlEnumValue("HDFS.BALANCER")	HDFS_BALANCER,
+	@XmlEnumValue("HDFS.SECONDARYNAMENODE")	HDFS_SECONDARYNAMENODE,
+	@XmlEnumValue("HDFS.FAILOVERCONTROLLER")	HDFS_FAILOVERCONTROLLER,
+	@XmlEnumValue("HDFS.JOURNALNODE")	HDFS_JOURNALNODE,
+	@XmlEnumValue("HDFS.HTTPFS")	HDFS_HTTPFS,
+	@XmlEnumValue("HDFS.DATANODE")	HDFS_DATANODE,
+	@XmlEnumValue("HDFS.NFSGATEWAY")	HDFS_NFSGATEWAY,
+	@XmlEnumValue("HDFS.CLIENT")	HDFS_CLIENT,
 
-	// HDFS,
-	NAMENODE(ServiceType.HDFS),
-	SECONDARYNAMENODE(ServiceType.HDFS),
-	BALANCER(ServiceType.HDFS),
-	FAILOVERCONTROLLER(ServiceType.HDFS),
-	JOURNALNODE(ServiceType.HDFS),
-	HTTPFS(ServiceType.HDFS),
-	DATANODE(ServiceType.HDFS),
-
-	// YARN,
-	//YARN_GATEWAY
-	JOBHISTORY(ServiceType.YARN),
-	RESOURCEMANAGER(ServiceType.YARN),
-	NODEMANAGER(ServiceType.YARN),
+	// YARN
+	@XmlEnumValue("YARN.JOBHISTORY") YARN_JOBHISTORY,
+	@XmlEnumValue("YARN.RESOURCEMANAGER") YARN_RESOURCEMANAGER,
+	@XmlEnumValue("YARN.NODEMANAGER") YARN_NODEMANAGER,
+	@XmlEnumValue("YARN.CLIENT")	YARN_CLIENT,
 
 	// MapReduce
 	//MAPREDUCE",
@@ -48,28 +53,27 @@ public enum RoleType {
 //			CmServerService.VERSION_UNBOUNDED),
 
 	// Zookeeper
-	//ZOOKEEPER,
-	SERVER(ServiceType.ZOOKEEPER),
+	@XmlEnumValue("ZOOKEEPER.SERVER") ZOOKEEPER_SERVER,
+	@XmlEnumValue("ZOOKEEPER.CLIENT") ZOOKEEPER_CLIENT,
 
 	// HBase
-	//HBASE,
-	//HBASE_GATEWAY
-	MASTER(ServiceType.HBASE),
-	HBASETHRIFTSERVER(ServiceType.HBASE),
-	HBASERESTSERVER(ServiceType.HBASE),
-	REGIONSERVER(ServiceType.HBASE),
+	@XmlEnumValue("HBASE.REGIONSERVER") HBASE_REGIONSERVER,
+	@XmlEnumValue("HBASE.MASTER") HBASE_MASTER,
+	@XmlEnumValue("HBASE.THRIFTSERVER") HBASE_THRIFTSERVER,
+	@XmlEnumValue("HBASE.RESTSERVER") HBASE_RESTSERVER,
+	@XmlEnumValue("HBASE.CLIENT")	HBASE_CLIENT,
 
 	// Hive
-	//HIVE,
-	//HIVE_GATEWAY,
-	HIVEMETASTORE(ServiceType.HIVE),
-	HIVESERVER2(ServiceType.HIVE),
-	WEBHCAT(ServiceType.HIVE),
+	@XmlEnumValue("HIVE.METASTORE")	HIVE_METASTORE,
+	@XmlEnumValue("HIVE.SERVER2")	HIVE_SERVER2,
+	@XmlEnumValue("HIVE.WEBHCAT")	HIVE_WEBHCAT,
+	@XmlEnumValue("HIVE.CLIENT")	HIVE_CLIENT,
 
 	// IMPALA
-	STATESTORE(ServiceType.IMPALA),
-	IMPALAD(ServiceType.IMPALA),
-	CATALOGSERVER(ServiceType.IMPALA),
+	@XmlEnumValue("IMPALA.STATESTORE") IMPALA_STATESTORE,
+	@XmlEnumValue("IMPALA.IMPALAD") IMPALA_IMPALAD,
+	@XmlEnumValue("IMPALA.CATALOGSERVER") IMPALA_CATALOGSERVER,
+	//@XmlEnumValue("IMPALA.CLIENT")	IMPALA_CLIENT,
 
 //	// Solr
 //	SOLR(CLUSTER, "SOLR", CmServerServiceTypeRepo.SOLR, 4,
@@ -121,15 +125,9 @@ public enum RoleType {
 //			CmServerService.VERSION_UNBOUNDED, 4, 4),
 
 	// Client
-	GATEWAY(null);
+	@XmlEnumValue("CLIENT") CLIENT;
 
-	private ServiceType parent;
-
-	RoleType(ServiceType service) {
-		this.parent = service;
-	}
-
-	public ServiceType getServiceType() {
-		return parent;
+	boolean isServiceLevel() {
+		return this.ordinal() < HDFS_NAMENODE.ordinal();
 	}
 }

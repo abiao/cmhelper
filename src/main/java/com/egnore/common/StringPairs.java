@@ -1,4 +1,4 @@
-package com.egnore.common.model.conf;
+package com.egnore.common;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @author biaobean
  *
  */
-public class Settings extends ArrayList<Setting> {
+public class StringPairs extends ArrayList<StringPair> {
 
 	/**
 	 * 
@@ -15,15 +15,15 @@ public class Settings extends ArrayList<Setting> {
 	private static final long serialVersionUID = 7563225966529271927L;
 
 	public boolean containsKey(String key) {
-		for (Setting s : this) {
+		for (StringPair s : this) {
 			if (s.getName() == key)
 				return true;
 		}
 		return false;
 	}
 
-	public Setting get(String key) {
-		for (Setting s : this) {
+	public StringPair get(String key) {
+		for (StringPair s : this) {
 			if (s.getName() == key)
 				return s;
 		}

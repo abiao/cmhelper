@@ -18,15 +18,53 @@ public class HostManager implements TextSerDeObject {
 		return inst;
 	}
 
-	public List<Host> getHostList() {
-		return nodes;
+//	public List<Host> getHostList() {
+//		return nodes;
+//	}
+
+	public Host getHost(String h, String name) {
+		Host host = findHostById(h);
+		if (host != null) {
+			if (!name.equals(host.getFQDN())) {
+				///< TODO error
+			}
+		} else {
+			host = new Host();
+			host.ip = h;
+			host.fqdn = name;
+		}
+		return host;
 	}
 
-	static public void addHost(Host h) {
+	public boolean contains(Host host) {
+		for (Host h : nodes) {
+			if (host == h)
+				return true;
+		}
+		return false;
+	}
+
+	public boolean contains(String h) {
+		return findHost(h) != null;
+	}
+
+	public Host findHost(String h) {
+		return findHostById(h);
+	}
+
+	public Host addHost(String ip, String hostname) {
+		Host h = new Host();
+		h.ip = ip;
+		h.fqdn = hostname;
+		inst.nodes.add(h);
+		return h;
+	}
+
+	protected void addHost(Host h) {
 		inst.nodes.add(h);
 	}
 
-	public Host getHostbyId(String id) {
+	public Host findHostById(String id) {
 		for (Host h : nodes) {
 			if (id.equals(h.id))
 				return h;
@@ -34,7 +72,7 @@ public class HostManager implements TextSerDeObject {
 		return null;
 	}
 
-	public Host getHostbyIp(String ip) {
+	public Host findHostByIp(String ip) {
 		for (Host h : nodes) {
 			if (ip.equals(h.ip))
 				return h;
@@ -42,7 +80,7 @@ public class HostManager implements TextSerDeObject {
 		return null;
 	}
 
-	public Host getHostbyName(String name) {
+	public Host findSHostByName(String name) {
 		for (Host h : nodes) {
 			if (name.equals(h.fqdn))
 				return h;

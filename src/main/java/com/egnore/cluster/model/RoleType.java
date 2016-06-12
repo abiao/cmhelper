@@ -1,5 +1,8 @@
 package com.egnore.cluster.model;
 
+import javax.xml.bind.annotation.XmlEnumValue;
+
+import com.egnore.hadoop.conf.jaxb.ScopeType;
 
 
 public enum RoleType {
@@ -131,5 +134,96 @@ public enum RoleType {
 
 	public ServiceType getServiceType() {
 		return parent;
+	}
+
+	static public RoleType fromScopeType(ScopeType scope) {
+		switch (scope) {
+			case HDFS_NAMENODE: return RoleType.NAMENODE;
+			case HDFS_BALANCER: return RoleType.BALANCER;
+			case HDFS_SECONDARYNAMENODE: return RoleType.SECONDARYNAMENODE;
+			case HDFS_FAILOVERCONTROLLER: return RoleType.FAILOVERCONTROLLER;
+			case HDFS_JOURNALNODE: return RoleType.JOURNALNODE;
+			case HDFS_HTTPFS: return RoleType.HTTPFS;
+			case HDFS_DATANODE: return RoleType.DATANODE;
+			//case HDFS_NFSGATEWAY: return RoleType.;
+			//case HDFS_CLIENT: return RoleType;
+	
+			
+			// YARN
+			case YARN_JOBHISTORY: return RoleType.JOBHISTORY;
+			case YARN_RESOURCEMANAGER: return RoleType.RESOURCEMANAGER;
+			case YARN_NODEMANAGER: return RoleType.NODEMANAGER;
+			//case YARN_CLIENT: return RoleType.;
+	
+			// Zookeeper
+			case ZOOKEEPER_SERVER: return RoleType.SERVER;
+			//case ZOOKEEPER_CLIENT: return RoleType;
+	
+			// HBase
+			case HBASE_REGIONSERVER: return RoleType.REGIONSERVER;
+			case HBASE_MASTER: return RoleType.MASTER;
+	//		case HBASE_THRIFTSERVER: return RoleType;
+	//		case HBASE_RESTSERVER: return RoleType;
+	//		case HBASE_CLIENT: return RoleType;
+	
+			// Hive
+			case HIVE_METASTORE: return RoleType.HIVEMETASTORE;
+			case HIVE_SERVER2: return RoleType.HIVESERVER2;
+	//		case HIVE_WEBHCAT: return RoleType;
+	//		case HIVE_CLIENT: return RoleType;
+	
+			// IMPALA
+			case IMPALA_STATESTORE: return RoleType.STATESTORE;
+			case IMPALA_IMPALAD: return RoleType.IMPALAD;
+			case IMPALA_CATALOGSERVER: return RoleType.CATALOGSERVER;
+			default:
+				//return RoleType.GATEWAY;
+				return null;
+		}
+	}
+
+	public ScopeType toScopeType() {
+		switch (this) {
+			case NAMENODE: return ScopeType.HDFS_NAMENODE;
+			case BALANCER: return ScopeType.HDFS_BALANCER;
+			case SECONDARYNAMENODE: return ScopeType.HDFS_SECONDARYNAMENODE;
+			case FAILOVERCONTROLLER: return ScopeType.HDFS_FAILOVERCONTROLLER;
+			case JOURNALNODE: return ScopeType.HDFS_JOURNALNODE;
+			case HTTPFS: return ScopeType.HDFS_HTTPFS;
+			case DATANODE: return ScopeType.HDFS_DATANODE;
+			//case HDFS_NFSGATEWAY: return RoleType.;
+			//case HDFS_CLIENT: return RoleType;
+		
+			
+			// YARN
+			case JOBHISTORY: return ScopeType.YARN_JOBHISTORY;
+			case RESOURCEMANAGER: return ScopeType.YARN_RESOURCEMANAGER;
+			case NODEMANAGER: return ScopeType.YARN_NODEMANAGER;
+			//case YARN_CLIENT: return RoleType.;
+		
+			// Zookeeper
+			case SERVER: return ScopeType.ZOOKEEPER_SERVER;
+			//case ZOOKEEPER_CLIENT: return RoleType;
+		
+			// HBase
+			case REGIONSERVER: return ScopeType.HBASE_REGIONSERVER;
+			case MASTER: return ScopeType.HBASE_MASTER;
+		//		case HBASE_THRIFTSERVER: return RoleType;
+		//		case HBASE_RESTSERVER: return RoleType;
+		//		case HBASE_CLIENT: return RoleType;
+		
+			// Hive
+			case HIVEMETASTORE: return ScopeType.HIVE_METASTORE;
+			case HIVESERVER2: return ScopeType.HIVE_SERVER2;
+		//		case HIVE_WEBHCAT: return RoleType;
+		//		case HIVE_CLIENT: return RoleType;
+		
+			// IMPALA
+			case STATESTORE: return ScopeType.IMPALA_STATESTORE;
+			case IMPALAD: return ScopeType.IMPALA_IMPALAD;
+			case CATALOGSERVER: return ScopeType.IMPALA_CATALOGSERVER;
+			default:
+				return ScopeType.CLIENT;
+		}
 	}
 }

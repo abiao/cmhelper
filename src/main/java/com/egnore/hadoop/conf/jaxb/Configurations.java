@@ -49,7 +49,7 @@ public class Configurations {
 
 	public void dump() {
 		for (Configuration c : configs) {
-			System.out.println(c.toString());
+			System.out.println(c.saveToString());
 		}
 	}
 
@@ -63,13 +63,13 @@ public class Configurations {
 		Configuration c = new Configuration();
 		c.name="dfs.datanode.dir";
 		c.file="hdfs-site.xml";
-		c.scope = Scope.HDFS_DATANODE;
+		c.scope = ScopeType.HDFS_DATANODE;
 		dummy.configs.add(c);
 
 		Configuration d = new Configuration();
 		d.name="dfs.datanode.dir";
 		d.file="hdfs-site.xml";
-		d.scope = Scope.HDFS_DATANODE;
+		d.scope = ScopeType.HDFS_DATANODE;
 		dummy.configs.add(d);
 		
 		marshaller.marshal(dummy, System.out);  

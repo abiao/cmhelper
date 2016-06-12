@@ -10,7 +10,7 @@ public class StringPair implements StringSerDeObject {
 	public StringPair() {
 	}
 	
-	StringPair(String name, String value) {
+	public StringPair(String name, String value) {
 		this.id = name;
 		this.value = value;
 	}

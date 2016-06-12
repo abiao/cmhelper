@@ -5,36 +5,55 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
 import javax.xml.bind.JAXBException;
 
+import org.apache.commons.configuration.HierarchicalConfiguration.Node;
+import org.apache.hadoop.fs.Path;
+
+import com.egnore.cluster.model.Cluster;
+import com.egnore.cluster.model.ClusterScanner;
+import com.egnore.cluster.model.Group;
+import com.egnore.cluster.model.Instance;
+import com.egnore.cluster.model.Role;
+import com.egnore.cluster.model.RoleType;
+import com.egnore.cluster.model.Service;
+import com.egnore.cluster.model.ServiceType;
 import com.egnore.common.Dictionary;
+import com.egnore.common.StringPair;
+import com.egnore.common.StringPairs;
+import com.egnore.common.model.conf.ConfigurableTreeNode;
 import com.egnore.common.model.conf.SettingManager;
+import com.egnore.common.model.conf.TreeScanner;
 import com.egnore.hadoop.conf.jaxb.Configuration;
 import com.egnore.hadoop.conf.jaxb.Configurations;
 
 
-public class HadoopConfigManager extends SettingManager<Configuration> {
-
-	static public HadoopConfigManager getInstance() throws FileNotFoundException, JAXBException {
-		Configurations cs = Configurations.load();
-		HadoopConfigManager m = new HadoopConfigManager();
-		m.dict = new Dictionary<Configuration>(cs.getList());
-		
-		return m;
-	}
+public class HadoopConfigManager extends SettingManager<HadoopConfigDescription> {
 
 	protected List<Pattern> ignorePatterns = new ArrayList<Pattern>();
 
-	protected void init() throws FileNotFoundException, JAXBException {
+	public void init() throws FileNotFoundException, JAXBException {
 		Configurations configList = Configurations.load();
+		List<HadoopConfigDescription> list = new ArrayList<HadoopConfigDescription>();
 		for (Configuration c : configList.getList()) {
-			configs.put(c.getName(), c);
+			RoleType rt = RoleType.fromScopeType(c.getScope());
+			ServiceType st = (rt == null) ? ServiceType.fromScopeType(c.getScope()): rt.getServiceType();
+			HadoopConfigDescription cd = new HadoopConfigDescription(c.getName(), c.getDefaultValue(), st, rt);
+			list.add(cd);
 		}
+		dict = new Dictionary<HadoopConfigDescription>(list);
 		addDeprecatedKeys();
+		addIgnorePatterns();
 	}
 
+	private void addIgnorePatterns() {
+		addIgnorePatthern("yarn.resourcemanager.*");
+		addIgnorePatthern("dfs.ha.namenodes.*");
+		addIgnorePatthern("dfs.namenode.*");	
+	}
 	public void addIgnorePatthern(String regex) {
 		ignorePatterns.add(Pattern.compile(regex));
 	}
@@ -46,25 +65,127 @@ public class HadoopConfigManager extends SettingManager<Configuration> {
 		}
 		return false;
 	}
-	protected Configuration newConfiguration(String name) {
-		Configuration c = new Configuration();
-		c.setName(name);
-		configList.getList().add(c);
-		configs.put(name, c);
-		return c;
-	}
-	public void addDeprecatedKey(String oldName, String newName) {
-		Configuration c = configs.get(oldName);
-		if (c == null) {
-			c = newConfiguration(oldName);
-		}
-		c.setDeprecated(true);
-		c.setNewName(newName);
 
-		c = configs.get(newName);
-		if (c == null) {
-			c = newConfiguration(newName);
+	public void loadXMLConfig(String file, ConfigurableTreeNode context) {
+		org.apache.hadoop.conf.Configuration c = new org.apache.hadoop.conf.Configuration(false);
+		c.addResource(new Path(file));
+		for (Entry<String, String> pair : c) {
+			if (!isIgnored(pair.getKey()))
+				context.addSetting(pair.getKey(), pair.getValue());
 		}
+	}
+
+	public class OverrideInfo {
+		String key;
+		String oldValue;
+		String newValue;
+		ConfigurableTreeNode node;
+	}
+
+	public boolean validateOverrideInfo(Cluster root) {
+		final List<OverrideInfo> ret = new ArrayList<OverrideInfo>();
+		new TreeScanner(root) {
+			public void process(ConfigurableTreeNode i) {
+				for (StringPair s : i.getLocalSettings()) {
+					StringPair a = i.getAncestorSetting(s.getName());
+					if ((a != null) && (!s.getValue().equals(a.getValue()))) {
+						OverrideInfo o = new OverrideInfo();
+						o.key = s.getName();
+						o.oldValue = a.getValue();
+						o.newValue = s.getValue();
+						o.node = i;
+						ret.add(o);
+					}
+				}
+			}
+
+		}.execute();
+		if (!ret.isEmpty()) {
+			for (OverrideInfo o : ret) {
+				System.err.println(o.key + "is override by " + o.node.getId() + "(" + o.oldValue + "->" + o.newValue + ")");
+			}
+			return false;
+		}
+		return true;
+	}
+
+	private class validateCrossScopeInfoScanner extends ClusterScanner {
+		protected validateCrossScopeInfoScanner(Cluster cluster) {
+			super(cluster);
+			m = (HadoopConfigManager) root.getSettingManager();
+		}
+		HadoopConfigManager m;
+		public boolean result = true;
+
+		@Override
+		public void visitService(Service s) {
+			for (StringPair sp : s.getLocalSettings()) {
+				if ((m.get(sp.getName()).service != s.getType())
+						|| (m.get(sp.getName()).role != null)) {
+					System.err.println(sp + " is wrong defined.");
+					result = false;
+				}
+			}
+		}
+
+		@Override
+		public void visitRole(Role r) {
+			for (StringPair sp : r.getLocalSettings()) {
+				if ((m.get(sp.getName()).service != r.getType().getServiceType())
+						|| (m.get(sp.getName()).role != r.getType())) {
+					System.err.println(sp + " is wrong defined.");
+					result = false;
+				}
+			}
+		}
+		
+		@Override
+		public void visitGroup(Group g) {
+			visitRole(g.getRole());
+		}
+		@Override
+		public void visitInstance(Instance i) {
+			visitRole(i.getRole());
+		}
+	};
+
+	public boolean validateCrossScopeInfo(Cluster root) {
+		validateCrossScopeInfoScanner scanner = new validateCrossScopeInfoScanner(root);
+		scanner.execute();
+		return scanner.result;
+	}
+
+	public boolean validateConfiguration(Cluster root) {
+		return (validateOverrideInfo(root)
+				&& validateCrossScopeInfo(root)
+				);
+	}
+
+	public void FlowDownConfig(Cluster root) {
+		for (ConfigurableTreeNode n : root.getServices()) {
+			Service s = (Service) n;
+			StringPairs can = new StringPairs();
+			for (StringPair sp : s.getLocalSettings()) {
+				can.add(sp);
+			}
+
+			for (StringPair sp : can) {
+				HadoopConfigDescription h = this.get(sp.getName());
+				if (h.role != null) {
+					s.getRole(h.role).addSetting(sp);
+					s.removeSetting(sp);
+				}
+			}
+		}
+	}
+
+	@Override
+	public HadoopConfigDescription newItem(String key, ConfigurableTreeNode context) {
+		return (HadoopConfigDescription) context.createSettingDescription(key);
+	}
+
+	public void addDeprecatedKey(String oldName, String newName) {
+		dict.addDeprecatedKey(oldName, newName);
 	}
 
 	/**

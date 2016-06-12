@@ -13,7 +13,9 @@ import com.egnore.common.StringSerDeObject;
 public class Configuration implements StringKeyedValue,StringSerDeObject {
 	String name;
 	String file;
-	Scope scope;
+
+	@XmlElement(name="scope")
+	ScopeType scope;
 
 	@XmlElement(name="default-value")
 	String defaultValue;
@@ -46,11 +48,11 @@ public class Configuration implements StringKeyedValue,StringSerDeObject {
 		this.file = file;
 	}
 
-	public Scope getScope() {
+	public ScopeType getScope() {
 		return scope;
 	}
 
-	public void setScope(Scope scope) {
+	public void setScope(ScopeType scope) {
 		this.scope = scope;
 	}
 

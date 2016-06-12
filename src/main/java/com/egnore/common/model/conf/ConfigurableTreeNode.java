@@ -40,9 +40,13 @@ public class ConfigurableTreeNode extends Configurable {
 		return conf.get(name);
 	}
 
+	public StringPair getAncestorSetting(String name) {
+		return ((parent != null) ? parent.getSetting(name) : null);
+	}
+
 	public StringPair getSetting(String name) {
-		StringPair s = conf.get(name);
-		return (s != null) ? s : ((parent != null) ? parent.getSetting(name) : null);
+		StringPair s = getLocalSetting(name);
+		return (s != null) ? s : getAncestorSetting(name);
 	}
 
 	public StringPairs getLocalSettings() {
@@ -97,7 +101,10 @@ public class ConfigurableTreeNode extends Configurable {
 	}
 	
 	public SettingDescription createSettingDescription(String key) {
-		return new SettingDescription(key);
+		if (parent != null)
+			return parent.createSettingDescription(key);
+		else
+			return new SettingDescription(key);
 	}
 
 	public void addSetting(StringPair s) {

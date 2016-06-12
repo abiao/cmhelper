@@ -1,6 +1,6 @@
 package com.egnore.cluster.model;
 
-import com.egnore.cluster.model.conf.ParameterDescription;
+import com.egnore.cluster.model.conf.HadoopConfigDescription;
 import com.egnore.common.model.conf.ConfigurableTreeNode;
 import com.egnore.common.model.conf.SettingDescription;
 
@@ -21,8 +21,8 @@ public class Service extends ConfigurableTreeNode {
 	}
 
 	@Override
-	public SettingDescription createSettingDescription(String key, String defaultValue) {
-		return new ParameterDescription(key, key, defaultValue, this.type, null);
+	public SettingDescription createSettingDescription(String key) {
+		return new HadoopConfigDescription(key, null, this.type, null);
 	}
 
 	@Override

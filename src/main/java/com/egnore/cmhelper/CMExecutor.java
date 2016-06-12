@@ -43,8 +43,9 @@ import com.egnore.cluster.model.Service;
 import com.egnore.cluster.model.ServiceType;
 import com.egnore.common.Dumper;
 import com.egnore.common.OpLog;
+import com.egnore.common.StringPair;
+import com.egnore.common.StringPairs;
 import com.egnore.common.model.conf.ConfigurableTreeNode;
-import com.egnore.common.model.conf.Setting;
 
 public class CMExecutor {
 	RootResourceV7 apiRoot;
@@ -178,6 +179,33 @@ public class CMExecutor {
 		}
 	}
 
+	protected StringPairs updateNodeLocalConfig(ConfigurableTreeNode node,
+			ApiConfigList oldConfigList,
+			ApiConfigList newCOnfigList) {
+
+		StringPairs ret = new StringPairs();
+		boolean found = false;
+		for (StringPair pair : node.getLocalSettings()) {
+			for (ApiConfig c : oldConfigList) {
+				if (c.getRelatedName().equals(pair.getName())) {
+					found = true;
+					c.setValue(pair.getValue());
+					newCOnfigList.add(c);
+					break;
+				}
+			}
+			if (!found) {
+				ret.add(pair);
+				System.err.println(pair.saveToString() + " at " + node.getId() + " not found");
+			}
+		}
+
+		if (ret.size() == 0)
+			return null;
+		else
+			return ret;
+
+	}
 	public void provisionCluster(Cluster cluster) {
 
 		PrintStream ps = (new Dumper()).getPrintStream();
@@ -287,29 +315,29 @@ public class CMExecutor {
 		///
 		for (ConfigurableTreeNode s : cluster.getChildren()) {
 			RolesResource rr = sr.getRolesResource(s.getId());
+			
+			///< Step 5.1: Update Service Config
+			ApiServiceConfig oldServiceConfig = sr.readServiceConfig(s.getId(), DataView.FULL);
+			ApiServiceConfig newServiceConfig = new ApiServiceConfig();
+			updateNodeLocalConfig(s, oldServiceConfig, newServiceConfig);
+			if (newServiceConfig.size() != 0) {
+				sr.updateServiceConfig(s.getId(), "message", newServiceConfig);
+			}
+
 			for (ConfigurableTreeNode r : s.getChildren()) {
+				///< Step 5.2: Update Role default Config
 				for(ConfigurableTreeNode g : r.getChildren()) {
 					if ((g == null) || !g.hasChild()) continue;
 					for (ConfigurableTreeNode i : g.getChildren()) {
 						if (i.settingLength() == 0) continue;
-						ApiConfigList newConfigs = new ApiConfigList();
-						ApiConfigList c2 = rr.readRoleConfig(i.getId(), DataView.FULL);
-						for (Setting pair : i.getSettings()) {
-							boolean found = false;
-							for (ApiConfig c : c2) {
-								if (c.getRelatedName() == pair.getName()) {
-									found = true;
-									c.setValue(pair.getValue());
-									//newConfigs.add(c);
-									break;
-								}
-							}
-							if (!found) {
-								System.err.println("not found");
-							}
-						}
-						if (newConfigs.size() != 0) {
-							rr.updateRoleConfig(i.getId(), "arg1", newConfigs);
+						ApiConfigList oldRoleConfig = rr.readRoleConfig(i.getId(), DataView.FULL);
+						ApiConfigList newRoleConfig = new ApiConfigList();
+						updateNodeLocalConfig(i, oldRoleConfig, newRoleConfig);
+						updateNodeLocalConfig(g, oldRoleConfig, newRoleConfig);
+						updateNodeLocalConfig(r, oldRoleConfig, newRoleConfig);
+
+						if (newRoleConfig.size() != 0) {
+							rr.updateRoleConfig(i.getId(), "arg1", newRoleConfig);
 						}
 					}
 				}
@@ -364,12 +392,12 @@ public class CMExecutor {
 		///< Step 5.3: Impala
 		/// Name of the ZooKeeper/HDFS service that this HBase service instance depends on
 		/// Default: NULL
-		sr.updateServiceConfig(DEFAULT_SERVICE_NAME_IMPALA,
-				"set hdfs", 
-				packageApiServiceConfig("hdfs_service", DEFAULT_SERVICE_NAME_HDFS));
-		sr.updateServiceConfig(DEFAULT_SERVICE_NAME_IMPALA,
-				"set zookeeper", 
-				packageApiServiceConfig("hive_service", DEFAULT_SERVICE_NAME_HIVE));
+//		sr.updateServiceConfig(DEFAULT_SERVICE_NAME_IMPALA,
+//				"set hdfs", 
+//				packageApiServiceConfig("hdfs_service", DEFAULT_SERVICE_NAME_HDFS));
+//		sr.updateServiceConfig(DEFAULT_SERVICE_NAME_IMPALA,
+//				"set zookeeper", 
+//				packageApiServiceConfig("hive_service", DEFAULT_SERVICE_NAME_HIVE));
 		
 		///< Step 5.4: YARN
 		/// Name of the ZooKeeper/HDFS service that this HBase service instance depends on

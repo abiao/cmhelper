@@ -1096,77 +1096,77 @@
   </configuration>
   <configuration>
     <name>hbase.regionserver.thrift.compact</name>
-    <scope>HBASE.HBASETHRIFTSERVER</scope>
+    <scope>HBASE.THRIFTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.regionserver.thrift.server.type</name>
-    <scope>HBASE.HBASETHRIFTSERVER</scope>
+    <scope>HBASE.THRIFTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.thrift.minWorkerThreads</name>
-    <scope>HBASE.HBASETHRIFTSERVER</scope>
+    <scope>HBASE.THRIFTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.thrift.info.port</name>
-    <scope>HBASE.HBASETHRIFTSERVER</scope>
+    <scope>HBASE.THRIFTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>memory.limit_in_bytes</name>
-    <scope>HBASE.HBASETHRIFTSERVER</scope>
+    <scope>HBASE.THRIFTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>memory.soft_limit_in_bytes</name>
-    <scope>HBASE.HBASETHRIFTSERVER</scope>
+    <scope>HBASE.THRIFTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>cpu.shares</name>
-    <scope>HBASE.HBASETHRIFTSERVER</scope>
+    <scope>HBASE.THRIFTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.regionserver.thrift.framed</name>
-    <scope>HBASE.HBASETHRIFTSERVER</scope>
+    <scope>HBASE.THRIFTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.regionserver.thrift.ipaddress</name>
-    <scope>HBASE.HBASETHRIFTSERVER</scope>
+    <scope>HBASE.THRIFTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hadoop.log.dir</name>
-    <scope>HBASE.HBASETHRIFTSERVER</scope>
+    <scope>HBASE.THRIFTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>blkio.weight</name>
-    <scope>HBASE.HBASETHRIFTSERVER</scope>
+    <scope>HBASE.THRIFTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.regionserver.thrift.port</name>
-    <scope>HBASE.HBASETHRIFTSERVER</scope>
+    <scope>HBASE.THRIFTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.thrift.info.bindAddress</name>
-    <scope>HBASE.HBASETHRIFTSERVER</scope>
+    <scope>HBASE.THRIFTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.thrift.dns.interface</name>
-    <scope>HBASE.HBASETHRIFTSERVER</scope>
+    <scope>HBASE.THRIFTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.thrift.dns.nameserver</name>
-    <scope>HBASE.HBASETHRIFTSERVER</scope>
+    <scope>HBASE.THRIFTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
@@ -1476,72 +1476,72 @@
   </configuration>
   <configuration>
     <name>hbase.rest.readonly</name>
-    <scope>HBASE.HBASERESTSERVER</scope>
+    <scope>HBASE.RESTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.rest.threads.max</name>
-    <scope>HBASE.HBASERESTSERVER</scope>
+    <scope>HBASE.RESTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.rest.threads.min</name>
-    <scope>HBASE.HBASERESTSERVER</scope>
+    <scope>HBASE.RESTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>memory.limit_in_bytes</name>
-    <scope>HBASE.HBASERESTSERVER</scope>
+    <scope>HBASE.RESTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.rest.info.port</name>
-    <scope>HBASE.HBASERESTSERVER</scope>
+    <scope>HBASE.RESTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>memory.soft_limit_in_bytes</name>
-    <scope>HBASE.HBASERESTSERVER</scope>
+    <scope>HBASE.RESTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>cpu.shares</name>
-    <scope>HBASE.HBASERESTSERVER</scope>
+    <scope>HBASE.RESTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.rest.info.bindAddress</name>
-    <scope>HBASE.HBASERESTSERVER</scope>
+    <scope>HBASE.RESTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>blkio.weight</name>
-    <scope>HBASE.HBASERESTSERVER</scope>
+    <scope>HBASE.RESTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.rest.dns.nameserver</name>
-    <scope>HBASE.HBASERESTSERVER</scope>
+    <scope>HBASE.RESTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.rest.host</name>
-    <scope>HBASE.HBASERESTSERVER</scope>
+    <scope>HBASE.RESTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hadoop.log.dir</name>
-    <scope>HBASE.HBASERESTSERVER</scope>
+    <scope>HBASE.RESTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.rest.dns.interface</name>
-    <scope>HBASE.HBASERESTSERVER</scope>
+    <scope>HBASE.RESTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
     <name>hbase.rest.port</name>
-    <scope>HBASE.HBASERESTSERVER</scope>
+    <scope>HBASE.RESTSERVER</scope>
     <file>hbase-site.xml</file>
   </configuration>
   <configuration>
@@ -2251,77 +2251,77 @@
   </configuration>
   <configuration>
     <name>memory.limit_in_bytes</name>
-    <scope>HIVE.HIVEMETASTORE</scope>
+    <scope>HIVE.METASTORE</scope>
     <file>hive-site.xml</file>
   </configuration>
   <configuration>
     <name>memory.soft_limit_in_bytes</name>
-    <scope>HIVE.HIVEMETASTORE</scope>
+    <scope>HIVE.METASTORE</scope>
     <file>hive-site.xml</file>
   </configuration>
   <configuration>
     <name>cpu.shares</name>
-    <scope>HIVE.HIVEMETASTORE</scope>
+    <scope>HIVE.METASTORE</scope>
     <file>hive-site.xml</file>
   </configuration>
   <configuration>
     <name>hive.metastore.port</name>
-    <scope>HIVE.HIVEMETASTORE</scope>
+    <scope>HIVE.METASTORE</scope>
     <file>hive-site.xml</file>
   </configuration>
   <configuration>
     <name>blkio.weight</name>
-    <scope>HIVE.HIVEMETASTORE</scope>
+    <scope>HIVE.METASTORE</scope>
     <file>hive-site.xml</file>
   </configuration>
   <configuration>
     <name>hive.metastore.server.max.threads</name>
-    <scope>HIVE.HIVEMETASTORE</scope>
+    <scope>HIVE.METASTORE</scope>
     <file>hive-site.xml</file>
   </configuration>
   <configuration>
     <name>hive.metastore.server.min.threads</name>
-    <scope>HIVE.HIVEMETASTORE</scope>
+    <scope>HIVE.METASTORE</scope>
     <file>hive-site.xml</file>
   </configuration>
   <configuration>
     <name>hive.server2.thrift.port</name>
-    <scope>HIVE.HIVESERVER2</scope>
+    <scope>HIVE.SERVER2</scope>
     <file>hive-site.xml</file>
   </configuration>
   <configuration>
     <name>memory.limit_in_bytes</name>
-    <scope>HIVE.HIVESERVER2</scope>
+    <scope>HIVE.SERVER2</scope>
     <file>hive-site.xml</file>
   </configuration>
   <configuration>
     <name>memory.soft_limit_in_bytes</name>
-    <scope>HIVE.HIVESERVER2</scope>
+    <scope>HIVE.SERVER2</scope>
     <file>hive-site.xml</file>
   </configuration>
   <configuration>
     <name>cpu.shares</name>
-    <scope>HIVE.HIVESERVER2</scope>
+    <scope>HIVE.SERVER2</scope>
     <file>hive-site.xml</file>
   </configuration>
   <configuration>
     <name>hive.server2.thrift.min.worker.threads</name>
-    <scope>HIVE.HIVESERVER2</scope>
+    <scope>HIVE.SERVER2</scope>
     <file>hive-site.xml</file>
   </configuration>
   <configuration>
     <name>blkio.weight</name>
-    <scope>HIVE.HIVESERVER2</scope>
+    <scope>HIVE.SERVER2</scope>
     <file>hive-site.xml</file>
   </configuration>
   <configuration>
     <name>hive.server2.enable.doAs</name>
-    <scope>HIVE.HIVESERVER2</scope>
+    <scope>HIVE.SERVER2</scope>
     <file>hive-site.xml</file>
   </configuration>
   <configuration>
     <name>hive.server2.thrift.max.worker.threads</name>
-    <scope>HIVE.HIVESERVER2</scope>
+    <scope>HIVE.SERVER2</scope>
     <file>hive-site.xml</file>
   </configuration>
   <configuration>

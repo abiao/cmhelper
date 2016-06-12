@@ -35,8 +35,10 @@ public class SettingManager<I extends StringKeyedValue> {
 
 	public I getOrNew(String key, ConfigurableTreeNode context) {
 		I sd = get(key);
-		if (sd == null)
-			return newItem(key, context);
+		if (sd == null) {
+			sd = newItem(key, context);
+			dict.addUserDefined(sd);
+		}
 		return sd;
 	}
 

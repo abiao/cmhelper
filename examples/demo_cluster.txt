@@ -1,3 +1,4 @@
 127.0.0.1	test1	datanode;namenode;JOURNALNODE
 127.0.0.2	test2	datanode;SECONDARYNAMENODE;SERVER;master;HBASERESTSERVER;JOURNALNODE
-127.0.0.3	test3	datanode;SERVER;master;HBASERESTSERVER;JOURNALNODE
+127.0.0.3	test3	datanode;SERVER;master;nodemanager;HBASERESTSERVER;JOURNALNODE
+127.0.0.4	test4	resourcemanager

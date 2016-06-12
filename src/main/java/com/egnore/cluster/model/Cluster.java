@@ -9,16 +9,19 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.JAXBException;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 
-import com.egnore.cluster.model.conf.ParameterDescription;
+import com.egnore.cluster.model.conf.HadoopConfigDescription;
+import com.egnore.cluster.model.conf.HadoopConfigManager;
 import com.egnore.common.Dumper;
+import com.egnore.common.StringPair;
 import com.egnore.common.io.LinedFileReader;
 import com.egnore.common.model.conf.ConfigurableTreeNode;
 import com.egnore.common.model.conf.SettingDescription;
-import com.egnore.common.model.conf.SettingDictionary;
-import com.egnore.common.model.conf.SettingFactory;
+import com.egnore.common.model.conf.SettingManager;
 
 /**
  * 
@@ -30,7 +33,28 @@ import com.egnore.common.model.conf.SettingFactory;
  */
 public class Cluster extends ConfigurableTreeNode {
 
+	protected HadoopConfigManager setman;
+	protected HostManager	hostman;
+
 	public Cluster() {
+		HadoopConfigManager sm = new HadoopConfigManager();
+		try {
+			sm.init();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.setman = sm;
+		this.hostman = HostManager.getInstance();
+		testAndNewChildren();
+	}
+
+	public Cluster(SettingManager setman, HostManager hostman) {
+		this.setman = (HadoopConfigManager)setman;
+		this.hostman = hostman;
 		testAndNewChildren();
 	}
 
@@ -42,22 +66,18 @@ public class Cluster extends ConfigurableTreeNode {
 		return id;
 	}
 
-	protected void setSettingDictionary(SettingDictionary dict) {
-		SettingFactory.getInstance().setSettingDictionary(dict);
-	}
-
 	@Override
-	public SettingFactory getSettingFactory() {
-		return SettingFactory.getInstance();
+	public SettingManager getSettingManager() {
+		return setman;
 	}
 
 	public HostManager getHostManager() {
-		return HostManager.getInstance();
+		return hostman;
 	}
 
 	@Override
-	public SettingDescription createSettingDescription(String key, String defaultValue) {
-		return new ParameterDescription(key, key, defaultValue, null, null);
+	public SettingDescription createSettingDescription(String key) {
+		return new HadoopConfigDescription(key, null, null, null);
 	}
 
 	@Override
@@ -157,7 +177,7 @@ public class Cluster extends ConfigurableTreeNode {
 	public void save(String path) {
 		Dumper dp = new Dumper(path);
 		PrintStream ps = dp.getPrintStream();
-		SettingFactory.getInstance().getSettingDictionary().dumpUserDefinedSettings(ps);
+		getSettingManager().dumpUserDefinedSettings(ps);
 		HostManager.getInstance().dump(ps);
 		this.dump(ps);
 		dp.close();
@@ -165,7 +185,7 @@ public class Cluster extends ConfigurableTreeNode {
 
 	public void load(String path) throws NumberFormatException, IOException {
 		LinedFileReader reader = new LinedFileReader(path);
-		SettingFactory.getInstance().getSettingDictionary().loadUserDefinedSettings(reader);
+		getSettingManager().loadUserDefinedSettings(reader);
 		HostManager.getInstance().loadFromLinedStrings(reader);
 		this.loadFromLinedStrings(reader);
 		reader.close();
@@ -193,11 +213,11 @@ public class Cluster extends ConfigurableTreeNode {
 	 * ip	name	role;role;...
 	 * @throws Exception 
 	 */
-	static public Cluster loadFromFile(String path) throws Exception {
+	static public Cluster loadFromFile(String path, SettingManager sm, HostManager hm) throws Exception {
 		LinedFileReader reader = new LinedFileReader(path);
 		Path p = new Path(path);
 		Path root = p.getParent();
-		Cluster c = new Cluster();
+		Cluster c = new Cluster(sm, hm);
 		c.setName(path.split("\\.")[0].replace("/", "_").replace("\\", "_"));
 
 		/*
@@ -221,13 +241,25 @@ public class Cluster extends ConfigurableTreeNode {
 		}
 		reader.close();
 
-		Configuration conf = new Configuration(false);
-		File f = new File(root.toString(), "core-site.xml");
-		
-		if (f.exists()) {
-			conf.addResource(new FileInputStream(f));
-			
-		}
+//		c.loadServiceConfigFromXMLFile(root.toString(), "core-site.xml", ServiceType.HDFS);
+		c.loadServiceConfigFromXMLFile(root.toString(), "hdfs-site.xml", ServiceType.HDFS);
+		c.loadServiceConfigFromXMLFile(root.toString(), "hbase-site.xml", ServiceType.HBASE);
+		c.loadServiceConfigFromXMLFile(root.toString(), "yarn-site.xml", ServiceType.YARN);
+		c.loadServiceConfigFromXMLFile(root.toString(), "hive-site.xml", ServiceType.HIVE);
 		return c;
 	}
+
+	public void loadServiceConfigFromXMLFile(String dir, String filename, ServiceType st) throws Exception {
+		File f = new File(dir, filename);
+		
+		if (!f.exists())
+			return;
+		for (ConfigurableTreeNode n : children) {
+			Service s = (Service)n;
+			if (s.getType() == st) {
+				setman.loadXMLConfig(f.getAbsolutePath(), s);
+			}
+		}
+	}
+
 }

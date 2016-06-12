@@ -6,29 +6,28 @@ import javax.ws.rs.WebApplicationException;
 import javax.xml.bind.JAXBException;
 
 import com.egnore.cluster.model.Cluster;
-import com.egnore.cluster.model.conf.ParameterDictionary;
-import com.egnore.common.model.conf.SettingFactory;
+import com.egnore.cluster.model.HostManager;
+import com.egnore.cluster.model.conf.HadoopConfigManager;
 import com.egnore.hadoop.conf.jaxb.Configurations;
 import com.sun.jersey.core.spi.factory.ResponseImpl;
 
 public class Tool {
 
-	public static void init() throws FileNotFoundException, JAXBException {
-		Configurations.load();
-
-		SettingFactory.getInstance().setSettingDictionary(new ParameterDictionary());
-	}
-
 	public static void main(String[] args) throws Exception {
-		init();
+		//init();
 
-		String hostname = "52.78.10.82";
-		//String hostname = "52.78.28.131";
+		String hostname = "52.78.44.52";
 
 		CMExecutor executor  = new CMExecutor(hostname);
 
-		Cluster a = Cluster.loadFromFile("examples/demo_cluster.txt");
+		HadoopConfigManager sm = new HadoopConfigManager();
+		sm.init();
+		HostManager hm = HostManager.getInstance();
+		Cluster a = Cluster.loadFromFile("examples/demo_cluster.txt", sm, hm);
+		sm.FlowDownConfig(a);
+		sm.validateConfiguration(a);
 		a.save(null);
+
 		try {
 			executor.provisionCluster(a);
 		} catch (WebApplicationException e) {
@@ -48,17 +47,17 @@ public class Tool {
 		//		try {
 			Validator v = new Validator();
 			v.init();
-			v.getParameterDictionary().dumptoXML(null);
+			//v.getParameterDictionary().dumptoXML(null);
 			v.verifyXML("file:///Users/biaochen/Downloads/hdfs-site.xml");
 			v.verifyXML("file:///Users/biaochen/Downloads/core-site.xml");
 			v.verifyXML("file:///Users/biaochen/Downloads/yarn-site.xml");
 			v.verifyXML("file:///Users/biaochen/Downloads/mapred-site.xml");
 			
-			Cluster c = new Cluster();
+			Cluster c = new Cluster(sm, hm);
 			c.createTestCluster();
 			c.save(null);
 			c.save("a.txt");
-			Cluster d = new Cluster();
+			Cluster d = new Cluster(sm, hm);
 			d.load("a.txt");
 			d.save(null);
 			

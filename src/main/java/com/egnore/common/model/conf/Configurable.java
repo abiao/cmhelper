@@ -23,10 +23,23 @@ public class Configurable implements Serializable {
 		return this.id;
 	}
 
-	protected void addSetting(StringPair s) {
-		conf.add(s);
+	public void addSetting(String name, String value) {
+		this.addSetting(new StringPair(name, value));
 	}
 	
+	public void addSetting(StringPair s) {
+		conf.add(s);
+	}
+
+	public void removeSetting(String name) {
+		StringPair sp = getSetting(name);
+		if (sp != null) conf.remove(sp);
+	}
+
+	public void removeSetting(StringPair sp) {
+		conf.remove(sp);
+	}
+
 	public boolean hasSetting(String name) {
 		 return conf.containsKey(name);
 	}

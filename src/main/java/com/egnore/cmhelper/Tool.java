@@ -14,14 +14,13 @@ import com.sun.jersey.core.spi.factory.ResponseImpl;
 public class Tool {
 
 	public static void main(String[] args) throws Exception {
-		//init();
 
 		String hostname = "52.78.44.52";
+		//hostname = "192.168.27.178";
 
 		CMExecutor executor  = new CMExecutor(hostname);
 
-		HadoopConfigManager sm = new HadoopConfigManager();
-		sm.init();
+		HadoopConfigManager sm = HadoopConfigManager.getInstance();
 		HostManager hm = HostManager.getInstance();
 		Cluster a = Cluster.loadFromFile("examples/demo_cluster.txt", sm, hm);
 		sm.FlowDownConfig(a);

@@ -25,4 +25,8 @@ public class Group extends ConfigurableTreeNode {
 	public Role getRole() {
 		return (Role)this.parent;
 	}
+	
+	public boolean isDefaultGroup() {
+		return ((Role)this.parent).getDefaultGroup() == this;
+	}
 }

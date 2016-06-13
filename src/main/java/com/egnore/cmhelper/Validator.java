@@ -8,25 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import org.apache.commons.configuration.HierarchicalINIConfiguration;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 
-import com.egnore.cluster.model.ConfigDictionary;
-import com.egnore.cluster.model.conf.ParameterDescription;
-import com.egnore.cluster.model.conf.ParameterDictionary;
+import com.egnore.cluster.model.conf.HadoopConfigManager;
 
 public class Validator {
 
-	protected ParameterDictionary paramDict;
+	protected CMConfigDictionary paramDict;
+	HadoopConfigManager sm;
 
-	public ParameterDictionary getParameterDictionary() {
+	public CMConfigDictionary getParameterDictionary() {
 		return paramDict;
 	}
 
 	public void init() {
-		paramDict = new ParameterDicrtionary513();
+		paramDict = new CMConfigDictionary513();
 		paramDict.init();
+		sm = HadoopConfigManager.getInstance();
+
 	}
 
 //	ps.print(c.getName()
@@ -49,12 +49,12 @@ public class Validator {
 		for (Entry<String, String> pair : conf) {
 			String key = pair.getKey();
 			System.out.println(key + "=" + pair.getValue());
-			ParameterDescription pd = (ParameterDescription)paramDict.findByName(key);
+			CMConfig pd = paramDict.findByRelatedName(key);
 			boolean found = false;
 			if (pd == null) {
-				String nn = ConfigDictionary.getLatestName(key);
+				String nn = sm.getSettingDictionary().getNewName(key);
 				if (nn !=null) {
-					 pd = (ParameterDescription)paramDict.findByName(nn);
+					 pd = paramDict.findByRelatedName(nn);
 					 if (pd != null) {
 						 found = true;
 						 System.out.println("[found with \"" + nn + "\"]" + pd.toString());
@@ -68,27 +68,6 @@ public class Validator {
 				System.err.println(key + ": is not predefined");
 		}
 
-		for (Entry<String, String> pair : conf) {
-			String key = pair.getKey();
-			System.out.println(key + "=" + pair.getValue());
-			ParameterDescription pd = (ParameterDescription)paramDict.findByName(key);
-			boolean found = false;
-			if (pd == null) {
-				String nn = ConfigDictionary.getLatestName(key);
-				if (nn !=null) {
-					 pd = (ParameterDescription)paramDict.findByName(nn);
-					 if (pd != null) {
-						 found = true;
-						 System.out.println("[found with \"" + nn + "\"]" + pd.toString());
-					 }
-				}
-			} else {
-				found = true;
-				System.out.println("[found]" + pd.toString());
-			}
-			if (!found) 
-				System.err.println(key + ": is not predefined");
-		}
 		/*
 		List<Parameter> cfgs = new ArrayList<Parameter>();
 		try {

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import com.cloudera.api.ClouderaManagerClientBuilder;
 import com.cloudera.api.DataView;
@@ -22,6 +21,8 @@ import com.cloudera.api.model.ApiHostList;
 import com.cloudera.api.model.ApiHostRef;
 import com.cloudera.api.model.ApiJournalNodeArguments;
 import com.cloudera.api.model.ApiRole;
+import com.cloudera.api.model.ApiRoleConfigGroup;
+import com.cloudera.api.model.ApiRoleConfigGroupList;
 import com.cloudera.api.model.ApiService;
 import com.cloudera.api.model.ApiServiceConfig;
 import com.cloudera.api.model.ApiServiceList;
@@ -30,7 +31,9 @@ import com.cloudera.api.v1.ServicesResource;
 import com.cloudera.api.v2.ClustersResourceV2;
 import com.cloudera.api.v2.RolesResourceV2;
 import com.cloudera.api.v2.ServicesResourceV2;
+import com.cloudera.api.v3.RoleConfigGroupsResource;
 import com.cloudera.api.v7.RootResourceV7;
+import com.cloudera.api.v7.ServicesResourceV7;
 import com.egnore.cluster.model.Cluster;
 import com.egnore.cluster.model.Group;
 import com.egnore.cluster.model.Host;
@@ -41,13 +44,15 @@ import com.egnore.cluster.model.Role;
 import com.egnore.cluster.model.RoleType;
 import com.egnore.cluster.model.Service;
 import com.egnore.cluster.model.ServiceType;
-import com.egnore.common.Dumper;
-import com.egnore.common.OpLog;
 import com.egnore.common.StringPair;
 import com.egnore.common.StringPairs;
+import com.egnore.common.log.Dumper;
+import com.egnore.common.log.Log;
 import com.egnore.common.model.conf.ConfigurableTreeNode;
 
 public class CMExecutor {
+	Log log = Log.getInstance(this.getClass());
+
 	RootResourceV7 apiRoot;
 	protected String hostName;
 	protected String user = "admin";
@@ -179,22 +184,69 @@ public class CMExecutor {
 		}
 	}
 
+	protected String getSaftyValveKey(Service s) {
+		//core_site_safety_valve
+		//hdfs_service_env_safety_valve
+		//hbase_service_env_safety_valve
+		//yarn_service_env_safety_valve
+		//hive_service_env_safety_valve
+		switch (s.getType()) {
+			case HDFS: return "hdfs_service_config_safety_valve";
+			case ZOOKEEPER: return "zookeeper_config_safety_valve";
+			case HBASE: return "hbase_service_config_safety_valve";
+			case HIVE: return "hive_service_config_safety_valve";
+			case YARN: return "yarn_service_config_safety_valve";
+			default: return null;
+		}
+	}
+
+	protected String getSaftyValveKey(Role r) {
+		switch (r.getType()) {
+			case NAMENODE: return "namenode_config_safety_valve";
+			case BALANCER: return "balancer_config_safety_valve";
+			case JOURNALNODE: return "jn_config_safety_valve";
+			case FAILOVERCONTROLLER: return "fc_config_safety_valve";
+			case HBASETHRIFTSERVER: return "hbase_thriftserver_config_safety_valve";
+			case MASTER: return "hbase_master_config_safety_valve";
+			case REGIONSERVER: return "hbase_regionserver_config_safety_valve";
+			case HBASERESTSERVER: return "hbase_restserver_config_safety_valve";
+
+			case NODEMANAGER: return "nodemanager_config_safety_valve";
+			case JOBHISTORY: return "jobhistory_config_safety_valve";
+			case RESOURCEMANAGER: return "resourcemanager_config_safety_valve";
+
+			case HIVEMETASTORE: return "hive_metastore_config_safety_valve";
+			case HIVESERVER2: return "hive_hs2_config_safety_valve";
+			default: return null;
+		}
+	}
+
 	protected StringPairs updateNodeLocalConfig(ConfigurableTreeNode node,
 			ApiConfigList oldConfigList,
-			ApiConfigList newCOnfigList) {
+			ApiConfigList newConfigList) {
 
 		StringPairs ret = new StringPairs();
-		boolean found = false;
 		for (StringPair pair : node.getLocalSettings()) {
-			for (ApiConfig c : oldConfigList) {
-				if (c.getRelatedName().equals(pair.getName())) {
-					found = true;
-					c.setValue(pair.getValue());
-					newCOnfigList.add(c);
-					break;
+			ApiConfig found = null;
+			String key = pair.getName();
+			while (key != null) {
+				for (ApiConfig c : oldConfigList) {
+					if (c.getRelatedName().equals(key)) {
+						found = c;
+						c.setValue(pair.getValue());
+						newConfigList.add(c);
+						String msg = "Found " + key + "(" + pair.getName() + ") with " + c.getName();
+						log.info(msg);
+						break;
+					}
 				}
+
+				if (found != null)
+					break;
+				///< Try new name
+				key = node.getSettingManager().getSettingDictionary().getNewName(key);
 			}
-			if (!found) {
+			if (found == null) {
 				ret.add(pair);
 				System.err.println(pair.saveToString() + " at " + node.getId() + " not found");
 			}
@@ -204,12 +256,9 @@ public class CMExecutor {
 			return null;
 		else
 			return ret;
-
 	}
-	public void provisionCluster(Cluster cluster) {
 
-		PrintStream ps = (new Dumper()).getPrintStream();
-		
+	public void provisionCluster(Cluster cluster) {
 		final String clusterName = cluster.getName();
 		
 		///
@@ -229,7 +278,7 @@ public class CMExecutor {
 			a.add(h1);
 		}
 		apiRoot.getHostsResource().createHosts(a);
-		ps.println("Create Host done");
+		log.info("Create Host done");
 
 		///
 		///< Step 2: Create Cluster
@@ -243,12 +292,12 @@ public class CMExecutor {
 		ApiClusterList cl = new ApiClusterList();
 		cl.add(apiCluster);
 		apiRoot.getClustersResource().createClusters(cl);
-		ps.println("Create Cluster...");
+		log.info("Create Cluster...");
 
 		///
 		///< Step 3: Create Service
 		///
-		ServicesResource sr = apiRoot.getClustersResource().getServicesResource(cluster.getName());
+		ServicesResourceV7 sr = apiRoot.getClustersResource().getServicesResource(cluster.getName());
 		
 		ApiServiceList services = new ApiServiceList();
 		for (ConfigurableTreeNode n : cluster.getChildren()) {
@@ -282,7 +331,7 @@ public class CMExecutor {
 			services.add(apiService);
 		}
 		sr.createServices(services);
-		ps.println("Create Service done");
+		log.info("Create Service done");
 
 		///
 		///< Step 4: HA
@@ -295,7 +344,7 @@ public class CMExecutor {
 				break;
 			case 2:
 				///< Enable Ha
-				ps.println("Enable NameNode HA");
+				log.info("Enable NameNode HA");
 				Instance nn1 = (Instance)nng.getChildren().get(0);
 				Instance nn2 = (Instance)nng.getChildren().get(1);
 				enableHdfsNameNodeHA(clusterName,
@@ -315,29 +364,57 @@ public class CMExecutor {
 		///
 		for (ConfigurableTreeNode s : cluster.getChildren()) {
 			RolesResource rr = sr.getRolesResource(s.getId());
-			
+			RoleConfigGroupsResource gr = sr.getRoleConfigGroupsResource(s.getId());
+
 			///< Step 5.1: Update Service Config
 			ApiServiceConfig oldServiceConfig = sr.readServiceConfig(s.getId(), DataView.FULL);
 			ApiServiceConfig newServiceConfig = new ApiServiceConfig();
 			updateNodeLocalConfig(s, oldServiceConfig, newServiceConfig);
 			if (newServiceConfig.size() != 0) {
 				sr.updateServiceConfig(s.getId(), "message", newServiceConfig);
+				log.info("Created Service Config for " + s.getId());
 			}
 
+			ApiRoleConfigGroupList l = gr.readRoleConfigGroups();
+			
 			for (ConfigurableTreeNode r : s.getChildren()) {
 				///< Step 5.2: Update Role default Config
+				Role rnode = (Role)r;
+				rnode.getDefaultGroup();
+				ApiRoleConfigGroup cg = null;
+				ApiConfigList newGroupConfigList = new ApiConfigList();
+				for (ApiRoleConfigGroup x : l) {
+					if (r.getTypeString().equals(x.getRoleType())) {
+						ApiConfigList oldGroupConfigList = gr.readConfig(x.getName(), DataView.FULL);
+						updateNodeLocalConfig(r, oldGroupConfigList, newGroupConfigList);
+						updateNodeLocalConfig(rnode.getDefaultGroup(), oldGroupConfigList, newGroupConfigList);
+						cg = x;
+						break;
+					}
+				}
+				if ((cg != null) && (newGroupConfigList.size() != 0)) {
+					gr.updateConfig(cg.getName(), "message", newGroupConfigList);
+					log.info("Created Group Config for " + cg.getName());
+				}
+
 				for(ConfigurableTreeNode g : r.getChildren()) {
 					if ((g == null) || !g.hasChild()) continue;
+
+					Group gnode = (Group)g;
+					if (!gnode.isDefaultGroup()) {
+						///< TODO
+					}
 					for (ConfigurableTreeNode i : g.getChildren()) {
-						if (i.settingLength() == 0) continue;
+						//if (i.settingLength() == 0) continue;
 						ApiConfigList oldRoleConfig = rr.readRoleConfig(i.getId(), DataView.FULL);
 						ApiConfigList newRoleConfig = new ApiConfigList();
 						updateNodeLocalConfig(i, oldRoleConfig, newRoleConfig);
-						updateNodeLocalConfig(g, oldRoleConfig, newRoleConfig);
-						updateNodeLocalConfig(r, oldRoleConfig, newRoleConfig);
+						//updateNodeLocalConfig(g, oldRoleConfig, newRoleConfig);
+						//updateNodeLocalConfig(r, oldRoleConfig, newRoleConfig);
 
 						if (newRoleConfig.size() != 0) {
 							rr.updateRoleConfig(i.getId(), "arg1", newRoleConfig);
+							log.info("Created Role Config for " + i.getId());
 						}
 					}
 				}
@@ -417,7 +494,7 @@ public class CMExecutor {
 	}
 
 	public void addConfigCode(PrintStream ps, ApiConfig c, String service, String role) {
-		ps.println("add(new ParameterDescription("
+		ps.println("addConfig("
 //				String id, String name, String defaultValue, ServiceType service, RoleType role) {
 				+ "\"" + c.getName() + "\","
 				+ "\""+ ((c.getRelatedName() == null) ? null : c.getRelatedName()) + "\","
@@ -425,7 +502,7 @@ public class CMExecutor {
 				+ "null,"
 				+ ((service == null) ? "null" : ("ServiceType." + service)) + ","
 				+ ((role == null) ? "null" : ("RoleType." + role))
-				+ "));"
+				+ ");"
 				);
 	}
 
@@ -437,17 +514,15 @@ public class CMExecutor {
 		final Host h = dummyCluser.createSingleNodeFullCluster(DUMMY_CLUSTER_NAME, dummyHostName, dummyHostIp);
 		provisionCluster(dummyCluser);
 		String version = apiRoot.getClouderaManagerResource().getVersion().getVersion().replaceAll("\\.", "");
-		Dumper dumper = new Dumper("src/main/java/com/egnore/cmhelper/ParameterDicrtionary" + version + ".java");
+		Dumper dumper = new Dumper("src/main/java/com/egnore/cmhelper/CMConfigDictionary" + version + ".java");
 		PrintStream ps = dumper.getPrintStream();
 
 		ps.println("package com.egnore.cmhelper;");
 		ps.println("");
-		ps.println("import com.egnore.cluster.model.ParameterDictionary;");
-		ps.println("import com.egnore.cluster.model.ParameterDescription;");
 		ps.println("import com.egnore.cluster.model.ServiceType;");
 		ps.println("import com.egnore.cluster.model.RoleType;");
 		ps.println("");
-		ps.println("public class ParameterDicrtionary" + version + " extends ParameterDictionary {");
+		ps.println("public class CMConfigDictionary" + version + " extends CMConfigDictionary {");
 		ps.println("");
 		ps.println("	@Override");
 		ps.println("	public void init() {");

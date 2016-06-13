@@ -35,6 +35,20 @@ public class HadoopConfigManager extends SettingManager<HadoopConfigDescription>
 
 	protected List<Pattern> ignorePatterns = new ArrayList<Pattern>();
 
+	public static HadoopConfigManager getInstance() {
+		HadoopConfigManager sm = new HadoopConfigManager();
+		try {
+			sm.init();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (JAXBException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return sm;
+	}
+
 	public void init() throws FileNotFoundException, JAXBException {
 		Configurations configList = Configurations.load();
 		List<HadoopConfigDescription> list = new ArrayList<HadoopConfigDescription>();
@@ -50,9 +64,12 @@ public class HadoopConfigManager extends SettingManager<HadoopConfigDescription>
 	}
 
 	private void addIgnorePatterns() {
+		///< Skip HA settings
 		addIgnorePatthern("yarn.resourcemanager.*");
 		addIgnorePatthern("dfs.ha.namenodes.*");
 		addIgnorePatthern("dfs.namenode.*");	
+		addIgnorePatthern("dfs.nameservices");
+		addIgnorePatthern("dfs.ha.automatic-failover.enabled.*");
 	}
 	public void addIgnorePatthern(String regex) {
 		ignorePatterns.add(Pattern.compile(regex));

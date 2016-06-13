@@ -67,6 +67,10 @@ public class Dictionary<I extends StringKeyedValue> /*extends java.util.Dictiona
 //		}
 	}
 
+	public String getNewName(String oldName) {
+		return deprecatedKeys.get(oldName);
+	}
+
 	public void addUserDefined(I p) {
 		ud.add(p);
 		buildIndex(p);

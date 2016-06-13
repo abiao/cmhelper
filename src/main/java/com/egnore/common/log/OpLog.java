@@ -1,4 +1,4 @@
-package com.egnore.common;
+package com.egnore.common.log;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

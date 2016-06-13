@@ -16,9 +16,9 @@ import org.apache.hadoop.fs.Path;
 
 import com.egnore.cluster.model.conf.HadoopConfigDescription;
 import com.egnore.cluster.model.conf.HadoopConfigManager;
-import com.egnore.common.Dumper;
 import com.egnore.common.StringPair;
 import com.egnore.common.io.LinedFileReader;
+import com.egnore.common.log.Dumper;
 import com.egnore.common.model.conf.ConfigurableTreeNode;
 import com.egnore.common.model.conf.SettingDescription;
 import com.egnore.common.model.conf.SettingManager;

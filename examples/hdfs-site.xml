@@ -91,7 +91,7 @@
   </property>  
   <property> 
     <name>dfs.block.size</name>  
-    <value>536870912</value>  
+    <value>536870123</value>  
     <final>false</final>  
     <description/> 
   </property>  
@@ -139,7 +139,7 @@
   </property>
   <property> 
     <name>dfs.replication</name>  
-    <value>3</value>  
+    <value>5</value>  
     <final>false</final>  
     <description/> 
   </property>  

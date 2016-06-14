@@ -16,7 +16,7 @@ public class StringPairs extends ArrayList<StringPair> {
 
 	public boolean containsKey(String key) {
 		for (StringPair s : this) {
-			if (s.getName() == key)
+			if (key.equals(s.getName()))
 				return true;
 		}
 		return false;
@@ -24,7 +24,7 @@ public class StringPairs extends ArrayList<StringPair> {
 
 	public StringPair get(String key) {
 		for (StringPair s : this) {
-			if (s.getName() == key)
+			if (key.equals(s.getName()))
 				return s;
 		}
 		return null;

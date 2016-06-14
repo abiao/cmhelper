@@ -68,7 +68,6 @@ public class HadoopConfigManager extends SettingManager<HadoopConfigDescription>
 		addIgnorePatthern("yarn.resourcemanager.*");
 		addIgnorePatthern("dfs.ha.namenodes.*");
 		addIgnorePatthern("dfs.namenode.*");	
-		addIgnorePatthern("dfs.nameservices");
 		addIgnorePatthern("dfs.ha.automatic-failover.enabled.*");
 	}
 	public void addIgnorePatthern(String regex) {

@@ -1,4 +1,3 @@
-127.0.0.1	test1	datanode;namenode;JOURNALNODE
-127.0.0.2	test2	datanode;SECONDARYNAMENODE;SERVER;master;REGIONSERVER;JOURNALNODE
-127.0.0.3	test3	datanode;SERVER;master;nodemanager;REGIONSERVER;JOURNALNODE
-127.0.0.4	test4	server;resourcemanager
+172.31.0.93	ip-172-31-0-93.ap-northeast-2.compute.internal	datanode;namenode;SERVER;JOURNALNODE
+172.31.0.95	ip-172-31-0-95.ap-northeast-2.compute.internal	datanode;NAMENODE;SERVER;master;REGIONSERVER;JOURNALNODE
+172.31.19.49	ip-172-31-19-49.ap-northeast-2.compute.internal	datanode;SERVER;master;nodemanager;REGIONSERVER;JOURNALNODE

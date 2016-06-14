@@ -16,6 +16,7 @@ import com.cloudera.api.model.ApiCommand;
 import com.cloudera.api.model.ApiConfig;
 import com.cloudera.api.model.ApiConfigList;
 import com.cloudera.api.model.ApiEnableNnHaArguments;
+import com.cloudera.api.model.ApiEntityStatus;
 import com.cloudera.api.model.ApiHost;
 import com.cloudera.api.model.ApiHostList;
 import com.cloudera.api.model.ApiHostRef;
@@ -26,6 +27,7 @@ import com.cloudera.api.model.ApiRoleConfigGroupList;
 import com.cloudera.api.model.ApiService;
 import com.cloudera.api.model.ApiServiceConfig;
 import com.cloudera.api.model.ApiServiceList;
+import com.cloudera.api.model.ApiServiceState;
 import com.cloudera.api.v1.RolesResource;
 import com.cloudera.api.v1.ServicesResource;
 import com.cloudera.api.v2.ClustersResourceV2;
@@ -126,15 +128,14 @@ public class CMExecutor {
 		}.execute();
 	}
 
-	public void enableHdfsNameNodeHA(
-			String clusterName,
-			Service service,
-			String nameservice,
-			Host nn1,
-			Host nn2,
-			List<ConfigurableTreeNode> jns
+	public void enableHdfsNameNodeHA(Cluster cluster, NameNodeHAInfo ha) {
+		String clusterName = cluster.getName();
+		Service s = ha.hdfsService;
+		String nameservice = s.getLocalSetting("dfs.nameservices").getValue();
+		Host nn1 = ha.nn1.getHost();
+		Host nn2 = ha.nn2.getHost();
+		List<ConfigurableTreeNode> jns = s.getRole(RoleType.JOURNALNODE).getDefaultGroup().getChildren();
 			//EditsDir 
-			) {
 		ApiEnableNnHaArguments args = new ApiEnableNnHaArguments();
 		
 		args.setActiveFcName(nn1.getFQDN());//activeNnName	activeNnName (string)	Name of the NameNode role that is going to be made Highly Available.
@@ -164,9 +165,12 @@ public class CMExecutor {
 		args.setClearExistingStandbyNameDirs(false);//clearExistingStandbyNameDirs	clearExistingStandbyNameDirs (boolean)	Boolean indicating if the existing name directories for Standby NameNode should be cleared during the workflow. Useful while re-enabling High Availability. (Default: TRUE)
 		args.setClearExistingJnEditsDir(false);//clearExistingJnEditsDir	clearExistingJnEditsDir (boolean)	Boolean indicating if the existing edits directories for the JournalNodes for the specified nameservice should be cleared during the workflow. Useful while re-enabling High Availability. (Default: TRUE)
 
-		ApiCommand com = apiRoot.getClustersResource().getServicesResource(clusterName).hdfsEnableNnHaCommand(service.getId(), args);
-		System.out.print(com.toString());
-		System.out.print(com.getSuccess() + "=" +com.getResultMessage());
+		ApiCommand com = apiRoot.getClustersResource().getServicesResource(clusterName).hdfsEnableNnHaCommand(s.getId(), args);
+	//	ApiCommand{id=348, name=EnableNNHA, startTime=Tue Jun 14 11:45:04 CST 2016, endTime=Tue Jun 14 11:45:04 CST 2016, active=false, success=false, resultMessage=Command failed to run because service examples_demo_clusterHDFS has invalid configuration. Review and correct its configuration. First error: There is more than one NameNode and none are configured with a nameservice, serviceRef=ApiServiceRef{peerName=null, clusterName=examples_demo_cluster, serviceName=examples_demo_clusterHDFS}, roleRef=null, hostRef=null, parent=null}false=Command failed to run because service examples_demo_clusterHDFS has invalid configuration. Review and correct its configuration. First error: There is more than one NameNode and none are configured with a nameserviceFound dfs.block.local-path-access.user(dfs.block.local-path-access.user) with dfs_block_local_path_access_user
+
+		if (!com.getSuccess())
+			log.error(com.getResultMessage());
+		log.info(com.toString());
 	}
 
 	private class UpdateConfigInstanceScanner extends InstanceScanner {
@@ -258,7 +262,12 @@ public class CMExecutor {
 			return ret;
 	}
 
-	public void provisionCluster(Cluster cluster) {
+	protected class NameNodeHAInfo {
+		Instance nn1;
+		Instance nn2;
+		Service hdfsService;
+	}
+	public void provisionCluster(Cluster cluster) throws Exception {
 		final String clusterName = cluster.getName();
 		
 		///
@@ -297,16 +306,46 @@ public class CMExecutor {
 		///
 		///< Step 3: Create Service
 		///
+
+		List<NameNodeHAInfo> nnhas = new ArrayList<NameNodeHAInfo>();
 		ServicesResourceV7 sr = apiRoot.getClustersResource().getServicesResource(cluster.getName());
 		
 		ApiServiceList services = new ApiServiceList();
 		for (ConfigurableTreeNode n : cluster.getChildren()) {
-			Service s = (Service)n;
+			Service s = (Service) n;
 			///
 			///< Step 3.1: Add Roles
 			///
 			List<ApiRole> apiRoles = new ArrayList<ApiRole>();
 			for (ConfigurableTreeNode r : s.getChildren()) {
+				///< NameNode HA?
+				Role rnode = (Role) r;
+				if (rnode.getType() == RoleType.NAMENODE) {
+					int i = rnode.getInstanceNumber();
+					if (i > 2)
+						throw new Exception("More than 2 NameNode found");
+					else if(i == 2) {
+						NameNodeHAInfo ha = new NameNodeHAInfo();
+						ha.nn1 = (Instance)rnode.getDefaultGroup().getChildren().get(0);
+						ha.nn2 = (Instance)rnode.getDefaultGroup().getChildren().get(1);
+						ha.hdfsService = s;
+						nnhas.add(ha);
+
+						ApiRole apiRole = new ApiRole();
+				        apiRole.setName(ha.nn1.getId());
+				        apiRole.setType(RoleType.NAMENODE.toString());
+				        apiRole.setHostRef(new ApiHostRef(ha.nn1.getHost().getId()));
+				        apiRoles.add(apiRole);
+						
+				        apiRole = new ApiRole();
+				        apiRole.setName(ha.nn2.getId());
+				        apiRole.setType(RoleType.SECONDARYNAMENODE.toString());
+				        apiRole.setHostRef(new ApiHostRef(ha.nn1.getHost().getId()));
+				        apiRoles.add(apiRole);
+
+				        continue; ///< Will fix it in HA
+					}
+				}
 				for(ConfigurableTreeNode g : r.getChildren()) {
 					if ((g == null) || !g.hasChild()) continue;
 					for (ConfigurableTreeNode i : g.getChildren()) {
@@ -334,30 +373,13 @@ public class CMExecutor {
 		log.info("Create Service done");
 
 		///
-		///< Step 4: HA
+		///< Step 4: NameNode HA
 		///
-		Group nng = cluster.getDefaultGroup(RoleType.NAMENODE);
-		switch (nng.getChildNumber()) {
-			case 0:
-				break;
-			case 1:
-				break;
-			case 2:
-				///< Enable Ha
-				log.info("Enable NameNode HA");
-				Instance nn1 = (Instance)nng.getChildren().get(0);
-				Instance nn2 = (Instance)nng.getChildren().get(1);
-				enableHdfsNameNodeHA(clusterName,
-						nng.getRole().getService(),
-						"beh",
-						nn1.getHost(),
-						nn2.getHost(),
-						cluster.getDefaultGroup(RoleType.JOURNALNODE).getChildren());
-				break;
-			default:
-				///< TODO error
-				break;
-		}				
+//		for (NameNodeHAInfo ha : nnhas) {
+//			///< Enable Ha
+//			log.info("Enable NameNode HA for " + ha.hdfsService.getId());
+//			enableHdfsNameNodeHA(cluster, ha);
+//		}				
 
 		///
 		///< Step 5: Update Configurations
@@ -437,24 +459,6 @@ public class CMExecutor {
 		sr.updateServiceConfig(DEFAULT_SERVICE_NAME_HDFS,
 				"set zookeeper", 
 				packageApiServiceConfig("zookeeper_service", DEFAULT_SERVICE_NAME_ZOOKEEPER));
-//		 : Quorum Journal 需要至少三个 JournalNode 
-//		 : HDFS service not configured for High Availability must have a SecondaryNameNode 
-//		 : NameNode 数据目录 
-//		Missing required value: NameNode Data Directories
-//		 : DataNode 数据目录 
-//		Missing required value: DataNode Data Directory
-//		 : JournalNode 编辑目录 
-//		Missing required value: JournalNode Edits Directory
-//		 NameNode (test1fqdn): NameNode 数据目录 
-//		Missing required value: NameNode Data Directories
-//		 DataNode (test1fqdn): DataNode 数据目录 
-//		Missing required value: DataNode Data Directory
-//		 JournalNode (test1fqdn): JournalNode 编辑目录 
-//		未为 JournalNode JournalNode (test1fqdn) 配置编辑目录
-//		 JournalNode (test1fqdn): JournalNode 编辑目录 
-//		Missing required value: JournalNode Edits Directory
-		
-		
 		
 		///< Step 5.2:
 		/// Name of the ZooKeeper/HDFS service that this HBase service instance depends on
@@ -482,6 +486,44 @@ public class CMExecutor {
 		sr.updateServiceConfig(DEFAULT_SERVICE_NAME_YARN,
 				"set hdfs", 
 				packageApiServiceConfig("hdfs_service", DEFAULT_SERVICE_NAME_HDFS));
+
+
+		waitForServiceStatus(sr, DEFAULT_SERVICE_NAME_ZOOKEEPER, ApiServiceState.STOPPED);
+		
+		log.info(sr.startCommand(DEFAULT_SERVICE_NAME_ZOOKEEPER).toString());
+
+		waitForServiceStatus(sr, DEFAULT_SERVICE_NAME_ZOOKEEPER, ApiServiceState.STARTED);
+
+		/* CM NameNode HA
+		 * 1. We cannot enabled it simply by setting config
+		 * 2. There must be NN+SNN before HA (V7)
+		 * 3. Zookeeper must be started
+		 */
+		for (NameNodeHAInfo ha : nnhas) {
+			///< Enable Ha
+			log.info("Enable NameNode HA for " + ha.hdfsService.getId());
+			enableHdfsNameNodeHA(cluster, ha);
+		}				
+
+	}
+
+	public void waitForServiceStatus(
+			ServicesResourceV7 sr,
+			String serviceName,
+			ApiServiceState target) throws Exception {
+
+		final long CHECK_SERVICE_STATUS_INTERVAL = 10000;
+		final int RETRY_TIME = 100;
+		int i = 0;
+		ApiServiceState as =  sr.readService(serviceName).getServiceState();
+		while (as != target) {
+			Thread.sleep(CHECK_SERVICE_STATUS_INTERVAL);
+			i++;
+			if (i > RETRY_TIME)
+				throw new Exception(serviceName + " status expected as " + target + ", but " + as + " received.");
+			log.info("Waiting for " + serviceName + " service status from " + ((as == null) ? "" : as.toString()) + " to " + target);
+			as = sr.readService(serviceName).getServiceState();
+		}
 	}
 
 	public ApiServiceConfig packageApiServiceConfig(String name, String value) {
@@ -506,13 +548,13 @@ public class CMExecutor {
 				);
 	}
 
-	public void generateParameterDicrtionary() throws IOException {
-		Cluster dummyCluser = new Cluster();
+	public void generateParameterDicrtionary() throws Exception {
+		Cluster dummyCluster = new Cluster();
 		final String DUMMY_CLUSTER_NAME = "dummyCluster" + System.currentTimeMillis();
 		final String dummyHostName = "test1fqdn";
 		final String dummyHostIp = "127.0.0.2";
-		final Host h = dummyCluser.createSingleNodeFullCluster(DUMMY_CLUSTER_NAME, dummyHostName, dummyHostIp);
-		provisionCluster(dummyCluser);
+		final Host h = dummyCluster.createSingleNodeFullCluster(DUMMY_CLUSTER_NAME, dummyHostName, dummyHostIp);
+		provisionCluster(dummyCluster);
 		String version = apiRoot.getClouderaManagerResource().getVersion().getVersion().replaceAll("\\.", "");
 		Dumper dumper = new Dumper("src/main/java/com/egnore/cmhelper/CMConfigDictionary" + version + ".java");
 		PrintStream ps = dumper.getPrintStream();
@@ -563,13 +605,13 @@ public class CMExecutor {
 				);
 	}
 
-	public void dumpDefaultConfigurations() throws IOException {
-		Cluster dummyCluser = new Cluster();
+	public void dumpDefaultConfigurations() throws Exception {
+		Cluster dummyCluster = new Cluster();
 		final String DUMMY_CLUSTER_NAME = "dummyCluster" + System.currentTimeMillis();
 		final String dummyHostName = "test1fqdn";
 		final String dummyHostIp = "127.0.0.2";
-		final Host h = dummyCluser.createSingleNodeFullCluster(DUMMY_CLUSTER_NAME, dummyHostName, dummyHostIp);
-		provisionCluster(dummyCluser);
+		final Host h = dummyCluster.createSingleNodeFullCluster(DUMMY_CLUSTER_NAME, dummyHostName, dummyHostIp);
+		provisionCluster(dummyCluster);
 		System.out.println("version: " + apiRoot.getClouderaManagerResource().getVersion().getVersion());
 		Dumper dumper = new Dumper("CM_Config_5_1_3.txt");
 		PrintStream ps = dumper.getPrintStream();

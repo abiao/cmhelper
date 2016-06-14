@@ -10,6 +10,7 @@ public class Log {
 	}
 
 	public void error(String message) {
+		System.err.println(message);
 		ps.println(message);
 	}
 

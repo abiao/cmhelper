@@ -16,7 +16,6 @@ import com.cloudera.api.model.ApiCommand;
 import com.cloudera.api.model.ApiConfig;
 import com.cloudera.api.model.ApiConfigList;
 import com.cloudera.api.model.ApiEnableNnHaArguments;
-import com.cloudera.api.model.ApiEntityStatus;
 import com.cloudera.api.model.ApiHost;
 import com.cloudera.api.model.ApiHostList;
 import com.cloudera.api.model.ApiHostRef;
@@ -225,6 +224,23 @@ public class CMExecutor {
 		}
 	}
 
+	protected String settingsToXML(StringPairs sp) {
+		if ((sp == null) || (sp.isEmpty()))
+				return null;
+		StringBuilder sb = new StringBuilder();
+		for (StringPair pair : sp) {
+			sb.append("<property><name>");
+			sb.append(pair.getName());
+			sb.append("</name><value>");
+			sb.append(pair.getValue());
+			sb.append("</value>");
+			//sb.append("<final>false</final>");
+			//sb.append("<description/>");
+			sb.append("</property>");
+		}
+		return sb.toString();
+	}
+
 	protected StringPairs updateNodeLocalConfig(ConfigurableTreeNode node,
 			ApiConfigList oldConfigList,
 			ApiConfigList newConfigList) {
@@ -391,11 +407,13 @@ public class CMExecutor {
 			///< Step 5.1: Update Service Config
 			ApiServiceConfig oldServiceConfig = sr.readServiceConfig(s.getId(), DataView.FULL);
 			ApiServiceConfig newServiceConfig = new ApiServiceConfig();
-			updateNodeLocalConfig(s, oldServiceConfig, newServiceConfig);
+			StringPairs unknown = updateNodeLocalConfig(s, oldServiceConfig, newServiceConfig);
 			if (newServiceConfig.size() != 0) {
 				sr.updateServiceConfig(s.getId(), "message", newServiceConfig);
 				log.info("Created Service Config for " + s.getId());
 			}
+			if (unknown != null)
+				log.info("safty-valve=" + settingsToXML(unknown));
 
 			ApiRoleConfigGroupList l = gr.readRoleConfigGroups();
 			
@@ -405,11 +423,22 @@ public class CMExecutor {
 				rnode.getDefaultGroup();
 				ApiRoleConfigGroup cg = null;
 				ApiConfigList newGroupConfigList = new ApiConfigList();
+
+				if (unknown == null)
+					unknown = new StringPairs();
+				else
+					unknown.clear();
+
 				for (ApiRoleConfigGroup x : l) {
 					if (r.getTypeString().equals(x.getRoleType())) {
 						ApiConfigList oldGroupConfigList = gr.readConfig(x.getName(), DataView.FULL);
-						updateNodeLocalConfig(r, oldGroupConfigList, newGroupConfigList);
-						updateNodeLocalConfig(rnode.getDefaultGroup(), oldGroupConfigList, newGroupConfigList);
+						StringPairs sps = updateNodeLocalConfig(r, oldGroupConfigList, newGroupConfigList);
+						if (sps != null)
+							unknown.addAll(sps);
+					
+						sps = updateNodeLocalConfig(rnode.getDefaultGroup(), oldGroupConfigList, newGroupConfigList);
+						if (sps != null)
+							unknown.addAll(sps);
 						cg = x;
 						break;
 					}
@@ -418,6 +447,8 @@ public class CMExecutor {
 					gr.updateConfig(cg.getName(), "message", newGroupConfigList);
 					log.info("Created Group Config for " + cg.getName());
 				}
+				if (!unknown.isEmpty())
+					log.info("safty-valve=" + settingsToXML(unknown));
 
 				for(ConfigurableTreeNode g : r.getChildren()) {
 					if ((g == null) || !g.hasChild()) continue;
@@ -430,7 +461,7 @@ public class CMExecutor {
 						//if (i.settingLength() == 0) continue;
 						ApiConfigList oldRoleConfig = rr.readRoleConfig(i.getId(), DataView.FULL);
 						ApiConfigList newRoleConfig = new ApiConfigList();
-						updateNodeLocalConfig(i, oldRoleConfig, newRoleConfig);
+						StringPairs sps = updateNodeLocalConfig(i, oldRoleConfig, newRoleConfig);
 						//updateNodeLocalConfig(g, oldRoleConfig, newRoleConfig);
 						//updateNodeLocalConfig(r, oldRoleConfig, newRoleConfig);
 
@@ -438,6 +469,9 @@ public class CMExecutor {
 							rr.updateRoleConfig(i.getId(), "arg1", newRoleConfig);
 							log.info("Created Role Config for " + i.getId());
 						}
+						if (sps != null)
+							log.info("safty-valve=" + settingsToXML(sps));
+
 					}
 				}
 			}
@@ -492,7 +526,11 @@ public class CMExecutor {
 		
 		log.info(sr.startCommand(DEFAULT_SERVICE_NAME_ZOOKEEPER).toString());
 
-		waitForServiceStatus(sr, DEFAULT_SERVICE_NAME_ZOOKEEPER, ApiServiceState.STARTED);
+		try {
+			waitForServiceStatus(sr, DEFAULT_SERVICE_NAME_ZOOKEEPER, ApiServiceState.STARTED);
+		} catch (Exception e) {
+			//< continue;
+		}
 
 		/* CM NameNode HA
 		 * 1. We cannot enabled it simply by setting config

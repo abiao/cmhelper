@@ -712,6 +712,21 @@ public class CMExecutor {
 
 	}
 	
+	public void startCluster(String clusterName) {
+		// Start the first cluster
+		ApiCommand cmd = apiRoot.getClustersResource().startCommand(clusterName);
+		while (cmd.isActive()) {
+		   try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		   cmd = apiRoot.getCommandsResource().readCommand(cmd.getId());
+		}
+		System.out.printf("Cluster start {}", cmd.getSuccess() ? "succeeded" : "failed " + cmd.getResultMessage());
+	}
+
 	public void moveCluster() {
 //		Export the configuration through the Cloudera Manager API to a JSON file:
 //

@@ -1,0 +1,58 @@
+3
+HDFS/null/namespace(namespace)
+HDFS/null/name(name)
+HDFS/DATANODE/dfs.data.dir(dfs.data.dir)
+1
+:172.31.19.49:ip-172-31-19-49.ap-northeast-2.compute.internal
+com.egnore.cluster.model.Cluster=test1[0,6]
+	ZOOKEEPER=[0,1]
+		SERVER=[0,1]
+			GROUP=[0,0]
+	HDFS=[2,6]
+	namespace=abc
+	name=abc
+		NAMENODE=[0,1]
+			GROUP=[0,0]
+		BALANCER=[0,1]
+			GROUP=[0,0]
+		FAILOVERCONTROLLER=[0,1]
+			GROUP=[0,0]
+		JOURNALNODE=[0,1]
+			GROUP=[0,0]
+		HTTPFS=[0,1]
+			GROUP=[0,0]
+		DATANODE=[0,1]
+			GROUP=[0,1]
+				172.31.19.49=[2,0]
+				name=value
+				dfs.data.dir=value1
+	HBASE=[0,4]
+		MASTER=[0,1]
+			GROUP=[0,0]
+		HBASETHRIFTSERVER=[0,1]
+			GROUP=[0,0]
+		HBASERESTSERVER=[0,1]
+			GROUP=[0,0]
+		REGIONSERVER=[0,1]
+			GROUP=[0,0]
+	YARN=[0,3]
+		JOBHISTORY=[0,1]
+			GROUP=[0,0]
+		RESOURCEMANAGER=[0,1]
+			GROUP=[0,0]
+		NODEMANAGER=[0,1]
+			GROUP=[0,0]
+	HIVE=[0,3]
+		HIVEMETASTORE=[0,1]
+			GROUP=[0,0]
+		HIVESERVER2=[0,1]
+			GROUP=[0,0]
+		WEBHCAT=[0,1]
+			GROUP=[0,0]
+	IMPALA=[0,3]
+		STATESTORE=[0,1]
+			GROUP=[0,0]
+		IMPALAD=[0,1]
+			GROUP=[0,0]
+		CATALOGSERVER=[0,1]
+			GROUP=[0,0]

@@ -1,3 +1,10 @@
-172.31.0.93	ip-172-31-0-93.ap-northeast-2.compute.internal	datanode;namenode;SERVER;JOURNALNODE
-172.31.0.95	ip-172-31-0-95.ap-northeast-2.compute.internal	datanode;NAMENODE;SERVER;master;REGIONSERVER;JOURNALNODE
-172.31.19.49	ip-172-31-19-49.ap-northeast-2.compute.internal	datanode;SERVER;master;nodemanager;REGIONSERVER;JOURNALNODE
+172.31.0.93	ip-172-31-0-93.ap-northeast-2.compute.internal	datanode;namenode;SERVER[zookeeper1];JOURNALNODE
+172.31.0.95	ip-172-31-0-95.ap-northeast-2.compute.internal	datanode;NAMENODE;SERVER[]zookeeper2];master;REGIONSERVER[hbase];JOURNALNODE
+172.31.19.49	ip-172-31-19-49.ap-northeast-2.compute.internal	datanode;SERVER;master;nodemanager;REGIONSERVER[hbase1];JOURNALNODE
+
+
+
+[hbase1]
+regionserver: 1,2,3
+[hbase2]
+regionserver: 1,2,3
